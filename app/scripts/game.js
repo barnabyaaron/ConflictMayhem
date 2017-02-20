@@ -1,18 +1,28 @@
-'use strict';
+var Game,
+    slice = [].slice;
 
-var Game = {
-  // Initialize and start our game
-  start: function () {
-    Crafty.load([ ], function () {
+Game = {
+    paused: false,
+    firstLevel: 'Game',
+    start: function () {
+        var handler, settings;
 
-      // Start crafty and set a background color so that we can see it's working
-      Crafty.init(800, 600);
-      Crafty.background('#FFFFFF');
+        Crafty.bind('EnterFrame',
+            function() {
+                if (Game.paused) {
+                    return;
+                }
+                //return Crafty.trigger.apply(Crafty['GameLoop'].concat(slice.call(arguments)));
+            });
+        Crafty.paths({
+            audio: 'audio/',
+            images: 'images/'
+        });
+        Crafty.init(800, 600);
+        Crafty.background('#000000');
 
-      // Simply start splashscreen
-      //Crafty.scene('Intro');
-    });
-  }
+        return Crafty.enterScene('loading');
+    }
 };
 
-Game.start();
+window.Game = Game;
