@@ -1,36 +1,39 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Yeoman Crafty game</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <title>Conflict Mayhem</title>
+      <meta name="viewport" content="width=device-width">
+      <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 
-        <!-- build:css styles/main.css -->
-        <link rel="stylesheet" href="styles/normalize.css">
-        <link rel="stylesheet" href="styles/style.css">
-        <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- endbuild -->
 </head>
-  <body>
+<body>
+    <h1>Can you deal with this conflict?</h1>
+    <div id="cr-stage"></div>
 
+    <!-- build:js(app) scripts/bower_components.js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jsbezier/js/jsBezier-0.8.js"></script>
+    <script src="bower_components/cryptojslib/rollups/aes.js"></script>
+    <script src="libs/when.js"></script>
+    <script src="bower_components/crafty/dist/crafty.js"></script>
+    <script src="bower_components/crafty-gamepad/src/crafty.gamepad.js"></script>
+    <!-- endbuild -->
 
-        <!-- build:js(app) scripts/bower_components.js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <!-- endbuild -->
+    <!-- build:js scripts/crafty_debug.js -->
+    <script src="libs/CraftyDebug/craftyDebug.js"></script>
+    <script src="libs/CraftyDebug/panels/assets.js"></script>
+    <script src="libs/CraftyDebug/panels/entities.js"></script>
+    <!-- endbuild -->
 
-        <!-- build:js scripts/crafty.js -->
-        <script src="libs/Crafty/crafty.js"></script>
-        <!-- endbuild -->
-
-        <!-- build:js scripts/crafty_debug.js -->
-        <script src="libs/CraftyDebug/craftyDebug.js"></script>
-        <script src="libs/CraftyDebug/panels/assets.js"></script>
-        <script src="libs/CraftyDebug/panels/entities.js"></script>
-        <!-- endbuild -->
-
-        <!-- build:js(.tmp) scripts/combined-scripts.js -->
-        <script src="scripts/combined-scripts.js"></script>
-        <!-- endbuild -->
+    <!-- build:js(.tmp) scripts/combined-scripts.js -->
+    <script src="scripts/combined-scripts.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

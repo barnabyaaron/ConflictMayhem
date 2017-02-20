@@ -1,4 +1,8 @@
-.tmp
 node_modules
 bower_components
+app/scripts/compiled/*.js
+app/libs/when.js
+TODO.md
+.tmp
+./dist
 npm-debug.log

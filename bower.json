@@ -4,9 +4,15 @@
   "version": "0.0.0",
   "appPath": "app",
   "dependencies": {
-    "jquery": "~1.7.2", 
-    "underscore": "~1.5.2",
+    "crafty": "craftyjs/Crafty#0.8.0",
+    "crafty-gamepad": "svenjacobs/crafty-gamepad",
+    "jquery": "~1.7.2",
+    "jsbezier": "*",
     "modernizr": "~2.6.2",
-    "requirejs-jquery": "~0.25.0"
+    "requirejs-jquery": "~0.25.0",
+    "screenfull": "~2.0.0",
+    "seedrandom": "~2.4.0",
+    "underscore": "~1.8.3",
+    "cryptojslib": "~3.1.2"
   }
 }
