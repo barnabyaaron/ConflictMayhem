@@ -11,7 +11,7 @@
 
     ClassicShipConstants.SPAWN_CHANCE_INTERVAL = 5000;
 
-    ClassicShipConstants.SPAWN_CHANCE_INTERVAL = 20;
+    ClassicShipConstants.SPAWN_CHANCE = 20;
 
     ClassicShipConstants.IDLE_X = -200;
 

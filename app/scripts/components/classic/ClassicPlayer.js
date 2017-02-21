@@ -38,16 +38,18 @@ Crafty.c('ClassicPlayerCommon',
             });
         return this.bind("Moved",
             function (from) {
-                if (this.movingOutsidePlayfield(from.oldValue, this.direction)) {
-                    return this.attr({
-                        x: from.oldValue
-                    });
+                if (from.axis === 'x') {
+                    if (this.movingOutsidePlayfield(from.oldValue, this.direction)) {
+                        return this.attr({
+                            x: from.oldValue
+                        });
+                    }
                 }
             });
     },
     movingOutsidePlayfield: function (x, direction) {
         this.tmp = x + direction.x;
-        return (this.tmp < 0) || (this.tmp + this._w > Crafty.viewport.width);
+        return (this.tmp <= 0) || (this.tmp + this.w >= Crafty.viewport.width);
     }
 });
 

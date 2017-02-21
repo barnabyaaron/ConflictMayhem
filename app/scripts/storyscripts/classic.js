@@ -41,6 +41,15 @@ this.Classic = (function () {
                 return _this.lives.lifeUp();
             };
         })(this));
+
+        this.inputSink.bind("KeyUp", (function (_this) {
+            return function (e) {
+                if (e.key === Crafty.keys.R && !_this.player.isDead()) {
+                    return _this.resetPlayer();
+                }
+            };
+        })(this));
+
         return this.resetBoard();
     };
 
@@ -167,7 +176,7 @@ this.Classic = (function () {
 
     Classic.prototype.createShieldFormation = function (x, y) {
         var coordinate, coordinates, i, len, results, shieldBlock, size;
-        size = ShieldConstants.WIDTH;
+        size = ClassicShieldConstants.WIDTH;
         coordinates = [
             [x - 0.5 * size, y - 2 * size], [x - 1.5 * size, y - 2 * size], [x + 0.5 * size, y - 2 * size],
             [x - 1.5 * size, y - size], [x + 0.5 * size, y - size], [x - 2.5 * size, y - size],
@@ -341,8 +350,8 @@ this.Classic = (function () {
         player.bind("Respawning", this.playerRespawning);
         player.bind("HitByAlien", this.playerAlienCollision);
 
-        player.setPosition(Crafty.viewport.width / 2 - PlayerConstants.WIDTH / 2,
-            Crafty.viewport.height - PlayerConstants.HEIGHT);
+        player.setPosition(Crafty.viewport.width / 2 - ClassicPlayerConstants.WIDTH / 2,
+            Crafty.viewport.height - ClassicPlayerConstants.HEIGHT);
         player.show();
         player.enableControl();
         return player;
@@ -370,6 +379,12 @@ this.Classic = (function () {
             200,
             600,
             400);
+
+        var name = prompt("Type you name to submit your score.");
+        console.log(name + ": " + this.score.getScore());
+
+        // @TODO Save High Score
+
         return this.inputSink.one("KeyUp",
         (function (_this) {
             return function (e) {

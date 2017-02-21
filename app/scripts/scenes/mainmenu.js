@@ -26,9 +26,8 @@ Crafty.scene('mainmenu', function() {
         Crafty.viewport.height / 5 * 4,
         function () {
             Crafty.audio.stop('menu_music');
-            Crafty.audio.play('classic_music');
-
-            var classic_panel = Crafty.e('ClassicMenuPanel');
+            
+            Crafty.enterScene('classic');
         },
         classicBtnText[Crafty.math.randomInt(0, (classicBtnText.length - 1))]
     ).textFont({ size: '24px', family: "Silkscreen Expanded" });
