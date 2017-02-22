@@ -46,6 +46,7 @@ Crafty.c("ClassicAlien",
     },
     die: function () {
         Crafty.audio.play('classic_alien_die');
+        //Crafty.audio.play('frank_hit1');
 
         return this.dieSilently();
     },
@@ -60,6 +61,11 @@ Crafty.c("ClassicAlien",
     },
     alien: function (type, x, y) {
         this.addComponent("classic_alien" + type);
+        //this.addComponent("frank");
+        //this.attr({
+        //    w: 35,
+        //    h: 45.25
+        //});
         this.spawnX = x;
         this.spawnY = y;
         this.type = type;

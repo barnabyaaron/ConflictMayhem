@@ -271,6 +271,27 @@
             map: {
                 player_red_left: [0, 0]
             }
+        },
+        "sprites/portraits/professor_charlie_sheet.png": {
+            tile: 210,
+            tileh: 380,
+            map: {
+                pProfessor: [0, 0]
+            }
+        },
+        "sprites/portraits/charlie_sprite.png": {
+            tile: 352,
+            tileh: 542,
+            map: {
+                pGeneral: [0, 0]
+            }
+        },
+        "sprites/portraits/paul_sprite.png": {
+            tile: 400,
+            tileh: 679,
+            map: {
+                pPilot: [0, 0]
+            }
         }
     }
 };

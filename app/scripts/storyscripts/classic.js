@@ -31,6 +31,7 @@ this.Classic = (function () {
         this.score = Crafty.e("Score");
         this.lives = Crafty.e("Lives");
         this.spaceship = Crafty.e("ClassicSpaceship");
+        this.walls = Crafty.e("ClassicWall");
         this.createAliens();
         this.createAlienShots();
         this.createAlienExplosions();
@@ -44,11 +45,17 @@ this.Classic = (function () {
 
         this.inputSink.bind("KeyUp", (function (_this) {
             return function (e) {
-                if (e.key === Crafty.keys.R && !_this.player.isDead()) {
-                    return _this.resetPlayer();
+                if (e.key === Crafty.keys.ESC) {
+                    Crafty.unbind("EnterFrame", _this.update);
+                    return Crafty.enterScene('mainmenu');
                 }
             };
         })(this));
+
+        Game.say('General', "The invaders are coming!", {
+            noise: 'low',
+            bottom: 450
+        });
 
         return this.resetBoard();
     };
@@ -305,6 +312,14 @@ this.Classic = (function () {
         alienExplosionNode.data.explosionText("" + pointsGained, '#FFFFFF', 10).explodeAt(alien.x, alien.y);
         alien.die();
         this.updateAlienMoveInterval();
+
+        if (this.aliens.size() === 54) {
+            Game.say('General', "OH MY GOD, THEY EVEN MAKE THE NOISE", {
+                noise: 'low',
+                bottom: 450
+            });
+        }
+
         if (this.aliens.size() === 0) {
             return this.victory();
         }
@@ -379,11 +394,6 @@ this.Classic = (function () {
             200,
             600,
             400);
-
-        var name = prompt("Type you name to submit your score.");
-        console.log(name + ": " + this.score.getScore());
-
-        // @TODO Save High Score
 
         return this.inputSink.one("KeyUp",
         (function (_this) {

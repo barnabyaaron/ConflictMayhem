@@ -24,7 +24,7 @@ Crafty.c('ClassicPlayerCommon',
 {
     init: function () {
         this.tmp = null;
-        this.requires("2D, DOM, Multiway");
+        this.requires("2D, DOM, Multiway, Collision");
         this.multiway(ClassicPlayerConstants.SPEED,
         {
             LEFT_ARROW: 180,
@@ -38,13 +38,21 @@ Crafty.c('ClassicPlayerCommon',
             });
         return this.bind("Moved",
             function (from) {
-                if (from.axis === 'x') {
-                    if (this.movingOutsidePlayfield(from.oldValue, this.direction)) {
-                        return this.attr({
-                            x: from.oldValue
-                        });
-                    }
+                var setBack;
+                if (this.hit('Edge')) {
+                    setBack = {};
+                    setBack[from.axis] = from.oldValue;
+                    return this.attr(setBack);
                 }
+
+                // Old Code no longer required (caused bug)
+                //if (from.axis === 'x') {
+                //    if (this.movingOutsidePlayfield(from.oldValue, this.direction)) {
+                //        return this.attr({
+                //            x: from.oldValue
+                //        });
+                //    }
+                //}
             });
     },
     movingOutsidePlayfield: function (x, direction) {
@@ -238,6 +246,7 @@ Crafty.c("ClassicPlayerCannon",
         this.requires("ClassicPlayerCommon, classic_cannonSprite, SpriteAnimation");
         this.reel("Fire", ClassicPlayerConstants.FIRE_ANIMATION_DURATION, 0, 0, 7);
         this.reel("Reload", ClassicPlayerConstants.RELOAD_ANIMATION_DURATION, 6, 0, -7);
+        this.collision(new Crafty.polygon(12, 32, 12, 64, 52, 64, 52, 32));
         return this.bind("AnimationEnd", this.reload);
     },
     fire: function () {
