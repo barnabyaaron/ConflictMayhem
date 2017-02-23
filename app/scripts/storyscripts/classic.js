@@ -12,7 +12,8 @@
 var bind = function (fn, me) { return function () { return fn.apply(me, arguments); }; };
 
 this.Classic = (function () {
-    function Classic() {
+    function Classic(bonusMode) {
+        this.bonusMode = bonusMode;
         this.playerRespawning = bind(this.playerRespawning, this);
         this.playerAlienCollision = bind(this.playerAlienCollision, this);
         this.playerHit = bind(this.playerHit, this);
@@ -52,10 +53,18 @@ this.Classic = (function () {
             };
         })(this));
 
-        Game.say('General', "The invaders are coming!", {
-            noise: 'low',
-            bottom: 450
-        });
+        if (this.bonusMode) {
+            Game.say('General', "The... I don't know what they are but there coming.", {
+                noise: 'low',
+                bottom: 450
+            });
+        } else {
+            Game.say('General', "The invaders are coming!", {
+                noise: 'low',
+                bottom: 450
+            });
+        }
+        
 
         return this.resetBoard();
     };
@@ -96,11 +105,22 @@ this.Classic = (function () {
         alienIndex = 0;
         for (column = i = 0; i < 11; column = ++i) {
             for (row = j = 0; j < 5; row = ++j) {
-                alien = Crafty.e("ClassicAlien")
+                if (this.bonusMode) {
+                    alien = Crafty.e("ClassicAlien")
+                    .alien(row + 1,
+                        leftStart + ClassicAlienConstants.WIDTH * column,
+                        topStart + (ClassicAlienConstants.HEIGHT + 5) * row,
+                        true,
+                        alienIndex++);
+                } else {
+                    alien = Crafty.e("ClassicAlien")
                     .alien(3 - Math.floor((row + 1) / 2),
                         leftStart + ClassicAlienConstants.WIDTH * column,
                         topStart + ClassicAlienConstants.HEIGHT * row,
+                        false,
                         alienIndex++);
+                }
+
                 this.alienPool.push(alien);
             }
         }
@@ -313,7 +333,7 @@ this.Classic = (function () {
         alien.die();
         this.updateAlienMoveInterval();
 
-        if (this.aliens.size() === 54) {
+        if (this.aliens.size() === 54 && !this.bonusMode) {
             Game.say('General', "OH MY GOD, THEY EVEN MAKE THE NOISE", {
                 noise: 'low',
                 bottom: 450

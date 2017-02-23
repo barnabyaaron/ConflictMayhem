@@ -292,6 +292,15 @@
             map: {
                 pPilot: [0, 0]
             }
+        },
+        "sprites/entities/custom_invaders.png": {
+            tile: 197,
+            tileh: 282,
+            map: {
+                frankInvader: [0, 0],
+                charlieInvader: [1, 0],
+                paulInvader: [2, 0]
+            }
         }
     }
 };

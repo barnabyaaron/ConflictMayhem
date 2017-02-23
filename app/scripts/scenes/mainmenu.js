@@ -8,11 +8,20 @@ Crafty.scene('mainmenu', function() {
         Crafty.viewport.height / 5 * 2,
         function () {
             Crafty.audio.stop('menu_music');
-            
             // Start MAIN Story Game
-
         }
     );
+
+    var bonusBtn = Crafty.e("MenuButton").create(
+        "gold",
+        Crafty.viewport.width / 2 - 170,
+        Crafty.viewport.height / 5 * 3,
+        function () {
+            Crafty.audio.stop('menu_music');
+            Crafty.enterScene('bonus');
+        },
+        "Bonus Mode"
+    ).textFont({ size: '24px', family: "Silkscreen Expanded" });
 
     var classicBtnText = [
         "Classic Mode",

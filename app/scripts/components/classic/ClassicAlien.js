@@ -40,13 +40,15 @@ Crafty.c("ClassicAlien",
             y: this.spawnY,
             visible: true
         });
-        this.reelPosition(0);
+        if (!this.custom) {
+            this.reelPosition(0);
+        }
+        
         this.direction = 'w';
         return this;
     },
     die: function () {
         Crafty.audio.play('classic_alien_die');
-        //Crafty.audio.play('frank_hit1');
 
         return this.dieSilently();
     },
@@ -59,24 +61,43 @@ Crafty.c("ClassicAlien",
         this.node.remove();
         return this;
     },
-    alien: function (type, x, y) {
-        this.addComponent("classic_alien" + type);
-        //this.addComponent("frank");
-        //this.attr({
-        //    w: 35,
-        //    h: 45.25
-        //});
+    alien: function (type, x, y, bonus) {
+        if (bonus) {
+            var customInvaderAssets = {
+                1: 'charlieInvader',
+                2: 'paulInvader',
+                3: 'paulInvader',
+                4: 'frankInvader',
+                5: 'frankInvader'
+            };
+            this.type = customInvaderAssets[type];
+            this.addComponent(this.type);
+            this.attr({
+                w: 35,
+                h: 50.1
+            });
+            this.collision();
+            this.custom = true;
+
+        } else {
+            this.addComponent("classic_alien" + type);
+            this.reel("move", 1, 0, 0, 2);
+            this.reel("move");
+            this.collision(new Crafty.polygon(ClassicAlienConstants.HITBOX[type]()));
+            this.type = type;
+            this.custom = false;
+        }
+
         this.spawnX = x;
         this.spawnY = y;
-        this.type = type;
-        this.collision(new Crafty.polygon(ClassicAlienConstants.HITBOX[type]()));
-        this.reel("move", 1, 0, 0, 2);
-        this.reel("move");
+        
         return this;
     },
     advance: function () {
         this.move(this.direction, ClassicAlienConstants.HORIZONTAL_SPEED);
-        this.reelPosition((this.reelPosition() + 1) % 2);
+        if (!this.custom) {
+            this.reelPosition((this.reelPosition() + 1) % 2);
+        }
         return this;
     },
     descend: function () {
@@ -89,7 +110,18 @@ Crafty.c("ClassicAlien",
         return this;
     },
     pointsWorth: function () {
-        return 50 * this.type;
+        if (this.custom) {
+            var customInvaderPoints = {
+                'frankInvader': 10,
+                'charlieInvader': 50,
+                'paulInvader': 20
+            };
+
+            // @TODO CHANGE
+            return customInvaderPoints[this.type];
+        } else {
+            return 50 * this.type;
+        }
     },
     setContainingNode: function (node) {
         this.node = node;

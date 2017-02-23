@@ -16,7 +16,7 @@ Crafty.scene('classic', function() {
         z: 35
     });
 
-    var game = new Classic();
+    var game = new Classic(false);
 
     Crafty.bind("EnterFrame", game.update);
 }, function() {
