@@ -3,7 +3,7 @@ var Game,
 
 Game = {
     paused: false,
-    firstLevel: 'Game',
+    firstLevel: 'Story',
     togglePause: function() {
         this.paused = !this.paused;
         if (this.paused) {
@@ -61,7 +61,7 @@ Game = {
                 if (Game.paused) {
                     return;
                 }
-                //return Crafty.trigger.apply(Crafty['GameLoop'].concat(slice.call(arguments)));
+                return Crafty.trigger.apply(Crafty, ['GameLoop'].concat(slice.call(arguments)));
             });
         Crafty.paths({
             audio: 'audio/',
@@ -69,6 +69,33 @@ Game = {
         });
         Crafty.init(800, 600);
         Crafty.background('#000000');
+
+        Crafty.e('Player, Color').attr({
+            name: 'Player',
+            z: 0,
+            playerNumber: 1
+        }).setName('Player').color('#FF0000');
+        Crafty.e('KeyboardControls, PlayerAssignable').controls({
+            fire: Crafty.keys.SPACE,
+            switchWeapon: Crafty.keys.PERIOD,
+            "super": Crafty.keys.ENTER,
+            up: Crafty.keys.W,
+            down: Crafty.keys.S,
+            left: Crafty.keys.A,
+            right: Crafty.keys.D,
+            pause: Crafty.keys.P
+        });
+        Crafty.e('GamepadControls, PlayerAssignable').controls({
+            gamepadIndex: 0,
+            fire: 0,
+            switchWeapon: 2,
+            "super": 4,
+            pause: 9,
+            up: 12,
+            down: 13,
+            left: 14,
+            right: 15
+        });
 
         return Crafty.enterScene('loading');
     },
