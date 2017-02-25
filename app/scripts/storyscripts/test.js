@@ -18,9 +18,11 @@ Game.Scripts.Test = (function (superClass) {
     };
 
     Test.prototype.execute = function () {
-        return this.sequence(this.setScenery('Ocean'), this.async(this.runScript(Game.Scripts.SunRise, {
-            skipTo: 200000
-        })), this.setSpeed(50), this.testEnemy());
+        this.inventoryAdd('weapon', 'lasers', {
+            marking: 'L'
+        });
+
+        return this.sequence(this.setScenery('Blackness'), this.setWeapons([]), this.enableWeapons(), this.setWeapons(['lasers']), this.setSpeed(50), this.testEnemy());
     };
 
     Test.prototype.testEnemy = function (amount) {

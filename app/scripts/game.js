@@ -85,17 +85,6 @@ Game = {
             right: Crafty.keys.D,
             pause: Crafty.keys.P
         });
-        Crafty.e('GamepadControls, PlayerAssignable').controls({
-            gamepadIndex: 0,
-            fire: 0,
-            switchWeapon: 2,
-            "super": 4,
-            pause: 9,
-            up: 12,
-            down: 13,
-            left: 14,
-            right: 15
-        });
 
         return Crafty.enterScene('loading');
     },

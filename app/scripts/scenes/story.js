@@ -55,7 +55,7 @@ Crafty.defineScene('Story',
         options = {
             startAtCheckpoint: (ref = data.checkpoint) != null ? ref : 0
         };
-        startScript = (ref1 = data != null ? data.script : void 0) != null ? ref1 : 'Test';
+        startScript = (ref1 = data != null ? data.script : void 0) != null ? ref1 : 'Stage1';
         if (data.checkpoint) {
             label = "Checkpoint " + data.checkpoint;
             if (typeof window.ga === "function") {
