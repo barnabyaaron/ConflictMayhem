@@ -54,19 +54,22 @@ this.Classic = (function () {
         })(this));
 
         if (this.bonusMode) {
-            Game.say('General', "The... I don't know what they are but there coming.", {
+            Game.say('Charlie', "The... I don't know what they are but there coming.", {
                 noise: 'low',
                 bottom: 450
             });
         } else {
-            Game.say('General', "The invaders are coming!", {
+            Game.say('Charlie', "The invaders are coming!", {
                 noise: 'low',
                 bottom: 450
             });
         }
-        
 
         return this.resetBoard();
+    };
+
+    Classic.prototype.setupAssets = function() {
+
     };
 
     Classic.prototype.resetBoard = function () {
@@ -334,7 +337,7 @@ this.Classic = (function () {
         this.updateAlienMoveInterval();
 
         if (this.aliens.size() === 54 && !this.bonusMode) {
-            Game.say('General', "OH MY GOD, THEY EVEN MAKE THE NOISE", {
+            Game.say('Charlie', "OH MY GOD, THEY EVEN MAKE THE NOISE", {
                 noise: 'low',
                 bottom: 450
             });

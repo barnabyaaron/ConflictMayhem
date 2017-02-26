@@ -1,7 +1,7 @@
 ﻿Crafty.c('ViewportRelativeMotion', {
-    init: function () { },
-    remove: function () { },
-    viewportRelativeMotion: function (arg) {
+    init: function() {},
+    remove: function() {},
+    viewportRelativeMotion: function(arg) {
         var distanceSky, newX, newY, ref, ref1, shifted, speed, x, y;
         x = arg.x, y = arg.y, speed = arg.speed, distanceSky = arg.distanceSky;
         this._distanceSky = distanceSky;
@@ -25,8 +25,8 @@
         this._location.x = Math.floor(newX);
         this._location.y = Math.floor(newY);
         this.attr(this._location);
-        this.motion = Crafty.bind('CameraMove', (function (_this) {
-            return function (coords) {
+        this.motion = Crafty.bind('CameraMove', (function(_this) {
+            return function(coords) {
                 shifted = (_this._initialViewport.x + coords.x) * (_this._speed - 1);
                 newX = _this._location.sx - shifted + _this.dx;
                 if (_this._distanceSky) {
@@ -42,7 +42,7 @@
         })(this));
         return this;
     },
-    remove: function () {
+    remove: function() {
         return Crafty.unbind('CameraMove', this.motion);
     }
 });

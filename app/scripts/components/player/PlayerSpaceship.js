@@ -1,12 +1,12 @@
 ﻿Crafty.c('PlayerSpaceship', {
-    init: function () {
+    init: function() {
         this.requires('2D, WebGL, playerShip, ColorEffects, Listener, Collision, SunBlock, ' + 'WaterSplashes, PlayerControlledShip, Acceleration, InventoryWeapons');
         this.attr({
             w: 71,
             h: 45
         });
         this.collision([21, 13, 56, 13, 66, 32, 35, 32]);
-        this.bind('Moved', function (from) {
+        this.bind('Moved', function(from) {
             var setBack;
             if (this.hit('Edge') || this.hit('Solid')) {
                 setBack = {};
@@ -22,12 +22,12 @@
         this.currentRenderedSpeed = 0;
         return this.flip('X');
     },
-    updateMovementVisuals: function (rotation, dx, dy, dt) {
+    updateMovementVisuals: function(rotation, dx, dy, dt) {
         var velocity;
         velocity = Math.max(dx * (1000 / dt), 0);
         return this._updateFlyingSpeed(velocity, dt);
     },
-    _updateFlyingSpeed: function (newSpeed, dt) {
+    _updateFlyingSpeed: function(newSpeed, dt) {
         var correction, h, w;
         if (newSpeed < 30) {
             correction = newSpeed / 2;
@@ -51,7 +51,7 @@
             h: h
         });
     },
-    start: function () {
+    start: function() {
         var basicC, c, comp, h, j, len, newC, ref, w;
         this.backFire = Crafty.e('2D, WebGL, shipEngineFire, ColorEffects').crop(28, 0, 68, 29);
         this.backFire.timing = 0;
@@ -82,7 +82,7 @@
         this.backFire.colorOverride(c);
         this.addComponent('Invincible').invincibleDuration(2000);
         this.setDetectionOffset(40, 0);
-        this.onHit('Hostile', function (collision) {
+        this.onHit('Hostile', function(collision) {
             var e, hit, k, len1;
             if (Game.paused) {
                 return;
@@ -101,7 +101,7 @@
                 return this.trigger('Hit');
             }
         });
-        this.onHit('PowerUp', function (e) {
+        this.onHit('PowerUp', function(e) {
             var k, len1, pu, results;
             if (Game.paused) {
                 return;
@@ -117,7 +117,7 @@
             }
             return results;
         });
-        this.bind('Hit', function () {
+        this.bind('Hit', function() {
             Crafty.e('Blast, Explosion').explode({
                 x: this.x + (this.w / 2),
                 y: this.y + (this.h / 2),
@@ -127,7 +127,7 @@
             Crafty('ScrollWall').get(0).screenShake(10, 1000);
             return this.trigger('Destroyed', this);
         });
-        this.bind('GameLoop', function (fd) {
+        this.bind('GameLoop', function(fd) {
             var motionX, motionY, newR, nr, r, ref1, shipSpeedX, shipSpeedY;
             if (this.has('AnimationMode')) {
                 if (((ref1 = this._choreography) != null ? ref1.length : void 0) === 0) {
@@ -167,13 +167,13 @@
         });
         return this;
     },
-    forcedSpeed: function (speed, options) {
+    forcedSpeed: function(speed, options) {
         if (options == null) {
             options = {};
         }
         return this.targetSpeed(speed, options);
     },
-    shoot: function (onOff) {
+    shoot: function(onOff) {
         if (!this.weaponsEnabled) {
             return;
         }
@@ -184,7 +184,7 @@
             return this.secondaryWeapon.shoot(onOff);
         }
     },
-    switchWeapon: function (onOff) {
+    switchWeapon: function(onOff) {
         var nextWeapon, ref;
         if (!onOff) {
             return;
@@ -197,13 +197,13 @@
         this.primaryWeapon.install(this);
         return this.currentPrimary = nextWeapon;
     },
-    superWeapon: function (onOff) {
+    superWeapon: function(onOff) {
         if (!onOff) {
             return;
         }
         return this.superUsed += 1;
     },
-    pickUp: function (powerUp) {
+    pickUp: function(powerUp) {
         var contents;
         contents = powerUp.settings.contains;
         if (this.installItem(powerUp.settings)) {
@@ -212,7 +212,7 @@
             return powerUp.pickup();
         }
     },
-    clearItems: function () {
+    clearItems: function() {
         var j, len, ref, ref1, w;
         if ((ref = this.primaryWeapon) != null) {
             ref.uninstall();
@@ -225,7 +225,7 @@
         this.primaryWeapons = [];
         return this.items = [];
     },
-    _installPrimary: function (componentName) {
+    _installPrimary: function(componentName) {
         var ref, weapon;
         weapon = Crafty.e(componentName);
         weapon.install(this);
@@ -233,8 +233,8 @@
             ref.uninstall();
         }
         this.primaryWeapon = weapon;
-        this.listenTo(weapon, 'levelUp', (function (_this) {
-            return function (info) {
+        this.listenTo(weapon, 'levelUp', (function(_this) {
+            return function(info) {
                 var t;
                 t = {
                     damage: 'Damage',
@@ -245,8 +245,8 @@
                 return _this.scoreText(t[info.aspect] + " +" + info.level);
             };
         })(this));
-        this.listenTo(weapon, 'boost', (function (_this) {
-            return function (info) {
+        this.listenTo(weapon, 'boost', (function(_this) {
+            return function(info) {
                 var t;
                 t = {
                     damageb: 'Damage',
@@ -257,8 +257,8 @@
                 return _this.scoreText(t[info.aspect] + " Boost!");
             };
         })(this));
-        this.listenTo(weapon, 'boostExpired', (function (_this) {
-            return function (info) {
+        this.listenTo(weapon, 'boostExpired', (function(_this) {
+            return function(info) {
                 var t;
                 t = {
                     damageb: 'Damage',
@@ -274,7 +274,7 @@
         this.primaryWeapons.push(weapon);
         return this.currentPrimary = this.primaryWeapons.length - 1;
     },
-    hasItem: function (item) {
+    hasItem: function(item) {
         var i, j, len, ref;
         if (this.items == null) {
             this.items = [];
@@ -288,7 +288,7 @@
         }
         return false;
     },
-    scoreText: function (text, settings) {
+    scoreText: function(text, settings) {
         var location, t;
         if (settings == null) {
             settings = {};
@@ -330,8 +330,8 @@
         } else {
             t.addComponent('ViewportFixed');
         }
-        return t.delay((function (_this) {
-            return function () {
+        return t.delay((function(_this) {
+            return function() {
                 if (settings.attach) {
                     _this.detach(t);
                 }
@@ -340,7 +340,7 @@
                     y: t.y - settings.distance,
                     alpha: 0.5
                 }, settings.duration, 'easeInQuad');
-                return t.one('TweenEnd', function () {
+                return t.one('TweenEnd', function() {
                     return t.destroy();
                 });
             };

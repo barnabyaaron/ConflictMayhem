@@ -63,40 +63,72 @@ Game.Scripts.Stage1 = (function(superClass) {
             marking: 'D',
             icon: 'damageBoost'
         });
-        return this.sequence(this.setPowerupPool('rapidb', 'speed', 'points', 'rapidb'), this.introText(), this.tutorial(), this.setPowerupPool('aimb', 'speedb', 'rapidb', 'speed', 'aim', 'rapid'), this.droneTakeover(), this.oceanFighting(), this.setPowerupPool('aim', 'speedb', 'rapidb', 'rapid', 'rapidb', 'aimb'), this.enteringLand(), this.cityBay(), this.setPowerupPool('speed', 'rapid', 'aim', 'speed', 'rapid', 'aim'), this.midstageBossfight(), this.bossfightReward(), this.skylineFighting(), this.highSkylineFighting());
+        return this.sequence(
+            this.setPowerupPool('rapidb', 'speed', 'points', 'rapidb'),
+            this.introText(),
+            this.tutorial(),
+            this.setPowerupPool('aimb', 'speedb', 'rapidb', 'speed', 'aim', 'rapid'),
+            this.droneTakeover(),
+            this.oceanFighting(),
+            this.setPowerupPool('aim', 'speedb', 'rapidb', 'rapid', 'rapidb', 'aimb'),
+            this.enteringLand(),
+            this.cityBay(),
+            this.setPowerupPool('speed', 'rapid', 'aim', 'speed', 'rapid', 'aim'),
+            this.midstageBossfight(),
+            this.bossfightReward(),
+            this.skylineFighting(),
+            this.highSkylineFighting()
+        );
     };
 
     Stage1.prototype.introText = function() {
-        return this.sequence(this.setWeapons(['lasers']), this.setSpeed(100), this.setScenery('Intro'), this.sunRise(), this.cameraCrew(), this.async(this.runScript(Game.Scripts.IntroBarrel)), this["if"]((function() {
-            return this.player(1).active && this.player(2).active;
-        }), this.say('General', 'Time to get the last 2 ships to the factory\n' + 'to install the AI controlled defence systems', {
+        return this.sequence(
+            this.setWeapons(['lasers']),
+            this.setSpeed(100),
+            this.setScenery('Intro'),
+            this.sunRise(),
+            this.cameraCrew(),
+            this.async(this.runScript(Game.Scripts.IntroBarrel)),
+            this.say('General', 'Time to get the last ship to the factory\n' + 'to install the AI controlled defence systems', {
             noise: 'low'
-        }), this.say('General', 'Time to get the last ship to the factory\n' + 'to install the AI controlled defence systems', {
-            noise: 'low'
-        })));
+            })
+        );
     };
 
     Stage1.prototype.tutorial = function() {
-        return this.sequence(this.setSpeed(200), this.setScenery('Ocean'), this.say('General', 'We send some drones for some last manual target practice', {
-            noise: 'low'
-        }), this.parallel(this.showText('Get Ready', {
-            color: '#00FF00',
-            mode: 'blink',
-            blink_amount: 3,
-            blink_speed: 300
-        }), this.say('John', 'Let\'s go!')), this.parallel(this.gainHeight(150, {
-            duration: 4000
-        }), this.repeat(2, this.sequence(this.placeSquad(Game.Scripts.Swirler, {
-            amount: 6,
-            delay: 250,
-            drop: 'pool'
-        }), this.wait(1000)))), this.say('General', 'Great job, now get the ship to the defence factory in the city\n' + 'We will send some more target practice', {
-            noise: 'low'
-        }), this.placeSquad(Game.Scripts.Shooter, {
-            amount: 6,
-            delay: 500,
-            drop: 'pool'
-        }));
+        return this.sequence(
+            this.setSpeed(200),
+            this.setScenery('Ocean'),
+            this.say('General', 'We send some drones for some last manual target practice', {
+                noise: 'low'
+            }),
+            this.parallel(this.showText('Get Ready', {
+                color: '#00FF00',
+                mode: 'blink',
+                blink_amount: 3,
+                blink_speed: 300
+            }),
+            this.say('John', 'Let\'s go!')),
+            this.parallel(this.gainHeight(150, {
+                duration: 4000
+            }),
+            this.repeat(2, this.sequence(
+                this.placeSquad(Game.Scripts.Swirler, {
+                    amount: 6,
+                    delay: 250,
+                    drop: 'pool'
+                }),
+                this.wait(1000)
+            ))),
+            this.say('General', 'Great job, now get the ship to the defence factory in the city\n' + 'We will send some more target practice', {
+                noise: 'low'
+            }),
+            this.placeSquad(Game.Scripts.Shooter, {
+                amount: 6,
+                delay: 500,
+                drop: 'pool'
+            })
+        );
     };
 
     Stage1.prototype.droneTakeover = function() {

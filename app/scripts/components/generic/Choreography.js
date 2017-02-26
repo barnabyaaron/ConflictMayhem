@@ -1,5 +1,5 @@
 ﻿Crafty.c('Choreography', {
-    init: function () {
+    init: function() {
         return this._ctypes = {
             delay: this._executeDelay,
             linear: this._executeLinear,
@@ -7,7 +7,7 @@
             viewportBezier: this._executeViewportBezier
         };
     },
-    remove: function () {
+    remove: function() {
         this.unbind('GameLoop', this._choreographyTick);
         if (this._currentPart == null) {
             return;
@@ -16,7 +16,7 @@
         this._choreography = [];
         return this.trigger('ChoreographyEnd');
     },
-    choreography: function (c, options) {
+    choreography: function(c, options) {
         var part, toSkip;
         if (options == null) {
             options = {};
@@ -49,7 +49,7 @@
         }
         return this;
     },
-    synchChoreography: function (otherComponent) {
+    synchChoreography: function(otherComponent) {
         this._choreography = _.clone(otherComponent._choreography);
         this._options = otherComponent._options;
         this._repeated = otherComponent._repeated;
@@ -58,7 +58,7 @@
         this._currentPart.easing = _.clone(otherComponent._currentPart.easing);
         return this.uniqueBind('GameLoop', this._choreographyTick);
     },
-    _setupCPart: function (number) {
+    _setupCPart: function(number) {
         var part;
         this._currentPart = null;
         if (!(number < this._choreography.length)) {
@@ -84,7 +84,7 @@
         }
         return this._setupPart(part, number);
     },
-    _choreographyTick: function (frameData) {
+    _choreographyTick: function(frameData) {
         var dt, prevv, v;
         if (this._currentPart == null) {
             return;
@@ -102,7 +102,7 @@
             return this._setupCPart(this._currentPart.part + 1);
         }
     },
-    _setupPart: function (part, number) {
+    _setupPart: function(part, number) {
         var currentProperties, easingFn, k, ref, ref1;
         easingFn = (ref = part.easingFn) != null ? ref : 'linear';
         this._currentPart = _.extend(_.clone(part), {
@@ -122,15 +122,15 @@
             return this._currentPart.currentProperties = currentProperties;
         }
     },
-    _executeLinear: function (v, prevv) {
+    _executeLinear: function(v, prevv) {
         var dx, dy, ref, ref1, ref2, ref3;
         dx = (v * ((ref = this._currentPart.dx) != null ? ref : 0)) - (prevv * ((ref1 = this._currentPart.dx) != null ? ref1 : 0));
         dy = (v * ((ref2 = this._currentPart.dy) != null ? ref2 : 0)) - (prevv * ((ref3 = this._currentPart.dy) != null ? ref3 : 0));
         this.x += dx;
         return this.y += dy;
     },
-    _executeDelay: function (v) { },
-    _executeMoveIntoViewport: function (v, prevv, dt) {
+    _executeDelay: function(v) {},
+    _executeMoveIntoViewport: function(v, prevv, dt) {
         var angle, base, base1, destinationX, destinationY, diffX, diffY, dx, dy, motionX, motionY, pmotionX, pmotionY;
         destinationX = this._currentPart.dx;
         dx = 0;
@@ -167,7 +167,7 @@
         this.x += dx;
         return this.y += dy;
     },
-    _executeViewportBezier: function (v, prevv, dt) {
+    _executeViewportBezier: function(v, prevv, dt) {
         var bp, c, dShiftX, dx, dy, firstCurve, i, len, p, point, ppoint, recalcDist, ref, rotation, shiftedY;
         bp = new Game.BezierPath;
         if (this._currentPart.bPath == null) {

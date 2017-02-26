@@ -276,21 +276,7 @@
             tile: 210,
             tileh: 380,
             map: {
-                pProfessor: [0, 0]
-            }
-        },
-        "sprites/portraits/charlie_sprite.png": {
-            tile: 352,
-            tileh: 542,
-            map: {
-                pGeneral: [0, 0]
-            }
-        },
-        "sprites/portraits/paul_sprite.png": {
-            tile: 400,
-            tileh: 679,
-            map: {
-                pPilot: [0, 0]
+                pProfessorFull: [0, 0]
             }
         },
         "sprites/entities/custom_invaders.png": {
@@ -300,6 +286,17 @@
                 frankInvader: [0, 0],
                 charlieInvader: [1, 0],
                 paulInvader: [2, 0]
+            }
+        },
+        "portraits.png": {
+            tile: 32,
+            tileh: 32,
+            map: {
+                pGeneral: [0, 0, 4, 4],
+                pPilot: [0, 4, 4, 4],
+                pProfessor: [0, 8, 4, 4],
+                pCharlie: [0, 16, 4, 4],
+                pPaul: [0, 12, 4, 4]
             }
         }
     }

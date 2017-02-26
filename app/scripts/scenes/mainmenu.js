@@ -4,7 +4,7 @@ Crafty.scene('mainmenu', function () {
     Game.resetCredits();
 
     Crafty.background('#000 url(images/earth_bg.jpg) no-repeat center center');
-    Crafty.audio.play('menu_music', -1);
+    //Crafty.audio.play('menu_music', -1);
 
     Crafty.viewport.x = 0;
     Crafty.viewport.y = 0;
@@ -19,7 +19,7 @@ Crafty.scene('mainmenu', function () {
         function () {
             Crafty.audio.stop('menu_music');
             // Start MAIN Story Game
-            Crafty.enterScene(Game.firstLevel);
+            Crafty.enterScene("Story_Intro");
         }
     );
 
@@ -46,7 +46,7 @@ Crafty.scene('mainmenu', function () {
         Crafty.viewport.height / 5 * 4,
         function () {
             Crafty.audio.stop('menu_music');
-            
+
             Crafty.enterScene('classic');
         },
         classicBtnText[Crafty.math.randomInt(0, (classicBtnText.length - 1))]

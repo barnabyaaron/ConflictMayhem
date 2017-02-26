@@ -18,38 +18,39 @@ this.Game.say = function(speaker, text, settings) {
         h += 1;
     }
 
-    
+
 
     avatar = (function() {
         switch (speaker) {
         case 'Professor':
             return {
                 n: 'pProfessor',
-                l: {
-                    w: 72,
-                    h: 132
-                }
+                l: [0, 8]
+            };
+        case 'Charlie':
+            return {
+                n: 'pCharlie',
+                l: [0, 16]
+            };
+        case 'Paul':
+            return {
+                n: 'pPaul',
+                l: [0, 12]
             };
         case 'General':
             return {
                 n: 'pGeneral',
-                l: {
-                    w: 75,
-                    h: 115
-                }
+                l: [0, 0]
             };
-        case 'Pilot':
+        case 'John':
             return {
                 n: 'pPilot',
-                l: {
-                    w: 71,
-                    h: 117
-                }
+                l: [0, 4]
             };
         }
     })();
     if (avatar) {
-        h = Math.max(5, h);
+        h = Math.max(4, h);
     }
 
     back = Crafty.e('2D, UILayerWebGL, Color, Tween, Dialog').attr({
@@ -68,16 +69,13 @@ this.Game.say = function(speaker, text, settings) {
     avatarOffset = avatar ? 100 : 0;
 
     if (avatar != null) {
-        portrait = (ref = Crafty.e('2D, UILayerWebGL, SpriteAnimation')
-            .addComponent(avatar.n))
-            .attr(_.extend(avatar.l,
-                {
-                    x: back.x + 10,
-                    y: back.y - 20,
-                    z: back.z + 1
-                }))
-            .reel('talk', 400, 0, 0, 2)
-            .animate('talk', lines.length * 6);
+        portrait = (ref = Crafty.e('2D, UILayerWebGL, SpriteAnimation').addComponent(avatar.n)).sprite.apply(ref, slice.call(avatar.l).concat([4], [4])).attr({
+            x: back.x + 5,
+            y: back.y - 20,
+            z: back.z + 1,
+            w: 96,
+            h: 96
+        }).reel('talk', 400, [avatar.l, [avatar.l[0] + 4, avatar.l[1]]]).animate('talk', lines.length * 6);
         back.attach(portrait);
         if (settings.noise !== 'none' && (avatar !== null)) {
             portrait.addComponent('Delay');

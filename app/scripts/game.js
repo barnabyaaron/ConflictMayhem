@@ -67,11 +67,11 @@ Game = {
             audio: 'audio/',
             images: 'images/'
         });
-        Crafty.init(800, 600);
+        Crafty.init(1024, 576);
         Crafty.background('#000000');
 
         Crafty.e('Player, Color').attr({
-            name: 'Player',
+            name: 'Player 1',
             z: 0,
             playerNumber: 1
         }).setName('Player').color('#FF0000');

@@ -1,178 +1,174 @@
 ﻿var Game, generator,
-  extend = function (child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
 
 generator = this.Game.levelGenerator;
 
 Game = this.Game;
 
-generator.defineElement('cloud',
-    function () {
-        var blur, c1, c2, h, s, v, w, y;
-        v = Math.random();
-        blur = Math.random() * 4.0;
-        if (v > .2) {
-            y = (Math.random() * 20) + 30;
-            w = (Math.random() * 20) + 125;
-            h = (Math.random() * 10) + 50;
-            c1 = Crafty.e('2D, WebGL, cloud, Hideable, Horizon').attr({
-                z: -300,
-                w: w,
-                h: h,
-                topDesaturation: 0.6,
-                bottomDesaturation: 0.6,
-                alpha: (Math.random() * 0.8) + 0.2,
-                lightness: .4,
-                blur: blur
-            });
-            if (Math.random() < 0.7) {
-                c1 = c1.flip('X');
+generator.defineElement('cloud', function() {
+    var blur, c1, c2, h, s, v, w, y;
+    v = Math.random();
+    blur = Math.random() * 4.0;
+    if (v > .2) {
+        y = (Math.random() * 20) + 30;
+        w = (Math.random() * 20) + 125;
+        h = (Math.random() * 10) + 50;
+        c1 = Crafty.e('2D, WebGL, cloud, Hideable, Horizon').attr({
+            z: -300,
+            w: w,
+            h: h,
+            topDesaturation: 0.6,
+            bottomDesaturation: 0.6,
+            alpha: (Math.random() * 0.8) + 0.2,
+            lightness: .4,
+            blur: blur
+        });
+        if (Math.random() < 0.7) {
+            c1 = c1.flip('X');
+        }
+        this.addBackground(20 + (Math.random() * 400), y, c1, .375);
+    }
+    if (v < .6) {
+        s = (Math.random() * .20) + .15;
+        y = 230 - (s * 150);
+        w = ((Math.random() * 10) + 70) - (s * 20);
+        h = ((Math.random() * 5) + 20) - (s * 10);
+        c2 = Crafty.e('2D, WebGL, cloud, Hideable, Horizon').attr({
+            z: -570,
+            w: w,
+            h: h,
+            topDesaturation: 1.0 - s,
+            bottomDesaturation: 1.0 - s,
+            alpha: (Math.random() * 0.8) + 0.2,
+            lightness: .4,
+            blur: blur
+        });
+        if (Math.random() < 0.2) {
+            c2 = c2.flip('X');
+        }
+        return this.addBackground(60 + Math.random() * 400, y, c2, s);
+    }
+});
+
+generator.defineElement('waterHorizon', function() {
+    var goldenStripe, h;
+    h = Crafty.e('2D, WebGL, waterHorizon, SunBlock, Horizon').attr({
+        z: -600,
+        w: 257
+    }).colorDesaturation(Game.backgroundColor).saturationGradient(1.0, .2);
+    if (Game.webGLMode === false) {
+        h.attr({
+            lightness: .6
+        });
+    }
+    this.addBackground(0, this.level.visibleHeight - 225, h, .25);
+    goldenStripe = Crafty.e('2D, WebGL, Gradient, GoldenStripe').topColor('#DDDD00').bottomColor('#DDDD00', Game.webGLMode !== false ? 0 : 1).attr({
+        z: -599,
+        w: this.delta.x * .25,
+        h: 1,
+        alpha: 0
+    });
+    return this.addBackground(0, this.level.visibleHeight - 225, goldenStripe, .25);
+});
+
+generator.defineElement('water', function() {
+    var h;
+    h = Crafty.e('2D, WebGL, waterMiddle, Horizon, ColorEffects').crop(1, 0, 511, 192).attr({
+        z: -500,
+        w: 513
+    }).colorDesaturation(Game.backgroundColor).saturationGradient(.7, -.4);
+    if (Game.webGLMode === false) {
+        h.attr({
+            lightness: .8
+        });
+    }
+    this.addBackground(0, this.level.visibleHeight - 150, h, .5);
+    return this.level.registerWaveTween('OceanWavesMiddle', 5500, 'easeInOutQuad', function(v, forward) {
+        var distanceh, height, moveh;
+        moveh = 5;
+        distanceh = 20;
+        height = 192;
+        return Crafty('waterMiddle').each(function() {
+            if (forward) {
+                this.dy = v * moveh;
+                return this.h = height - (v * distanceh);
+            } else {
+                this.dy = moveh - (v * moveh);
+                return this.h = height - distanceh + (v * distanceh);
             }
-            this.addBackground(20 + (Math.random() * 400), y, c1, .375);
-        }
-        if (v < .6) {
-            s = (Math.random() * .20) + .15;
-            y = 230 - (s * 150);
-            w = ((Math.random() * 10) + 70) - (s * 20);
-            h = ((Math.random() * 5) + 20) - (s * 10);
-            c2 = Crafty.e('2D, WebGL, cloud, Hideable, Horizon').attr({
-                z: -570,
-                w: w,
-                h: h,
-                topDesaturation: 1.0 - s,
-                bottomDesaturation: 1.0 - s,
-                alpha: (Math.random() * 0.8) + 0.2,
-                lightness: .4,
-                blur: blur
-            });
-            if (Math.random() < 0.2) {
-                c2 = c2.flip('X');
+        });
+    });
+});
+
+generator.defineElement('waterFront', function() {
+    var height, water1, water2;
+    height = 65;
+    this.add(0, this.level.visibleHeight - 45, Crafty.e('2D, Solid').attr({
+        w: this.delta.x,
+        h: 45
+    }));
+    water1 = Crafty.e('2D, WebGL, waterFront1, Wave1').attr({
+        z: -20
+    }).crop(0, 1, 512, 95);
+    this.add(0, this.level.visibleHeight - height, water1);
+    water1.originalY = water1.y;
+    water2 = Crafty.e('2D, WebGL, waterFront2, Wave2').attr({
+        z: -20
+    }).crop(0, 1, 512, 95);
+    this.add(512, this.level.visibleHeight - height, water2);
+    water2.originalX = water2.x;
+    water2.originalY = water2.y;
+    return this.level.registerWaveTween('OceanWaves', 6000, 'easeInOutQuad', function(v, forward) {
+        var distance, distanceh, moveh, width;
+        distance = 50;
+        distanceh = 40;
+        moveh = 5;
+        width = 513;
+        height = 125;
+        Crafty('Wave1').each(function() {
+            if (forward) {
+                this.w = width + (v * distance);
+                this.y = this.originalY + (v * moveh);
+                return this.h = height - (v * distanceh);
+            } else {
+                this.w = width + distance - (v * distance);
+                this.y = this.originalY + moveh - (v * moveh);
+                return this.h = height - distanceh + (v * distanceh);
             }
-            return this.addBackground(60 + Math.random() * 400, y, c2, s);
-        }
-    });
-
-generator.defineElement('waterHorizon',
-    function () {
-        var goldenStripe, h;
-        h = Crafty.e('2D, WebGL, waterHorizon, SunBlock, Horizon').attr({
-            z: -600,
-            w: 257
-        }).colorDesaturation(Game.backgroundColor).saturationGradient(1.0, .2);
-        if (Game.webGLMode === false) {
-            h.attr({
-                lightness: .6
-            });
-        }
-        this.addBackground(0, this.level.visibleHeight - 225, h, .25);
-        goldenStripe = Crafty.e('2D, WebGL, Gradient, GoldenStripe').topColor('#DDDD00').bottomColor('#DDDD00', Game.webGLMode !== false ? 0 : 1).attr({
-            z: -599,
-            w: this.delta.x * .25,
-            h: 1,
-            alpha: 0
         });
-        return this.addBackground(0, this.level.visibleHeight - 225, goldenStripe, .25);
-    });
-
-generator.defineElement('water',
-    function () {
-        var h;
-        h = Crafty.e('2D, WebGL, waterMiddle, Horizon, ColorEffects').crop(1, 0, 511, 192).attr({
-            z: -500,
-            w: 513
-        }).colorDesaturation(Game.backgroundColor).saturationGradient(.7, -.4);
-        if (Game.webGLMode === false) {
-            h.attr({
-                lightness: .8
-            });
-        }
-        this.addBackground(0, this.level.visibleHeight - 150, h, .5);
-        return this.level.registerWaveTween('OceanWavesMiddle', 5500, 'easeInOutQuad', function (v, forward) {
-            var distanceh, height, moveh;
-            moveh = 5;
-            distanceh = 20;
-            height = 192;
-            return Crafty('waterMiddle').each(function () {
-                if (forward) {
-                    this.dy = v * moveh;
-                    return this.h = height - (v * distanceh);
-                } else {
-                    this.dy = moveh - (v * moveh);
-                    return this.h = height - distanceh + (v * distanceh);
-                }
-            });
+        Crafty('Wave2').each(function() {
+            if (forward) {
+                this.w = width - (v * distance);
+                this.x = this.originalX + (v * distance);
+                this.y = this.originalY + (v * moveh);
+                return this.h = height - (v * distanceh);
+            } else {
+                this.w = width - distance + (v * distance);
+                this.x = this.originalX + distance - (v * distance);
+                this.y = this.originalY + moveh - (v * moveh);
+                return this.h = height - distanceh + (v * distanceh);
+            }
+        });
+        return Crafty('WaveFront').each(function() {
+            width = 1200;
+            distance = 120;
+            height = 200;
+            distanceh = 80;
+            if (forward) {
+                this.w = width + (v * distance);
+                this.y = this.originalY + (v * moveh);
+                return this.h = height - (v * distanceh);
+            } else {
+                this.w = width + distance - (v * distance);
+                this.y = this.originalY + moveh - (v * moveh);
+                return this.h = height - distanceh + (v * distanceh);
+            }
         });
     });
+});
 
-generator.defineElement('waterFront',
-    function () {
-        var height, water1, water2;
-        height = 65;
-        this.add(0, this.level.visibleHeight - 45, Crafty.e('2D, Solid').attr({
-            w: this.delta.x,
-            h: 45
-        }));
-        water1 = Crafty.e('2D, WebGL, waterFront1, Wave1').attr({
-            z: -20
-        }).crop(0, 1, 512, 95);
-        this.add(0, this.level.visibleHeight - height, water1);
-        water1.originalY = water1.y;
-        water2 = Crafty.e('2D, WebGL, waterFront2, Wave2').attr({
-            z: -20
-        }).crop(0, 1, 512, 95);
-        this.add(512, this.level.visibleHeight - height, water2);
-        water2.originalX = water2.x;
-        water2.originalY = water2.y;
-        return this.level.registerWaveTween('OceanWaves', 6000, 'easeInOutQuad', function (v, forward) {
-            var distance, distanceh, moveh, width;
-            distance = 50;
-            distanceh = 40;
-            moveh = 5;
-            width = 513;
-            height = 125;
-            Crafty('Wave1').each(function () {
-                if (forward) {
-                    this.w = width + (v * distance);
-                    this.y = this.originalY + (v * moveh);
-                    return this.h = height - (v * distanceh);
-                } else {
-                    this.w = width + distance - (v * distance);
-                    this.y = this.originalY + moveh - (v * moveh);
-                    return this.h = height - distanceh + (v * distanceh);
-                }
-            });
-            Crafty('Wave2').each(function () {
-                if (forward) {
-                    this.w = width - (v * distance);
-                    this.x = this.originalX + (v * distance);
-                    this.y = this.originalY + (v * moveh);
-                    return this.h = height - (v * distanceh);
-                } else {
-                    this.w = width - distance + (v * distance);
-                    this.x = this.originalX + distance - (v * distance);
-                    this.y = this.originalY + moveh - (v * moveh);
-                    return this.h = height - distanceh + (v * distanceh);
-                }
-            });
-            return Crafty('WaveFront').each(function () {
-                width = 1200;
-                distance = 120;
-                height = 200;
-                distanceh = 80;
-                if (forward) {
-                    this.w = width + (v * distance);
-                    this.y = this.originalY + (v * moveh);
-                    return this.h = height - (v * distanceh);
-                } else {
-                    this.w = width + distance - (v * distance);
-                    this.y = this.originalY + moveh - (v * moveh);
-                    return this.h = height - distanceh + (v * distanceh);
-                }
-            });
-        });
-    });
-
-generator.defineElement('cityHorizon', function (mode) {
+generator.defineElement('cityHorizon', function(mode) {
     var e;
     this.addElement('waterHorizon');
     e = mode === 'start' ? Crafty.e('2D, WebGL, ColorEffects, coastStart, SunBlock, Horizon') : Crafty.e('2D, WebGL, ColorEffects, coast, SunBlock, Horizon');
@@ -183,7 +179,7 @@ generator.defineElement('cityHorizon', function (mode) {
     return this.addBackground(0, this.level.visibleHeight - 225 - 16, e, .25);
 });
 
-generator.defineElement('cityDistance', function (mode) {
+generator.defineElement('cityDistance', function(mode) {
     var e;
     e = Crafty.e('2D, WebGL, ColorEffects, cityDistance, SunBlock, Horizon').colorDesaturation(Game.backgroundColor).saturationGradient(.9, .6).crop(1, 1, 255, 223).attr({
         z: -598,
@@ -192,7 +188,7 @@ generator.defineElement('cityDistance', function (mode) {
     return this.addBackground(0, this.level.visibleHeight - 225 - 16, e, .25);
 });
 
-generator.defineElement('city', function () {
+generator.defineElement('city', function() {
     var bg, c, d, e;
     bg = Crafty.e('2D, WebGL, cityLayer2, Collision, SunBlock, Horizon, Flipable').attr({
         z: -505
@@ -220,7 +216,7 @@ generator.defineElement('city', function () {
     return this.addBackground(0, this.level.visibleHeight - 310, d, .5);
 });
 
-generator.defineElement('cityFrontTop', function () {
+generator.defineElement('cityFrontTop', function() {
     var bb, floor, i, j;
     bb = Crafty.e('2D, WebGL, bigBuildingTop, ColorEffects, RiggedExplosion').attr({
         z: -20
@@ -237,7 +233,7 @@ generator.defineElement('cityFrontTop', function () {
         });
         bb.attach(floor);
     }
-    return bb.bind('BigExplosion', function () {
+    return bb.bind('BigExplosion', function() {
         var e, k, len, ref;
         if (this.buildingExploded) {
             return;
@@ -247,7 +243,7 @@ generator.defineElement('cityFrontTop', function () {
                 x: this.x,
                 y: this.y + 40,
                 z: this.z + 5
-            }).bind('TweenEnd', function () {
+            }).bind('TweenEnd', function() {
                 return this.destroy();
             }).tween({
                 y: this.y + 500
@@ -256,7 +252,7 @@ generator.defineElement('cityFrontTop', function () {
                 x: this.x + 200,
                 y: this.y + 60,
                 z: this.z + 5
-            }).bind('TweenEnd', function () {
+            }).bind('TweenEnd', function() {
                 return this.destroy();
             }).tween({
                 y: this.y + 500
@@ -265,7 +261,7 @@ generator.defineElement('cityFrontTop', function () {
                 x: this.x,
                 y: this.y + 180,
                 z: this.z + 5
-            }).bind('TweenEnd', function () {
+            }).bind('TweenEnd', function() {
                 return this.destroy();
             }).tween({
                 y: this.y + 500
@@ -274,7 +270,7 @@ generator.defineElement('cityFrontTop', function () {
                 x: this.x + 180,
                 y: this.y + 200,
                 z: this.z + 5
-            }).bind('TweenEnd', function () {
+            }).bind('TweenEnd', function() {
                 return this.destroy();
             }).tween({
                 y: this.y + 500
@@ -292,7 +288,7 @@ generator.defineElement('cityFrontTop', function () {
     });
 });
 
-generator.defineElement('cityFront', function (height, offSet, bottomVariant) {
+generator.defineElement('cityFront', function(height, offSet, bottomVariant) {
     var bb, bottom, calcHeight, floor, i, j, ref;
     if (height == null) {
         height = 6;
@@ -330,7 +326,7 @@ generator.defineElement('cityFront', function (height, offSet, bottomVariant) {
     return bb.attach(bottom);
 });
 
-generator.defineElement('cityFrontBlur', function () {
+generator.defineElement('cityFrontBlur', function() {
     return this.addBackground(200, this.level.visibleHeight - 1350, Crafty.e('2D, WebGL, bigBuildingTop').crop(1, 1, 446, 6 * 32).attr({
         w: 768,
         h: 288,
@@ -339,7 +335,7 @@ generator.defineElement('cityFrontBlur', function () {
     }), 1.5);
 });
 
-generator.defineElement('city-bridge', function () {
+generator.defineElement('city-bridge', function() {
     var bg, e;
     bg = Crafty.e('2D, WebGL, cityLayer2, Collision, SunBlock, Horizon').collision([4, 29, 72, 29, 72, 118, 4, 118]).colorDesaturation(Game.backgroundColor).saturationGradient(.6, .6).attr({
         z: -505
@@ -353,7 +349,7 @@ generator.defineElement('city-bridge', function () {
     return this.addBackground(0, this.level.visibleHeight - 182, e, .5);
 });
 
-generator.defineElement('cityStart', function () {
+generator.defineElement('cityStart', function() {
     var e;
     e = Crafty.e('2D, WebGL, cityStart, Collision, SunBlock, Horizon').attr({
         z: -305
@@ -362,14 +358,14 @@ generator.defineElement('cityStart', function () {
     return this.addBackground(0, this.level.visibleHeight - 310, e, .5);
 });
 
-Game.CityScenery = (function (superClass) {
+Game.CityScenery = (function(superClass) {
     extend(CityScenery, superClass);
 
     function CityScenery() {
         return CityScenery.__super__.constructor.apply(this, arguments);
     }
 
-    CityScenery.prototype.assets = function () {
+    CityScenery.prototype.assets = function() {
         return {
             sprites: {
                 'city-scenery.png': {
@@ -411,9 +407,10 @@ Game.CityScenery = (function (superClass) {
     };
 
     return CityScenery;
+
 })(Game.LevelScenery);
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -429,7 +426,7 @@ generator.defineBlock((function (superClass) {
 
     _Class.prototype.autoNext = 'Ocean';
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         var barrelLocator, cabinHeight, frontWave, height, shipHeight, shipLength;
         _Class.__super__.generate.apply(this, arguments);
         shipLength = 700;
@@ -475,7 +472,7 @@ generator.defineBlock((function (superClass) {
         return this.addElement('cloud');
     };
 
-    _Class.prototype.enter = function () {
+    _Class.prototype.enter = function() {
         var block, c, fixOtherShips, leadAnimated;
         _Class.__super__.enter.apply(this, arguments);
         this.speed = this.level._forcedSpeed;
@@ -484,40 +481,40 @@ generator.defineBlock((function (superClass) {
         });
         this.level.setForcedSpeed(0);
         c = [
-          {
-              type: 'linear',
-              x: -160,
-              easingFn: 'easeInQuad',
-              duration: 1200
-          }, {
-              type: 'linear',
-              y: -130,
-              duration: 1200,
-              easingFn: 'easeInOutQuad',
-              event: 'lift'
-          }, {
-              type: 'delay',
-              duration: 500,
-              event: 'shipExterior'
-          }, {
-              type: 'linear',
-              x: 70,
-              y: -10,
-              easingFn: 'easeInQuad',
-              duration: 1200
-          }, {
-              type: 'delay',
-              duration: 1,
-              event: 'unlock'
-          }, {
-              type: 'delay',
-              duration: 1,
-              event: 'go'
-          }
+            {
+                type: 'linear',
+                x: -160,
+                easingFn: 'easeInQuad',
+                duration: 1200
+            }, {
+                type: 'linear',
+                y: -130,
+                duration: 1200,
+                easingFn: 'easeInOutQuad',
+                event: 'lift'
+            }, {
+                type: 'delay',
+                duration: 500,
+                event: 'shipExterior'
+            }, {
+                type: 'linear',
+                x: 70,
+                y: -10,
+                easingFn: 'easeInQuad',
+                duration: 1200
+            }, {
+                type: 'delay',
+                duration: 1,
+                event: 'unlock'
+            }, {
+                type: 'delay',
+                duration: 1,
+                event: 'go'
+            }
         ];
         block = this;
         leadAnimated = null;
-        fixOtherShips = function (newShip) {
+        fixOtherShips = function(newShip) {
             if (!leadAnimated) {
                 return;
             }
@@ -533,17 +530,17 @@ generator.defineBlock((function (superClass) {
             }
             newShip.addComponent('Choreography');
             newShip.synchChoreography(leadAnimated);
-            newShip.one('ChoreographyEnd', function () {
+            newShip.one('ChoreographyEnd', function() {
                 return this.removeComponent('Choreography', false);
             });
-            newShip.one('unlock', function () {
+            newShip.one('unlock', function() {
                 this.enableControl();
                 return this.weaponsEnabled = true;
             });
             return newShip.weaponsEnabled = leadAnimated.weaponsEnabled;
         };
         this.bind('ShipSpawned', fixOtherShips);
-        return Crafty('PlayerControlledShip').each(function (index) {
+        return Crafty('PlayerControlledShip').each(function(index) {
             if (index !== 0) {
                 return fixOtherShips(this);
             }
@@ -556,36 +553,36 @@ generator.defineBlock((function (superClass) {
             this.disableControl();
             this.weaponsEnabled = false;
             this.choreography(c);
-            this.one('ChoreographyEnd', (function (_this) {
-                return function () {
+            this.one('ChoreographyEnd', (function(_this) {
+                return function() {
                     _this.removeComponent('Choreography', 'no');
                     return block.unbind('ShipSpawned');
                 };
             })(this));
-            this.one('unlock', function () {
+            this.one('unlock', function() {
                 this.enableControl();
                 return this.weaponsEnabled = true;
             });
-            this.one('lift', function () {
+            this.one('lift', function() {
                 block.elevator.tween({
                     y: block.elevator.y - 130
                 }, 1200, 'easeInOutQuad');
-                return Crafty('ScrollWall').each(function () {
+                return Crafty('ScrollWall').each(function() {
                     this.addComponent('Tween');
                     this.tween({
                         y: 0
                     }, 2500);
-                    return this.one('TweenEnd', function () {
+                    return this.one('TweenEnd', function() {
                         return this.removeComponent('Tween', false);
                     });
                 });
             });
-            this.one('shipExterior', function () {
+            this.one('shipExterior', function() {
                 return block.outside.tween({
                     alpha: 1
                 }, 700).addComponent('Solid');
             });
-            return this.one('go', function () {
+            return this.one('go', function() {
                 return block.level.setForcedSpeed(block.speed, {
                     accelerate: false
                 });
@@ -597,7 +594,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.LevelScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -611,7 +608,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cloud');
         this.addElement('cloud');
@@ -624,7 +621,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -642,7 +639,7 @@ generator.defineBlock((function (superClass) {
 
     _Class.prototype.autoPrevious = 'Ocean';
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cloud');
         this.addElement('cityHorizon', 'start');
@@ -654,7 +651,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -668,7 +665,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('waterFront');
         this.addElement('cityHorizon');
@@ -680,7 +677,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -698,7 +695,7 @@ generator.defineBlock((function (superClass) {
 
     _Class.prototype.autoPrevious = 'Coast';
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cloud');
         this.addElement('cityHorizon');
@@ -711,7 +708,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -725,7 +722,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cloud');
         this.addElement('waterFront');
@@ -738,7 +735,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -752,7 +749,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cloud');
         this.addElement('waterFront');
@@ -765,7 +762,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -781,7 +778,7 @@ generator.defineBlock((function (superClass) {
 
     _Class.prototype.autoNext = 'BayFull';
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         var bridgeWidth, d1, dh, height, p1, p2;
         _Class.__super__.generate.apply(this, arguments);
         this.notifyOffsetX = -100;
@@ -869,8 +866,8 @@ generator.defineBlock((function (superClass) {
         this.addBackground(834, -60, p2, 1.2);
         return this.bind('BridgeCollapse', {
             once: true
-        }, (function (_this) {
-            return function (level) {
+        }, (function(_this) {
+            return function(level) {
                 var d0, d2;
                 d0 = Crafty('FrontDeck').get(0).addComponent('TweenPromise').sprite(16, 32);
                 d1 = Crafty('MainDeck').get(0).addComponent('TweenPromise').sprite(16, 32);
@@ -885,76 +882,76 @@ generator.defineBlock((function (superClass) {
                     accelerate: true
                 });
                 return WhenJS.sequence([
-                  function () {
-                      return WhenJS.parallel([
-                        function () {
-                            return d0.tweenPromise({
-                                rotation: -12,
-                                dy: d0.dy + 100
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return d1.tweenPromise({
-                                rotation: -10,
-                                dy: d1.dy + 100
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return dh.tweenPromise({
-                                rotation: -10,
-                                dy: dh.dy + 100
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return d2.tweenPromise({
-                                rotation: -7,
-                                dy: d2.dy + 100
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return p1.tweenPromise({
-                                rotation: -7,
-                                dy: p1.dy + 100
-                            }, 3000, 'easeInQuad');
-                        }, function () {
-                            return p2.tweenPromise({
-                                rotation: 7
-                            }, 3000, 'easeInQuad');
-                        }
-                      ]);
-                  }, function () {
-                      return WhenJS.parallel([
-                        function () {
-                            return d0.tweenPromise({
-                                dy: d0.dy + 400
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return d1.tweenPromise({
-                                dy: d1.dy + 430
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return dh.tweenPromise({
-                                dy: dh.dy + 430
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return d2.tweenPromise({
-                                dy: d2.dy + 400
-                            }, 4000, 'easeInQuad');
-                        }, function () {
-                            return p1.tweenPromise({
-                                rotation: -27,
-                                dy: p1.dy + 300
-                            }, 3000, 'easeInQuad');
-                        }, function () {
-                            return p2.tweenPromise({
-                                rotation: 27,
-                                dy: p2.dy + 200
-                            }, 3000, 'easeInQuad');
-                        }
-                      ]);
-                  }
+                    function() {
+                        return WhenJS.parallel([
+                            function() {
+                                return d0.tweenPromise({
+                                    rotation: -12,
+                                    dy: d0.dy + 100
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return d1.tweenPromise({
+                                    rotation: -10,
+                                    dy: d1.dy + 100
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return dh.tweenPromise({
+                                    rotation: -10,
+                                    dy: dh.dy + 100
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return d2.tweenPromise({
+                                    rotation: -7,
+                                    dy: d2.dy + 100
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return p1.tweenPromise({
+                                    rotation: -7,
+                                    dy: p1.dy + 100
+                                }, 3000, 'easeInQuad');
+                            }, function() {
+                                return p2.tweenPromise({
+                                    rotation: 7
+                                }, 3000, 'easeInQuad');
+                            }
+                        ]);
+                    }, function() {
+                        return WhenJS.parallel([
+                            function() {
+                                return d0.tweenPromise({
+                                    dy: d0.dy + 400
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return d1.tweenPromise({
+                                    dy: d1.dy + 430
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return dh.tweenPromise({
+                                    dy: dh.dy + 430
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return d2.tweenPromise({
+                                    dy: d2.dy + 400
+                                }, 4000, 'easeInQuad');
+                            }, function() {
+                                return p1.tweenPromise({
+                                    rotation: -27,
+                                    dy: p1.dy + 300
+                                }, 3000, 'easeInQuad');
+                            }, function() {
+                                return p2.tweenPromise({
+                                    rotation: 27,
+                                    dy: p2.dy + 200
+                                }, 3000, 'easeInQuad');
+                            }
+                        ]);
+                    }
                 ]);
             };
         })(this));
     };
 
-    _Class.prototype.deck = function (gradient, flipped, attr) {
+    _Class.prototype.deck = function(gradient, flipped, attr) {
         var aspectR, color, part2, result;
         aspectR = 1024 / 180;
         attr.h = attr.w / aspectR;
@@ -976,7 +973,7 @@ generator.defineBlock((function (superClass) {
         return result;
     };
 
-    _Class.prototype.pillar = function (gradient, attr) {
+    _Class.prototype.pillar = function(gradient, attr) {
         var aspectR;
         aspectR = 180 / 534;
         attr.w = attr.h * aspectR;
@@ -984,7 +981,7 @@ generator.defineBlock((function (superClass) {
         return Crafty.e('2D, WebGL, bridgePillar, ColorEffects, Horizon, SunBlock').crop(2, 0, 180, 534).attr(attr).saturationGradient(gradient, gradient);
     };
 
-    _Class.prototype.pillarX = function (gradient, attr) {
+    _Class.prototype.pillarX = function(gradient, attr) {
         return this.pillar(gradient, attr).flip('X');
     };
 
@@ -992,7 +989,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -1006,7 +1003,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cityFrontTop');
         this.addElement('cityFrontBlur');
@@ -1019,7 +1016,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -1035,7 +1032,7 @@ generator.defineBlock((function (superClass) {
 
     _Class.prototype.autoNext = 'Skyline2';
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         var e, eb, h;
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cityFront');
@@ -1063,7 +1060,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -1077,7 +1074,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         var h, h2, h3;
         _Class.__super__.generate.apply(this, arguments);
         this.addElement('cityFront');
@@ -1115,7 +1112,7 @@ generator.defineBlock((function (superClass) {
 
 })(Game.CityScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -1129,7 +1126,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         var h, h2;
         _Class.__super__.generate.apply(this, arguments);
         h = 150;
@@ -1156,7 +1153,7 @@ generator.defineBlock((function (superClass) {
 
 })(this.Game.LevelScenery));
 
-generator.defineBlock((function (superClass) {
+generator.defineBlock((function(superClass) {
     extend(_Class, superClass);
 
     function _Class() {
@@ -1170,7 +1167,7 @@ generator.defineBlock((function (superClass) {
         y: 0
     };
 
-    _Class.prototype.generate = function () {
+    _Class.prototype.generate = function() {
         var h, h2, h3;
         _Class.__super__.generate.apply(this, arguments);
         h = 250;
@@ -1196,4 +1193,3 @@ generator.defineBlock((function (superClass) {
     return _Class;
 
 })(this.Game.LevelScenery));
-

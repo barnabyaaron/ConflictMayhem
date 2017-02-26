@@ -1,6 +1,18 @@
-﻿var Game,
-  bind = function (fn, me) { return function () { return fn.apply(me, arguments); }; },
-  indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+﻿/*
+
+ * Level
+
+ The level is used to orchestrate the placement of
+ LevelBlock's to form a level.showDialog: ->
+ new @Game.Dialog @settings.dialog
+ A level can be created through the LevelGenerator
+
+ Optionally, data can be passed in. All the blocks in
+ a level can access and use and modify this data.
+ */
+var Game,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 Game = this.Game;
 
@@ -22,30 +34,30 @@ Game.Level = (function() {
         this.currentScenery = this.data.startScenery;
     }
 
-    Level.prototype.setScenery = function (scenery) {
-        return this._loadAssetsForScenery(scenery).then((function (_this) {
-            return function () {
+    Level.prototype.setScenery = function(scenery) {
+        return this._loadAssetsForScenery(scenery).then((function(_this) {
+            return function() {
                 _this.currentScenery = scenery;
                 return _this._setupLevelScenery();
             };
         })(this));
     };
 
-    Level.prototype._loadAssetsForScenery = function (scenery) {
+    Level.prototype._loadAssetsForScenery = function(scenery) {
         var blockKlass, blockType;
         blockType = this.namespace + "." + scenery;
         blockKlass = this.generator.buildingBlocks[blockType];
-        return blockKlass.prototype.loadAssets().then((function (_this) {
-            return function () {
+        return blockKlass.prototype.loadAssets().then((function(_this) {
+            return function() {
                 var next, nextLoading, prev;
                 nextLoading = [];
                 if (prev = blockKlass.prototype.autoPrevious) {
-                    nextLoading.push(function () {
+                    nextLoading.push(function() {
                         return _this._loadAssetsForScenery(prev);
                     });
                 }
                 if (next = blockKlass.prototype.autoNext) {
-                    nextLoading.push(function () {
+                    nextLoading.push(function() {
                         return _this._loadAssetsForScenery(next);
                     });
                 }
@@ -56,7 +68,7 @@ Game.Level = (function() {
         })(this));
     };
 
-    Level.prototype.start = function () {
+    Level.prototype.start = function() {
         this.active = true;
         Crafty.viewport.x = 0;
         Crafty.viewport.y = 0;
@@ -68,8 +80,8 @@ Game.Level = (function() {
             y: 0
         });
         this._playersActive = false;
-        Crafty.bind('EnemySpawned', (function (_this) {
-            return function () {
+        Crafty.bind('EnemySpawned', (function(_this) {
+            return function() {
                 var base;
                 if ((base = _this.data).enemiesSpawned == null) {
                     base.enemiesSpawned = 0;
@@ -89,11 +101,11 @@ Game.Level = (function() {
             family: 'Press Start 2P'
         }).textColor('#A0A0A0').text('');
         this._setupLevelScenery();
-        Crafty.bind('PlayerDied', (function (_this) {
-            return function () {
+        Crafty.bind('PlayerDied', (function(_this) {
+            return function() {
                 var playersActive;
                 playersActive = false;
-                Crafty('Player ControlScheme').each(function () {
+                Crafty('Player ControlScheme').each(function() {
                     if (this.lives > 0) {
                         return playersActive = true;
                     }
@@ -107,7 +119,7 @@ Game.Level = (function() {
         return Crafty.bind('GameLoop', this._waveTicks);
     };
 
-    Level.prototype._waveTicks = function (fd) {
+    Level.prototype._waveTicks = function(fd) {
         var n, ref, results, wt;
         if (this._registeredWaveTweens == null) {
             this._registeredWaveTweens = {};
@@ -121,41 +133,41 @@ Game.Level = (function() {
         return results;
     };
 
-    Level.prototype.registerWaveTween = function (name, duration, easing, callback) {
+    Level.prototype.registerWaveTween = function(name, duration, easing, callback) {
         var base;
         if (this._registeredWaveTweens == null) {
             this._registeredWaveTweens = {};
         }
-        return (base = this._registeredWaveTweens)[name] != null ? base[name] : base[name] = new ((function () {
-            function _Class(arg) {
-                var duration, easing;
-                this.name = arg.name, duration = arg.duration, easing = arg.easing, this.callback = arg.callback;
-                this.ease = new Crafty.easing(duration, easing);
-                this.ease.repeat(3);
-            }
-
-            _Class.prototype.tick = function (dt) {
-                var forward, v;
-                this.ease.tick(dt);
-                v = this.ease.value();
-                if (this.ease.loops === 1) {
+        return (base = this._registeredWaveTweens)[name] != null ? base[name] : base[name] = new ((function() {
+                function _Class(arg) {
+                    var duration, easing;
+                    this.name = arg.name, duration = arg.duration, easing = arg.easing, this.callback = arg.callback;
+                    this.ease = new Crafty.easing(duration, easing);
                     this.ease.repeat(3);
                 }
-                forward = (this.ease.loops % 2) === 1;
-                return this.callback(v, forward);
-            };
 
-            return _Class;
+                _Class.prototype.tick = function(dt) {
+                    var forward, v;
+                    this.ease.tick(dt);
+                    v = this.ease.value();
+                    if (this.ease.loops === 1) {
+                        this.ease.repeat(3);
+                    }
+                    forward = (this.ease.loops % 2) === 1;
+                    return this.callback(v, forward);
+                };
 
-        })())({
-            name: name,
-            duration: duration,
-            easing: easing,
-            callback: callback
-        });
+                return _Class;
+
+            })())({
+                name: name,
+                duration: duration,
+                easing: easing,
+                callback: callback
+            });
     };
 
-    Level.prototype._setupLevelScenery = function () {
+    Level.prototype._setupLevelScenery = function() {
         var block, i, len, ref;
         if (this.currentScenery == null) {
             return;
@@ -174,16 +186,16 @@ Game.Level = (function() {
                 block.enter();
             }
         }
-        Crafty.bind('ViewportScroll', (function (_this) {
-            return function () {
+        Crafty.bind('ViewportScroll', (function(_this) {
+            return function() {
                 if (_this.lastUpdate - Crafty.viewport._x >= 300) {
                     _this._update();
                     return _this.lastUpdate = Crafty.viewport._x;
                 }
             };
         })(this));
-        Crafty.uniqueBind('LeaveBlock', (function (_this) {
-            return function (block) {
+        Crafty.uniqueBind('LeaveBlock', (function(_this) {
+            return function(block) {
                 var index;
                 index = _.indexOf(_this.blocks, block);
                 if (index > 0) {
@@ -193,8 +205,8 @@ Game.Level = (function() {
                 return _this._cleanupBuildBlocks();
             };
         })(this));
-        Crafty.uniqueBind('EnterBlock', (function (_this) {
-            return function (block) {
+        Crafty.uniqueBind('EnterBlock', (function(_this) {
+            return function(block) {
                 var index;
                 index = _.indexOf(_this.blocks, block);
                 if (index > 0) {
@@ -203,8 +215,8 @@ Game.Level = (function() {
                 return _this._handleSceneryEvents(block, 'enter');
             };
         })(this));
-        return Crafty.uniqueBind('PlayerEnterBlock', (function (_this) {
-            return function (block) {
+        return Crafty.uniqueBind('PlayerEnterBlock', (function(_this) {
+            return function(block) {
                 var index;
                 index = _.indexOf(_this.blocks, block);
                 if (index > 0) {
@@ -215,7 +227,7 @@ Game.Level = (function() {
         })(this));
     };
 
-    Level.prototype._handleSceneryEvents = function (block, eventType) {
+    Level.prototype._handleSceneryEvents = function(block, eventType) {
         var event, i, index, ref, results;
         if (block == null) {
             return;
@@ -235,7 +247,7 @@ Game.Level = (function() {
         return results;
     };
 
-    Level.prototype.notifyScenery = function (eventType, sceneryType, callback) {
+    Level.prototype.notifyScenery = function(eventType, sceneryType, callback) {
         return this.sceneryEvents.push({
             eventType: eventType,
             sceneryType: sceneryType,
@@ -243,7 +255,7 @@ Game.Level = (function() {
         });
     };
 
-    Level.prototype._placePlayerShips = function () {
+    Level.prototype._placePlayerShips = function() {
         var defaults, settings;
         defaults = {
             spawnPosition: {
@@ -257,18 +269,18 @@ Game.Level = (function() {
             title: ''
         };
         settings = _.defaults(this.data, defaults);
-        Crafty.one('ShipSpawned', (function (_this) {
-            return function () {
+        Crafty.one('ShipSpawned', (function(_this) {
+            return function() {
                 _this._playersActive = true;
                 return _this._scrollWall.scrollWall(_this._forcedSpeed);
             };
         })(this));
-        Crafty('Player').each(function (index) {
+        Crafty('Player').each(function(index) {
             var spawnPosition;
-            spawnPosition = function () {
+            spawnPosition = function() {
                 var pos;
                 pos = _.clone(settings.spawnPosition);
-                Crafty('PlayerControlledShip').each(function () {
+                Crafty('PlayerControlledShip').each(function() {
                     pos.x = this.x + settings.spawnOffset.x + Crafty.viewport.x;
                     return pos.y = this.y + settings.spawnOffset.y + Crafty.viewport.y;
                 });
@@ -277,8 +289,8 @@ Game.Level = (function() {
             this.addComponent('ShipSpawnable').spawnPosition(spawnPosition);
             return Crafty.e('PlayerInfo').playerInfo(30 + (index * (Crafty.viewport.width * .3)), this);
         });
-        Crafty.bind('ShipSpawned', (function (_this) {
-            return function (ship) {
+        Crafty.bind('ShipSpawned', (function(_this) {
+            return function(ship) {
                 var i, item, itemSettings, len, ref, results;
                 ship.forcedSpeed(_this._forcedSpeed, {
                     accellerate: false
@@ -300,39 +312,39 @@ Game.Level = (function() {
                 }
             };
         })(this));
-        return Crafty('Player ControlScheme').each(function () {
+        return Crafty('Player ControlScheme').each(function() {
             return this.spawnShip();
         });
     };
 
-    Level.prototype.inventory = function (name) {
+    Level.prototype.inventory = function(name) {
         this.invItems || (this.invItems = {});
         return this.invItems[name];
     };
 
-    Level.prototype.inventoryAdd = function (type, name, options) {
+    Level.prototype.inventoryAdd = function(type, name, options) {
         var base;
         this.invItems || (this.invItems = {});
         return (base = this.invItems)[name] || (base[name] = _.defaults(options, {
-            type: type,
-            contains: name
-        }));
+                type: type,
+                contains: name
+            }));
     };
 
-    Level.prototype.getShipType = function () {
+    Level.prototype.getShipType = function() {
         return this.shipType;
     };
 
-    Level.prototype.setShipType = function (shipType) {
+    Level.prototype.setShipType = function(shipType) {
         this.shipType = shipType;
-        return Crafty('Player ControlScheme').each(function () {
+        return Crafty('Player ControlScheme').each(function() {
             if (this.ship != null) {
                 return this.spawnShip();
             }
         });
     };
 
-    Level.prototype.setForcedSpeed = function (speed, options) {
+    Level.prototype.setForcedSpeed = function(speed, options) {
         var delta, ref, ref1;
         options = _.defaults(options, {
             accellerate: true
@@ -346,17 +358,17 @@ Game.Level = (function() {
         if (this._playersActive) {
             this._scrollWall.scrollWall(this._forcedSpeed, options);
         }
-        Crafty('Bullet').each(function () {
+        Crafty('Bullet').each(function() {
             return this.attr({
                 speed: this.speed + delta
             });
         });
-        return Crafty('PlayerControlledShip').each(function () {
+        return Crafty('PlayerControlledShip').each(function() {
             return this.forcedSpeed(speed, options);
         });
     };
 
-    Level.prototype.screenShake = function (amount, options) {
+    Level.prototype.screenShake = function(amount, options) {
         if (options == null) {
             options = {};
         }
@@ -366,7 +378,7 @@ Game.Level = (function() {
         return this._scrollWall.screenShake(amount, options.duration);
     };
 
-    Level.prototype.cameraPan = function (options) {
+    Level.prototype.cameraPan = function(options) {
         if (options == null) {
             options = {};
         }
@@ -378,14 +390,14 @@ Game.Level = (function() {
         return this._scrollWall.cameraPan(options);
     };
 
-    Level.prototype.setHeight = function (deltaY) {
+    Level.prototype.setHeight = function(deltaY) {
         this._scrollWall.setHeight(deltaY);
-        return Crafty('PlayerControlledShip').each(function () {
+        return Crafty('PlayerControlledShip').each(function() {
             return this.y += deltaY;
         });
     };
 
-    Level.prototype.setWeaponsEnabled = function (onOff, players) {
+    Level.prototype.setWeaponsEnabled = function(onOff, players) {
         var i, len, player;
         if (!((players != null) && !_.isEmpty(players))) {
             players = [1, 2];
@@ -397,7 +409,7 @@ Game.Level = (function() {
             player = players[i];
             this._weaponsEnabled[player] = onOff;
         }
-        return Crafty('PlayerControlledShip').each(function () {
+        return Crafty('PlayerControlledShip').each(function() {
             var ref;
             if (ref = this.playerNumber, indexOf.call(players, ref) >= 0) {
                 return this.weaponsEnabled = onOff;
@@ -405,14 +417,14 @@ Game.Level = (function() {
         });
     };
 
-    Level.prototype.getComponentOffset = function () {
+    Level.prototype.getComponentOffset = function() {
         return {
             x: this._scrollWall.x,
             y: this._scrollWall.y
         };
     };
 
-    Level.prototype.addComponent = function (c, relativePosition, offset) {
+    Level.prototype.addComponent = function(c, relativePosition, offset) {
         var block, position, ref;
         if (offset == null) {
             offset = null;
@@ -431,7 +443,7 @@ Game.Level = (function() {
         return block.add(position.x, position.y, c);
     };
 
-    Level.prototype.stop = function () {
+    Level.prototype.stop = function() {
         var b, i, len, ref, results;
         this.active = false;
         Crafty.unbind('LeaveBlock');
@@ -448,13 +460,13 @@ Game.Level = (function() {
         return results;
     };
 
-    Level.prototype.verify = function () {
+    Level.prototype.verify = function() {
         if (!this.active) {
             throw new Error('sequence mismatch');
         }
     };
 
-    Level.prototype._update = function () {
+    Level.prototype._update = function() {
         var counter, endX, overflowThreshold, results, startX;
         startX = -Crafty.viewport._x;
         endX = startX + this.bufferLength;
@@ -468,7 +480,7 @@ Game.Level = (function() {
         return results;
     };
 
-    Level.prototype._generateLevel = function () {
+    Level.prototype._generateLevel = function() {
         var blockKlass, blockType, next;
         blockType = this.namespace + "." + this.currentScenery;
         this._addBlockToLevel(blockType, {});
@@ -478,7 +490,7 @@ Game.Level = (function() {
         }
     };
 
-    Level.prototype._addBlockToLevel = function (blockType, settings) {
+    Level.prototype._addBlockToLevel = function(blockType, settings) {
         var block, klass;
         klass = this.generator.buildingBlocks[blockType];
         block = new klass(this, this.generator, settings);
@@ -490,7 +502,7 @@ Game.Level = (function() {
         };
     };
 
-    Level.prototype._insertBlockToLevel = function (blockType, settings) {
+    Level.prototype._insertBlockToLevel = function(blockType, settings) {
         var block, klass;
         klass = this.generator.buildingBlocks[blockType];
         if (klass == null) {
@@ -505,7 +517,7 @@ Game.Level = (function() {
         return block.build(this.generationPosition);
     };
 
-    Level.prototype._cleanupBuildBlocks = function () {
+    Level.prototype._cleanupBuildBlocks = function() {
         var first, results;
         first = this.blocks[0];
         results = [];
@@ -516,7 +528,7 @@ Game.Level = (function() {
         return results;
     };
 
-    Level.prototype._seedPreceedingGeometry = function () {
+    Level.prototype._seedPreceedingGeometry = function() {
         var blockKlass, blockType, next, p, prev;
         blockType = this.namespace + "." + this.currentScenery;
         blockKlass = this.generator.buildingBlocks[blockType];
@@ -533,14 +545,14 @@ Game.Level = (function() {
         return this.generationPosition = p;
     };
 
-    Level.prototype.loadAssets = function (names) {
+    Level.prototype.loadAssets = function(names) {
         return this.generator.loadAssets(names);
     };
 
-    Level.prototype.setStartWeapons = function (playerStartWeapons) {
+    Level.prototype.setStartWeapons = function(playerStartWeapons) {
         this.playerStartWeapons = playerStartWeapons;
     };
 
-
     return Level;
+
 })();

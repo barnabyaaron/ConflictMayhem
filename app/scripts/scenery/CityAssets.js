@@ -2,6 +2,27 @@
 
 generator = this.Game.levelGenerator;
 
+// generator.defineAssets('explosion', {
+//     contents: ['explosion'],
+//     spriteMap: 'explosion.png',
+//     sprites: {
+//         all: {
+//             tile: 96,
+//             tileh: 96,
+//             map: {
+//                 explosionStart: [0, 0]
+//             }
+//         }
+//     },
+//     audio: {
+//         explosion: ['explosion.ogg'],
+//         shoot: ['laser-shot.ogg'],
+//         hit: ['laser-hit.ogg'],
+//         powerup: ['powerup.ogg'],
+//         laugh: ['laugh.ogg']
+//     }
+// });
+
 generator.defineAssets('explosion', {
     contents: ['explosion'],
     spriteMap: 'explosion.png',
@@ -15,11 +36,9 @@ generator.defineAssets('explosion', {
         }
     },
     audio: {
-        explosion: ['explosion.ogg'],
-        shoot: ['laser-shot.ogg'],
-        hit: ['laser-hit.ogg'],
-        powerup: ['powerup.ogg'],
-        laugh: ['laugh.ogg']
+        explosion: ['explosion.mp3'],
+        shoot: ['sfx_laser1.mp3'],
+        powerup: ['powerup.mp3']
     }
 });
 
@@ -68,7 +87,10 @@ generator.defineAssets('portraits', {
             tileh: 32,
             map: {
                 pGeneral: [0, 0, 4, 4],
-                pPilot: [0, 4, 4, 4]
+                pPilot: [0, 4, 4, 4],
+                pProfessor: [0, 8, 4, 4],
+                pCharlie: [0, 16, 4, 4],
+                pPaul: [0, 12, 4, 4]
             }
         }
     }

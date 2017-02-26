@@ -1,9 +1,11 @@
-﻿var Game = this.Game;
+﻿var Game;
+
+Game = this.Game;
 
 Game.BezierPath = (function() {
-    function BezierPath() { }
+    function BezierPath() {}
 
-    BezierPath.prototype.scalePoints = function (points, arg) {
+    BezierPath.prototype.scalePoints = function(points, arg) {
         var i, j, len, o, origin, p, results, scale;
         origin = arg.origin, scale = arg.scale;
         o = {
@@ -21,7 +23,7 @@ Game.BezierPath = (function() {
         return results;
     };
 
-    BezierPath.prototype.buildPathFrom = function (points) {
+    BezierPath.prototype.buildPathFrom = function(points) {
         var a, b, c1, c2, curveDistance, curvePoints, dx, dy, firstControlPoints, i, j, k, pc, pn, ref, ref1, ref2, ref3, result, samplePoints, secondControlPoints, step;
         result = {
             distance: 0,
@@ -54,7 +56,7 @@ Game.BezierPath = (function() {
         return result;
     };
 
-    BezierPath.prototype.pointOnPath = function (path, location) {
+    BezierPath.prototype.pointOnPath = function(path, location) {
         var ci, curve, p, ref, v;
         ref = this.getCurveAndLocation(path, location), curve = ref[0], v = ref[1], ci = ref[2];
         p = jsBezier.pointOnCurve(curve.points, v);
@@ -62,7 +64,7 @@ Game.BezierPath = (function() {
         return p;
     };
 
-    BezierPath.prototype.angleOnPath = function (path, location) {
+    BezierPath.prototype.angleOnPath = function(path, location) {
         var angle, p1, p2;
         p1 = this.pointOnPath(path, Math.min(location, 0.99));
         p2 = this.pointOnPath(path, Math.min(location + 0.01, 1.0));
@@ -71,7 +73,7 @@ Game.BezierPath = (function() {
         return (angle + 360) % 360;
     };
 
-    BezierPath.prototype.getCurveAndLocation = function (path, location) {
+    BezierPath.prototype.getCurveAndLocation = function(path, location) {
         var currentCurve, curve, distance, partDistance, pastDistance, relDistance, v;
         distance = 0.0;
         currentCurve = 0;
@@ -89,7 +91,7 @@ Game.BezierPath = (function() {
         return [curve, v, currentCurve];
     };
 
-    BezierPath.prototype.getCurveControlPoints = function (points) {
+    BezierPath.prototype.getCurveControlPoints = function(points) {
         var firstControlPoints, i, j, n, ref, rhs, secondControlPoints, x, y;
         n = points.length - 1;
         if (n < 1) {
@@ -97,20 +99,20 @@ Game.BezierPath = (function() {
         }
         if (n === 1) {
             firstControlPoints = [
-              {
-                  x: (2.0 * points[0].x + points[1].x) / 3.0,
-                  y: (2.0 * points[0].y + points[1].y) / 3.0
-              }
+                {
+                    x: (2.0 * points[0].x + points[1].x) / 3.0,
+                    y: (2.0 * points[0].y + points[1].y) / 3.0
+                }
             ];
             secondControlPoints = [
-              {
-                  x: 2.0 * firstControlPoints[0].x - points[0].x,
-                  y: 2.0 * firstControlPoints[0].y - points[0].y
-              }
+                {
+                    x: 2.0 * firstControlPoints[0].x - points[0].x,
+                    y: 2.0 * firstControlPoints[0].y - points[0].y
+                }
             ];
             return [firstControlPoints, secondControlPoints];
         }
-        rhs = (function () {
+        rhs = (function() {
             var j, ref, results;
             results = [];
             for (i = j = 1, ref = n - 1; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
@@ -121,7 +123,7 @@ Game.BezierPath = (function() {
         rhs.unshift(points[0].x + 2.0 * points[1].x);
         rhs.push((8.0 * points[n - 1].x + points[n].x) / 2.0);
         x = this.getFirstControlPoints(rhs);
-        rhs = (function () {
+        rhs = (function() {
             var j, ref, results;
             results = [];
             for (i = j = 1, ref = n - 1; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
@@ -154,7 +156,7 @@ Game.BezierPath = (function() {
         return [firstControlPoints, secondControlPoints];
     };
 
-    BezierPath.prototype.getFirstControlPoints = function (rhs) {
+    BezierPath.prototype.getFirstControlPoints = function(rhs) {
         var b, i, j, k, n, ref, ref1, tmp, x;
         n = rhs.length;
         x = [];
@@ -174,4 +176,5 @@ Game.BezierPath = (function() {
     };
 
     return BezierPath;
+
 })();

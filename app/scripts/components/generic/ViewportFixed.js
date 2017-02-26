@@ -1,11 +1,11 @@
 ﻿Crafty.c('ViewportFixed', {
-    init: function () {
+    init: function() {
         this._initialViewport = {
             x: Crafty.viewport.x,
             y: Crafty.viewport.y
         };
-        return this.motion = Crafty.bind('CameraMove', (function (_this) {
-            return function (coords) {
+        return this.motion = Crafty.bind('CameraMove', (function(_this) {
+            return function(coords) {
                 var shiftedX, shiftedY;
                 shiftedX = _this._initialViewport.x + coords.x;
                 shiftedY = _this._initialViewport.y + coords.y;
@@ -24,7 +24,7 @@
             };
         })(this));
     },
-    remove: function () {
+    remove: function() {
         return Crafty.unbind('CameraMove', this.motion);
     }
 });

@@ -1,5 +1,5 @@
 ﻿var Game,
-  slice = [].slice;
+    slice = [].slice;
 
 Game = this.Game;
 
@@ -8,12 +8,12 @@ if (Game.ScriptModule == null) {
 }
 
 Game.ScriptModule.Level = {
-    placeSquad: function (scriptClass, settings) {
+    placeSquad: function(scriptClass, settings) {
         if (settings == null) {
             settings = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 var i, loadingAssets, options, ref, scripts, synchronizer;
                 _this._verify(sequence);
                 if (_this._skippingToCheckpoint()) {
@@ -32,7 +32,7 @@ Game.ScriptModule.Level = {
                     options.grid = new Game.LocationGrid(options.gridConfig);
                 }
                 settings.options = options;
-                scripts = (function () {
+                scripts = (function() {
                     var j, ref, results1;
                     results1 = [];
                     for (i = j = 0, ref = settings.amount; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
@@ -44,16 +44,16 @@ Game.ScriptModule.Level = {
                 if (((ref = scripts[0]) != null ? ref.assets : void 0) != null) {
                     loadingAssets = scripts[0].assets(_.clone(settings.options))(sequence);
                 }
-                return loadingAssets.then(function () {
+                return loadingAssets.then(function() {
                     var promises, script;
-                    promises = (function () {
+                    promises = (function() {
                         var j, len, results1;
                         results1 = [];
                         for (i = j = 0, len = scripts.length; j < len; i = ++j) {
                             script = scripts[i];
-                            results1.push((function (_this) {
-                                return function (script, i) {
-                                    return _this.wait(i * settings.delay)(sequence).then(function () {
+                            results1.push((function(_this) {
+                                return function(script, i) {
+                                    return _this.wait(i * settings.delay)(sequence).then(function() {
                                         var s;
                                         _this._verify(sequence);
                                         s = _.clone(settings.options);
@@ -65,7 +65,7 @@ Game.ScriptModule.Level = {
                         }
                         return results1;
                     }).call(_this);
-                    return WhenJS.all(promises).then(function (results) {
+                    return WhenJS.all(promises).then(function(results) {
                         var alive, allKilled, j, killedAt, lastKilled, lastLocation, len, location, ref1;
                         _this.attackWaveResults = (_this.attackWaveResults || []).concat(results);
                         allKilled = true;
@@ -103,18 +103,18 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    attackWaves: function (promise, settings) {
+    attackWaves: function(promise, settings) {
         if (settings == null) {
             settings = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 if (_this._skippingToCheckpoint()) {
                     return WhenJS();
                 }
                 _this.attackWaveResults = [];
-                return promise(sequence).then(function () {
+                return promise(sequence).then(function() {
                     var alive, allKilled, j, killedAt, lastKilled, lastLocation, len, location, ref, ref1;
                     allKilled = true;
                     lastLocation = null;
@@ -143,7 +143,7 @@ Game.ScriptModule.Level = {
                         if (settings.drop) {
                             return _this.drop({
                                 item: settings.drop,
-                                location: function () {
+                                location: function() {
                                     return lastLocation;
                                 }
                             })(sequence);
@@ -153,12 +153,12 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    say: function (speaker, text, options) {
+    say: function(speaker, text, options) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 if (_this._skippingToCheckpoint()) {
                     return WhenJS();
@@ -176,16 +176,16 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    drop: function (options) {
-        return (function (_this) {
-            return function (sequence) {
+    drop: function(options) {
+        return (function(_this) {
+            return function(sequence) {
                 var coords, d, item, itemSettings, player, pos, ship;
                 _this._verify(sequence);
                 if (_this._skippingToCheckpoint()) {
                     return WhenJS();
                 }
                 itemSettings = _this.inventory(options.item);
-                item = function () {
+                item = function() {
                     return Crafty.e('PowerUp').powerUp(itemSettings);
                 };
                 if (!itemSettings) {
@@ -204,7 +204,7 @@ Game.ScriptModule.Level = {
                     } else {
                         if (!player.gameOver) {
                             d = WhenJS.defer();
-                            player.entity.one('ShipSpawned', function (ship) {
+                            player.entity.one('ShipSpawned', function(ship) {
                                 _this.level.addComponent(item().attr({
                                     z: -1
                                 }), {
@@ -234,25 +234,25 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    player: function (nr) {
+    player: function(nr) {
         var active, key, players;
         players = {};
         active = [];
-        Crafty('Player').each(function () {
+        Crafty('Player').each(function() {
             return players[this.name] = {
                 name: this.name,
                 entity: this,
                 active: false,
                 gameOver: false,
-                has: function (item) {
+                has: function(item) {
                     var ref;
                     return (ref = this.ship()) != null ? ref.hasItem(item) : void 0;
                 },
-                ship: function () {
+                ship: function() {
                     var _this, ship;
                     _this = this;
                     ship = null;
-                    Crafty('Player ControlScheme').each(function () {
+                    Crafty('Player ControlScheme').each(function() {
                         if (this.name === _this.name) {
                             return ship = this.ship;
                         }
@@ -261,7 +261,7 @@ Game.ScriptModule.Level = {
                 }
             };
         });
-        Crafty('Player ControlScheme').each(function () {
+        Crafty('Player ControlScheme').each(function() {
             players[this.name].active = true;
             if (this.lives > 0) {
                 return active.push(this.name);
@@ -273,9 +273,9 @@ Game.ScriptModule.Level = {
         key = nr === 'anyActive' ? _.sample(active) : "Player " + nr;
         return players[key];
     },
-    setScenery: function (scenery) {
-        return (function (_this) {
-            return function (sequence) {
+    setScenery: function(scenery) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 if (_this._skippingToCheckpoint()) {
                     return WhenJS();
@@ -284,12 +284,12 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    waitForScenery: function (sceneryType, options) {
+    waitForScenery: function(sceneryType, options) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 var d;
                 _this._verify(sequence);
                 options = _.defaults(options, {
@@ -299,16 +299,16 @@ Game.ScriptModule.Level = {
                     return WhenJS();
                 }
                 d = WhenJS.defer();
-                _this.level.notifyScenery(options.event, sceneryType, function () {
+                _this.level.notifyScenery(options.event, sceneryType, function() {
                     return d.resolve();
                 });
                 return d.promise;
             };
         })(this);
     },
-    gainHeight: function (height, options) {
-        return (function (_this) {
-            return function (sequence) {
+    gainHeight: function(height, options) {
+        return (function(_this) {
+            return function(sequence) {
                 var currentSpeed, d, duration, level, ref, ref1, speedY;
                 _this._verify(sequence);
                 d = WhenJS.defer();
@@ -325,7 +325,7 @@ Game.ScriptModule.Level = {
                         accellerate: false
                     });
                     level = _this.level;
-                    Crafty.e('Delay').delay(function () {
+                    Crafty.e('Delay').delay(function() {
                         level.setForcedSpeed(currentSpeed, {
                             accellerate: false
                         });
@@ -336,12 +336,12 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    setSpeed: function (speed, options) {
+    setSpeed: function(speed, options) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 options = _.defaults(options, {
                     accellerate: true
@@ -350,32 +350,32 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    disableWeapons: function () {
+    disableWeapons: function() {
         var players;
         players = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 return _this.level.setWeaponsEnabled(false, players);
             };
         })(this);
     },
-    enableWeapons: function () {
+    enableWeapons: function() {
         var players;
         players = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 return _this.level.setWeaponsEnabled(true, players);
             };
         })(this);
     },
-    blast: function (location, options, frameOptions) {
+    blast: function(location, options, frameOptions) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 var e, ref, ref1, x, y;
                 _this._verify(sequence);
                 ref = location(), x = ref.x, y = ref.y;
@@ -412,26 +412,26 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    loadAssets: function () {
+    loadAssets: function() {
         var names;
         names = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 return _this.level.loadAssets(names);
             };
         })(this);
     },
-    updateTitle: function (text) {
-        return (function (_this) {
-            return function (sequence) {
+    updateTitle: function(text) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 return Crafty('LevelTitle').text(text);
             };
         })(this);
     },
-    chapterTitle: function (number, text) {
-        return (function (_this) {
-            return function (sequence) {
+    chapterTitle: function(number, text) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 Crafty('LevelTitle').text(number + ": " + text);
                 if (_this._skippingToCheckpoint()) {
@@ -443,12 +443,12 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    showText: function (text, options) {
+    showText: function(text, options) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 if (_this._skippingToCheckpoint()) {
                     return WhenJS();
@@ -457,11 +457,11 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    pickTarget: function (selection) {
-        return (function (_this) {
-            return function (sequence) {
+    pickTarget: function(selection) {
+        return (function(_this) {
+            return function(sequence) {
                 var pickTarget, refreshTarget;
-                pickTarget = function (selection) {
+                pickTarget = function(selection) {
                     var entities;
                     entities = Crafty(selection);
                     if (entities.length === 0) {
@@ -469,12 +469,12 @@ Game.ScriptModule.Level = {
                     }
                     return entities.get(Math.floor(Math.random() * entities.length));
                 };
-                refreshTarget = function (ship) {
+                refreshTarget = function(ship) {
                     _this.target = {
                         x: ship.x,
                         y: ship.y
                     };
-                    return Crafty.one('ShipSpawned', function (ship) {
+                    return Crafty.one('ShipSpawned', function(ship) {
                         _this.target = pickTarget(selection);
                         return _this.target.one('Destroyed', refreshTarget);
                     });
@@ -486,12 +486,12 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    targetLocation: function (override) {
+    targetLocation: function(override) {
         if (override == null) {
             override = {};
         }
-        return (function (_this) {
-            return function () {
+        return (function(_this) {
+            return function() {
                 var hasX, hasY, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7;
                 if ((override.x != null) && ((-1 < (ref = override.x) && ref < 2))) {
                     override.x *= Crafty.viewport.width;
@@ -511,25 +511,25 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    changeSeaLevel: function (offsetY) {
-        return (function (_this) {
-            return function (sequence) {
+    changeSeaLevel: function(offsetY) {
+        return (function(_this) {
+            return function(sequence) {
                 var level;
                 _this._verify(sequence);
                 _this.level.sealevelOffset = offsetY;
                 level = _this.level;
-                return Crafty('WaterSplashes').each(function () {
+                return Crafty('WaterSplashes').each(function() {
                     return this.setSealevel((Crafty.viewport.height - 20) + level.sealevelOffset);
                 });
             };
         })(this);
     },
-    screenShake: function (amount, options) {
+    screenShake: function(amount, options) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 options = _.defaults(options, {
                     duration: 1000
@@ -539,12 +539,12 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    screenFlash: function (amount, options) {
+    screenFlash: function(amount, options) {
         if (options == null) {
             options = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 var defer, flasher;
                 _this._verify(sequence);
                 options = _.defaults(options, {
@@ -557,16 +557,16 @@ Game.ScriptModule.Level = {
                 defer = WhenJS.defer();
                 flasher.attr({
                     alpha: 0
-                }).color(options.color).delay(function () {
+                }).color(options.color).delay(function() {
                     this.attr({
                         alpha: options.alpha
                     });
-                    return this.delay(function () {
+                    return this.delay(function() {
                         return this.attr({
                             alpha: 0
                         });
                     }, options.duration);
-                }, options.pauses, amount, function () {
+                }, options.pauses, amount, function() {
                     this.attr({
                         alpha: 0
                     });
@@ -576,24 +576,24 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    moveCamera: function (settings) {
+    moveCamera: function(settings) {
         if (settings == null) {
             settings = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this.level.cameraPan(settings);
                 return _this.wait(settings.duration)(sequence);
             };
         })(this);
     },
-    setWeapons: function (newWeapons) {
-        return (function (_this) {
-            return function (sequence) {
+    setWeapons: function(newWeapons) {
+        return (function(_this) {
+            return function(sequence) {
                 var self;
                 _this._verify(sequence);
                 self = _this;
-                Crafty('PlayerControlledShip').each(function () {
+                Crafty('PlayerControlledShip').each(function() {
                     var item, itemSettings, j, len, results1;
                     this.clearItems();
                     results1 = [];
@@ -608,9 +608,9 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    inventory: function (name) {
+    inventory: function(name) {
         if (name === 'pool') {
-            Crafty('Player').each(function () {
+            Crafty('Player').each(function() {
                 if (this.eligibleForExtraLife() && name === 'pool') {
                     name = 'life';
                     return this.rewardExtraLife();
@@ -622,20 +622,20 @@ Game.ScriptModule.Level = {
         }
         return this.level.inventory(name);
     },
-    inventoryAdd: function (type, name, options) {
+    inventoryAdd: function(type, name, options) {
         return this.level.inventoryAdd(type, name, options);
     },
-    setPowerupPool: function () {
+    setPowerupPool: function() {
         var powerups;
         powerups = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 return _this.powerupPool = _.shuffle(powerups);
             };
         })(this);
     },
-    hideHud: function (settings) {
+    hideHud: function(settings) {
         if (settings == null) {
             settings = {};
         }
@@ -644,7 +644,7 @@ Game.ScriptModule.Level = {
         });
         return this.toggleHud(settings);
     },
-    showHud: function (settings) {
+    showHud: function(settings) {
         if (settings == null) {
             settings = {};
         }
@@ -653,17 +653,17 @@ Game.ScriptModule.Level = {
         });
         return this.toggleHud(settings);
     },
-    toggleHud: function (settings) {
+    toggleHud: function(settings) {
         if (settings == null) {
             settings = {};
         }
-        return (function (_this) {
-            return function (sequence) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 settings = _.defaults(settings, {
                     duration: 1000
                 });
-                Crafty('UILayerDOM, UILayerWebGL').each(function () {
+                Crafty('UILayerDOM, UILayerWebGL').each(function() {
                     this.addComponent('Tween');
                     if (this.visible && settings.visible) {
                         return this.tween({
@@ -675,43 +675,43 @@ Game.ScriptModule.Level = {
                         }, settings.duration);
                     }
                 });
-                return _this.wait(settings.duration)(sequence).then(function () {
-                    return Crafty('PlayerInfo').each(function () {
+                return _this.wait(settings.duration)(sequence).then(function() {
+                    return Crafty('PlayerInfo').each(function() {
                         return this.setVisibility(settings.visible);
                     });
                 });
             };
         })(this);
     },
-    setShipType: function (newType) {
-        return (function (_this) {
-            return function (sequence) {
+    setShipType: function(newType) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 return _this.level.setShipType(newType);
             };
         })(this);
     },
-    endGame: function () {
-        return (function (_this) {
-            return function (sequence) {
+    endGame: function() {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 return _this.gotoGameOver = true;
             };
         })(this);
     },
-    disableControls: function () {
-        return (function (_this) {
-            return function (sequence) {
+    disableControls: function() {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
-                return Crafty('PlayerControlledShip').each(function () {
+                return Crafty('PlayerControlledShip').each(function() {
                     return this.disableControl();
                 });
             };
         })(this);
     },
-    screenFadeOut: function () {
-        return (function (_this) {
-            return function (sequence) {
+    screenFadeOut: function() {
+        return (function(_this) {
+            return function(sequence) {
                 var defer, fader;
                 _this._verify(sequence);
                 fader = _this._fader();
@@ -720,16 +720,16 @@ Game.ScriptModule.Level = {
                     alpha: 0
                 }).color('#000000').tween({
                     alpha: 1
-                }, 4000).bind('TweenEnd', function () {
+                }, 4000).bind('TweenEnd', function() {
                     return defer.resolve();
                 });
                 return defer.promise;
             };
         })(this);
     },
-    screenFadeIn: function () {
-        return (function (_this) {
-            return function (sequence) {
+    screenFadeIn: function() {
+        return (function(_this) {
+            return function(sequence) {
                 var defer, fader;
                 _this._verify(sequence);
                 fader = _this._fader();
@@ -738,7 +738,7 @@ Game.ScriptModule.Level = {
                     alpha: 1
                 }).color('#000000').tween({
                     alpha: 0
-                }, 4000).bind('TweenEnd', function () {
+                }, 4000).bind('TweenEnd', function() {
                     this.destroy();
                     return defer.resolve();
                 });
@@ -746,16 +746,16 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    cancelBullets: function (selector, validator) {
-        return (function (_this) {
-            return function (sequence) {
+    cancelBullets: function(selector, validator) {
+        return (function(_this) {
+            return function(sequence) {
                 _this._verify(sequence);
                 if (validator == null) {
-                    validator = function (e) {
+                    validator = function(e) {
                         return true;
                     };
                 }
-                return Crafty(selector).each(function () {
+                return Crafty(selector).each(function() {
                     if (validator(this)) {
                         return this.destroy();
                     }
@@ -763,7 +763,7 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    _fader: function () {
+    _fader: function() {
         var fader;
         fader = Crafty('ScreenFader').get(0);
         if (fader == null) {

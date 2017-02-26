@@ -1,5 +1,5 @@
 ﻿var Game,
-  indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 Game = this.Game;
 
@@ -10,21 +10,21 @@ Game.LevelGenerator = (function() {
         this.assets = {};
     }
 
-    LevelGenerator.prototype.defineBlock = function (klass) {
+    LevelGenerator.prototype.defineBlock = function(klass) {
         return this.buildingBlocks[klass.prototype.name] = klass;
     };
 
-    LevelGenerator.prototype.defineElement = function (name, constructor) {
+    LevelGenerator.prototype.defineElement = function(name, constructor) {
         return this.elements[name] = constructor;
     };
 
-    LevelGenerator.prototype.defineAssets = function (name, object) {
+    LevelGenerator.prototype.defineAssets = function(name, object) {
         return this.assets[name] = object;
     };
 
-    LevelGenerator.prototype.loadAssets = function (names) {
+    LevelGenerator.prototype.loadAssets = function(names) {
         var name, p;
-        p = (function () {
+        p = (function() {
             var i, len, results;
             results = [];
             for (i = 0, len = names.length; i < len; i++) {
@@ -36,7 +36,7 @@ Game.LevelGenerator = (function() {
         return WhenJS.all(p);
     };
 
-    LevelGenerator.prototype._loadAssetMap = function (name) {
+    LevelGenerator.prototype._loadAssetMap = function(name) {
         var assetMap, assetName, assetObject, d, items, mapping, obj, object, queue, ref, sprite;
         if (this.entityAssets == null) {
             this.entityAssets = {};
@@ -63,7 +63,7 @@ Game.LevelGenerator = (function() {
             promise: d.promise
         };
         sprite = assetObject.spriteMap;
-        queue = (function () {
+        queue = (function() {
             var ref1, results;
             ref1 = assetObject.sprites;
             results = [];
@@ -78,7 +78,7 @@ Game.LevelGenerator = (function() {
             return results;
         })();
         queue[0].audio = assetObject.audio;
-        Crafty.load(queue.pop(), function () {
+        Crafty.load(queue.pop(), function() {
             var current, fileUrl;
             while (queue.length > 0) {
                 current = queue.pop().sprites[sprite];
@@ -90,7 +90,7 @@ Game.LevelGenerator = (function() {
         return d.promise;
     };
 
-    LevelGenerator.prototype.createLevel = function (data) {
+    LevelGenerator.prototype.createLevel = function(data) {
         if (data == null) {
             data = {
                 namespace: 'City'
@@ -100,5 +100,7 @@ Game.LevelGenerator = (function() {
     };
 
     return LevelGenerator;
+
 })();
+
 Game.levelGenerator = new Game.LevelGenerator;

@@ -1,5 +1,5 @@
 ﻿var Game,
-  slice = [].slice;
+    slice = [].slice;
 
 Game = this.Game;
 
@@ -14,22 +14,22 @@ Game.LevelScenery = (function() {
         this.createdBindings = [];
     }
 
-    LevelScenery.prototype.loadAssets = function () {
+    LevelScenery.prototype.loadAssets = function() {
         var d, obj;
         obj = typeof this.assets === "function" ? this.assets() : void 0;
         if (obj == null) {
             return WhenJS();
         }
         d = WhenJS.defer();
-        Crafty.load(obj, ((function (_this) {
-            return function () {
+        Crafty.load(obj, ((function(_this) {
+            return function() {
                 return d.resolve();
             };
         })(this)));
         return d.promise;
     };
 
-    LevelScenery.prototype.build = function (pos) {
+    LevelScenery.prototype.build = function(pos) {
         if (this.generated) {
             return;
         }
@@ -44,7 +44,7 @@ Game.LevelScenery = (function() {
         return this._notifyEnterFunction(this.notifyOffsetX);
     };
 
-    LevelScenery.prototype._notifyEnterFunction = function (offsetX) {
+    LevelScenery.prototype._notifyEnterFunction = function(offsetX) {
         var block;
         if (offsetX == null) {
             offsetX = 0;
@@ -55,58 +55,58 @@ Game.LevelScenery = (function() {
             y: this.y,
             w: 10,
             h: 800
-        }).onHit('ScrollFront', function () {
+        }).onHit('ScrollFront', function() {
             if (!this.triggeredFront) {
                 Crafty.trigger('EnterBlock', block);
                 return this.triggeredFront = true;
             }
-        }).onHit('PlayerControlledShip', function () {
+        }).onHit('PlayerControlledShip', function() {
             if (!this.triggeredPlayerFront) {
                 Crafty.trigger('PlayerEnterBlock', block);
                 return this.triggeredPlayerFront = true;
             }
-        }).onHit('ScrollWall', function () {
+        }).onHit('ScrollWall', function() {
             Crafty.trigger('LeaveBlock', block);
             return this.destroy();
         });
     };
 
-    LevelScenery.prototype.generate = function () {
+    LevelScenery.prototype.generate = function() {
         var ref;
         return (ref = this.settings.generate) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.enter = function () {
+    LevelScenery.prototype.enter = function() {
         var ref;
         return (ref = this.settings.enter) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.playerEnter = function () {
+    LevelScenery.prototype.playerEnter = function() {
         var ref;
         return (ref = this.settings.playerEnter) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.playerLeave = function () {
+    LevelScenery.prototype.playerLeave = function() {
         var ref;
         return (ref = this.settings.playerLeave) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.inScreen = function () {
+    LevelScenery.prototype.inScreen = function() {
         var ref;
         return (ref = this.settings.inScreen) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.outScreen = function () {
+    LevelScenery.prototype.outScreen = function() {
         var ref;
         return (ref = this.settings.outScreen) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.leave = function () {
+    LevelScenery.prototype.leave = function() {
         var ref;
         return (ref = this.settings.leave) != null ? ref.apply(this) : void 0;
     };
 
-    LevelScenery.prototype.clean = function () {
+    LevelScenery.prototype.clean = function() {
         var b, e, i, j, len, len1, ref, ref1;
         ref = this.createdElements;
         for (i = 0, len = ref.length; i < len; i++) {
@@ -122,7 +122,7 @@ Game.LevelScenery = (function() {
         return this.createdBindings = [];
     };
 
-    LevelScenery.prototype.add = function (x, y, element) {
+    LevelScenery.prototype.add = function(x, y, element) {
         element.attr({
             x: this.x + x,
             y: this.y + y
@@ -130,7 +130,7 @@ Game.LevelScenery = (function() {
         return this.createdElements.push(element);
     };
 
-    LevelScenery.prototype.addBackground = function (x, y, element, speed) {
+    LevelScenery.prototype.addBackground = function(x, y, element, speed) {
         element.addComponent('ViewportRelativeMotion').viewportRelativeMotion({
             x: this.x + x,
             y: this.y + y,
@@ -139,13 +139,13 @@ Game.LevelScenery = (function() {
         return this.createdElements.push(element);
     };
 
-    LevelScenery.prototype.addElement = function () {
+    LevelScenery.prototype.addElement = function() {
         var args, name;
         name = arguments[0], args = 2 <= arguments.length ? slice.call(arguments, 1) : [];
         return this.generator.elements[name].apply(this, args);
     };
 
-    LevelScenery.prototype.bind = function (event, options, callback) {
+    LevelScenery.prototype.bind = function(event, options, callback) {
         if (_.isFunction(options) && callback === void 0) {
             callback = options;
             options = {};
@@ -161,7 +161,7 @@ Game.LevelScenery = (function() {
         }
     };
 
-    LevelScenery.prototype.unbind = function (event) {
+    LevelScenery.prototype.unbind = function(event) {
         var b, i, len, ref, unbound;
         unbound = [];
         ref = this.createdBindings;
@@ -176,7 +176,7 @@ Game.LevelScenery = (function() {
         return this.createdBindings = _.without.apply(_, [this.createdBindings].concat(slice.call(unbound)));
     };
 
-    LevelScenery.prototype.canCleanup = function () {
+    LevelScenery.prototype.canCleanup = function() {
         var cameraX, elem, i, len, ref;
         cameraX = Crafty.viewport._x * -1;
         if ((this.x + this.delta.x) > cameraX) {
@@ -193,4 +193,5 @@ Game.LevelScenery = (function() {
     };
 
     return LevelScenery;
+
 })();

@@ -13,8 +13,7 @@ Crafty.defineScene('Story',
             data = {};
         }
 
-        Crafty.background('#000000');
-        Game.backgroundColor = null;
+        Game.background= null;
         level = Game.levelGenerator.createLevel();
 
         Crafty.createLayer('UILayerDOM', 'DOM', {
@@ -55,7 +54,7 @@ Crafty.defineScene('Story',
         options = {
             startAtCheckpoint: (ref = data.checkpoint) != null ? ref : 0
         };
-        startScript = (ref1 = data != null ? data.script : void 0) != null ? ref1 : 'Stage1';
+        startScript = (ref1 = data != null ? data.script : void 0) != null ? ref1 : 'Level1';
         if (data.checkpoint) {
             label = "Checkpoint " + data.checkpoint;
             if (typeof window.ga === "function") {

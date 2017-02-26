@@ -58,7 +58,7 @@ Game.PauseMenu = (function() {
                   Crafty('Player').each(function () {
                       return this.reset();
                   });
-                  return Crafty.enterScene('Intro');
+                  return Crafty.enterScene('mainmenu');
               }
           }
         ]);

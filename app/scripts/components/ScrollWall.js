@@ -1,5 +1,5 @@
 ﻿Crafty.c('ScrollWall', {
-    init: function () {
+    init: function() {
         this.requires('2D, Edge, Collision, Acceleration');
         this.shakes = [];
         this.motions = [];
@@ -34,7 +34,7 @@
             w: Crafty.viewport.width
         });
         this.attach(this.wallBottom);
-        return this.bind('GameLoop', function (fd) {
+        return this.bind('GameLoop', function(fd) {
             var cameraPan, coords, coordsAfter, coordsBefore, deltaX, deltaY, i, index, j, motion, ref, ref1, shake, speedX, speedY, x, xShift, y, yShift;
             speedX = this._currentSpeed.x;
             speedY = this._currentSpeed.y;
@@ -95,7 +95,7 @@
             });
         });
     },
-    screenShake: function (amount, duration) {
+    screenShake: function(amount, duration) {
         return this.shakes.push({
             amount: amount,
             duration: duration,
@@ -104,7 +104,7 @@
             easing: new Crafty.easing(duration, 'linear'),
             startX: Math.random() > 0.5 ? -1 : 1,
             startY: Math.random() > 0.5 ? -1 : 1,
-            coords: function (v) {
+            coords: function(v) {
                 var shakeX, shakeY;
                 shakeX = Math.cos((Math.PI / 2) + (v * this.shakeX * (Math.PI / 2)));
                 shakeY = Math.cos((Math.PI / 2) + (v * this.shakeY * (Math.PI / 2)));
@@ -112,35 +112,35 @@
             }
         });
     },
-    cameraPan: function (options) {
+    cameraPan: function(options) {
         var ref, ref1;
         return this.motions.push({
             easing: new Crafty.easing(options.duration, 'easeInOutQuad'),
             x: (ref = options.x) != null ? ref : 0,
             y: (ref1 = options.y) != null ? ref1 : 0,
-            coords: function (v) {
+            coords: function(v) {
                 return [this.x * v, this.y * v];
             }
         });
     },
-    scrollWall: function (speed, options) {
+    scrollWall: function(speed, options) {
         if (options == null) {
             options = {};
         }
         return this.targetSpeed(speed, options);
     },
-    setHeight: function (deltaY) {
+    setHeight: function(deltaY) {
         this.y += deltaY;
         return Crafty.viewport.y = -this.y;
     },
-    setAllowPushing: function (allowPushing) {
+    setAllowPushing: function(allowPushing) {
         this.allowPushing = allowPushing;
     },
-    off: function () {
+    off: function() {
         this.wallEnd.removeComponent('Edge');
         return this.unbind('GameLoop');
     },
-    remove: function () {
+    remove: function() {
         return this.unbind('GameLoop');
     }
 });

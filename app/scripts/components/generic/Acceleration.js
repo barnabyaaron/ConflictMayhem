@@ -1,5 +1,5 @@
 ﻿Crafty.c('Acceleration', {
-    init: function () {
+    init: function() {
         this._currentSpeed = {
             x: 0,
             y: 0
@@ -17,11 +17,11 @@
             y: 0
         };
     },
-    updateAcceleration: function () {
+    updateAcceleration: function() {
         this._handleAcceleration('x');
         return this._handleAcceleration('y');
     },
-    targetSpeed: function (speed, options) {
+    targetSpeed: function(speed, options) {
         if (options == null) {
             options = {};
         }
@@ -48,7 +48,7 @@
         }
         return this;
     },
-    _handleAcceleration: function (axis) {
+    _handleAcceleration: function(axis) {
         var a;
         if (this._currentSpeed[axis] === this._targetSpeed[axis]) {
             return;
