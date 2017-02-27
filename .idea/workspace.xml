@@ -2,35 +2,132 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fdd1717-a1ed-4618-ba6b-bd488bf135e4" name="Default" comment="Working Story mode, requires tweaking.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/components/entities/VIP.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/scenes/story_intro.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/level1.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/level1/vip.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/test.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/images/portraits.png" afterPath="$PROJECT_DIR$/app/images/portraits.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/professor_charlie_sheet.png" afterPath="$PROJECT_DIR$/app/images/sprites/portraits/professor_charlie_sheet.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/comingsoon.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/portraits.psd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/space_assets.psd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/alien1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/alien2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/alien3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/alien_explosion.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/alien_shot.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/city-enemies.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_10.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_12.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_13.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_14.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_15.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_16.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_7.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_8.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/blue_explosion/1_9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/explosion-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/explosion-2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/explosion-3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/explosion-4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/explosion-5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/explosion-6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire00.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire01.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire02.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire03.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire04.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire05.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire06.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire07.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire08.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire09.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire10.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire12.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire13.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire14.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire15.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire16.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire17.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire18.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/fire19.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_10.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_11.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_12.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_13.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_14.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_15.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_16.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_6.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_7.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_8.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/red_explosion/1_9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/shield1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/shield2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/shield3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/speed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/star1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/star2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/effects/star3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/boss/frank_boss.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/boss/invaders_boss1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/boss/invaders_boss2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/boss/large_boss1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/custom_aliens/fat-paul.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/custom_invaders.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/enemies_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/invaders_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/lasers_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/objects_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/player/player_red.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/player/player_red_left.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/player/player_red_right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/player_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/entities/power_up_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/explosion.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/player_base.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/player_cannon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/player_explosion.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/player_life.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/charlie_sprite.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/paul_sprite.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/portraits.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/portraits_map.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/professor_charlie_cropped_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/portraits/professor_charlie_sheet.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/shell.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/shield.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/spaceship.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/sprites/spaceship_explosion.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/ui/player_interface.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/images/ui/score_bar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/demo_boss.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/little_dancer.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/sine.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/assets.js" afterPath="$PROJECT_DIR$/app/scripts/assets.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/ScrollWall.js" afterPath="$PROJECT_DIR$/app/scripts/components/ScrollWall.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/generic/Acceleration.js" afterPath="$PROJECT_DIR$/app/scripts/components/generic/Acceleration.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/generic/Choreography.js" afterPath="$PROJECT_DIR$/app/scripts/components/generic/Choreography.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/generic/ViewportFixed.js" afterPath="$PROJECT_DIR$/app/scripts/components/generic/ViewportFixed.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/generic/ViewportRelativeMotion.js" afterPath="$PROJECT_DIR$/app/scripts/components/generic/ViewportRelativeMotion.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/player/PlayerSpaceship.js" afterPath="$PROJECT_DIR$/app/scripts/components/player/PlayerSpaceship.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/BezierPath.js" afterPath="$PROJECT_DIR$/app/scripts/ext/BezierPath.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/Dialog.js" afterPath="$PROJECT_DIR$/app/scripts/ext/Dialog.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/Level.js" afterPath="$PROJECT_DIR$/app/scripts/ext/Level.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/LevelGenerator.js" afterPath="$PROJECT_DIR$/app/scripts/ext/LevelGenerator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/LevelScenery.js" afterPath="$PROJECT_DIR$/app/scripts/ext/LevelScenery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/PauseMenu.js" afterPath="$PROJECT_DIR$/app/scripts/ext/PauseMenu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ext/script_modules/level.js" afterPath="$PROJECT_DIR$/app/scripts/ext/script_modules/level.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/game.js" afterPath="$PROJECT_DIR$/app/scripts/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/scenery/City.js" afterPath="$PROJECT_DIR$/app/scripts/scenery/City.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/scenery/CityAssets.js" afterPath="$PROJECT_DIR$/app/scripts/scenery/CityAssets.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/scenes/mainmenu.js" afterPath="$PROJECT_DIR$/app/scripts/scenes/mainmenu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/scenes/story.js" afterPath="$PROJECT_DIR$/app/scripts/scenes/story.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/classic.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/classic.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/stage1.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/stage1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/scenes/gameover.js" afterPath="$PROJECT_DIR$/app/scripts/scenes/gameover.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/scenes/story_intro.js" afterPath="$PROJECT_DIR$/app/scripts/scenes/story_intro.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/level1.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/level1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/stage1/army_drone.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/stage1/army_drone.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/stage1end.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/stage1end.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_leave_screen.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/presentation_leave_screen.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_shooter.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/presentation_shooter.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_sunrise.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/presentation_sunrise.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_sunset.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/presentation_sunset.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_swirler.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/presentation_swirler.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/slider.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/slider.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/scripts/storyscripts/demo/splash_jumper.js" afterPath="$PROJECT_DIR$/app/scripts/storyscripts/general/splash_jumper.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,7 +144,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -68,10 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/scripts/storyscripts/stage2.js" />
-        <option value="$PROJECT_DIR$/app/scripts/storyscripts/demo/little_dancer.js" />
-        <option value="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_leave_screen.js" />
-        <option value="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_shooter.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_sunrise.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_sunset.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_swirler.js" />
@@ -93,7 +186,6 @@
         <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/scripts/ext/Dialog.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/classic.js" />
-        <option value="$PROJECT_DIR$/app/scripts/assets.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/stage1.js" />
         <option value="$PROJECT_DIR$/app/scripts/scenes/mainmenu.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/test.js" />
@@ -114,11 +206,16 @@
         <option value="$PROJECT_DIR$/app/scripts/components/generic/Choreography.js" />
         <option value="$PROJECT_DIR$/app/scripts/components/generic/ViewportFixed.js" />
         <option value="$PROJECT_DIR$/app/scripts/components/generic/ViewportRelativeMotion.js" />
-        <option value="$PROJECT_DIR$/app/scripts/scenes/story_intro.js" />
         <option value="$PROJECT_DIR$/app/scripts/components/entities/VIP.js" />
         <option value="$PROJECT_DIR$/app/scripts/storyscripts/level1/vip.js" />
-        <option value="$PROJECT_DIR$/app/scripts/storyscripts/level1.js" />
         <option value="$PROJECT_DIR$/app/scripts/ext/PauseMenu.js" />
+        <option value="$PROJECT_DIR$/app/scripts/assets.js" />
+        <option value="$PROJECT_DIR$/app/scripts/storyscripts/stage1/army_drone.js" />
+        <option value="$PROJECT_DIR$/app/scripts/scenes/story_intro.js" />
+        <option value="$PROJECT_DIR$/app/scripts/storyscripts/stage1end.js" />
+        <option value="$PROJECT_DIR$/app/scripts/storyscripts/level1.js" />
+        <option value="$PROJECT_DIR$/app/scripts/storyscripts/comingsoon.js" />
+        <option value="$PROJECT_DIR$/app/scripts/scenes/gameover.js" />
       </list>
     </option>
   </component>
@@ -296,142 +393,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="storyscripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="storyscripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="level1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scenes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scenery" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ext" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ConflictMayhem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -449,6 +410,9 @@
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Git\ConflictMayhem\app\scripts\storyscripts\general" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Git\ConflictMayhem\app\scripts\components\entities" />
       <recent name="D:\Git\ConflictMayhem\app\scripts\storyscripts\level1" />
@@ -561,7 +525,9 @@
       <workItem from="1488016593425" duration="924000" />
       <workItem from="1488032416440" duration="749000" />
       <workItem from="1488038235542" duration="21917000" />
-      <workItem from="1488102767902" duration="27697000" />
+      <workItem from="1488102767902" duration="27816000" />
+      <workItem from="1488217014115" duration="1629000" />
+      <workItem from="1488231258406" duration="3205000" />
     </task>
     <task id="LOCAL-00001" summary="Working Story mode, requires tweaking.">
       <created>1488044508546</created>
@@ -574,20 +540,19 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51287000" />
+    <option name="totallyTimeSpent" value="56240000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1924" height="1056" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18345705" sideWeight="0.6086956" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18345705" sideWeight="0.6034669" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18345705" sideWeight="0.39130434" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18345705" sideWeight="0.39653304" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.49562362" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30985916" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -598,6 +563,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -616,128 +582,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/scripts/ext/Dialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="36" column="25" lean-forward="false" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenes/mainmenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/utils/WaterSplashes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/controls/KeyboardControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/demo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="211" column="46" lean-forward="false" selection-start-line="211" selection-start-column="46" selection-end-line="211" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/assets.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="278" column="30" lean-forward="false" selection-start-line="278" selection-start-column="16" selection-end-line="278" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/images/sprites/portraits/professor_charlie_sheet.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/demo/presentation_leave_screen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1end.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="20" column="156" lean-forward="false" selection-start-line="20" selection-start-column="133" selection-end-line="20" selection-end-column="156" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/Space.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ext/LocationGrid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-142">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/utils/flipable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-958">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/TweenPromise.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/Listener.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="53" lean-forward="true" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -745,7 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,7 +600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,7 +607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="11" lean-forward="true" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -769,7 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -777,7 +621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1479">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -785,7 +628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2284">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -793,7 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
           <caret line="145" column="3" lean-forward="false" selection-start-line="145" selection-start-column="3" selection-end-line="145" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -801,7 +642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1428">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -809,7 +649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="508">
           <caret line="348" column="3" lean-forward="false" selection-start-line="348" selection-start-column="3" selection-end-line="348" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -817,7 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="508">
           <caret line="179" column="5" lean-forward="false" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -825,9 +663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9418">
           <caret line="557" column="5" lean-forward="false" selection-start-line="557" selection-start-column="5" selection-end-line="557" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -835,7 +670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1785">
           <caret line="105" column="46" lean-forward="false" selection-start-line="105" selection-start-column="46" selection-end-line="105" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -843,6 +677,245 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3332">
           <caret line="196" column="5" lean-forward="false" selection-start-line="196" selection-start-column="5" selection-end-line="196" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ext/script_modules/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="4" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/SpaceAssets.js" />
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/Demo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenes/story.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85">
+          <caret line="16" column="48" lean-forward="false" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1/sunset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1/sunrise.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/City.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20298">
+          <caret line="1194" column="28" lean-forward="false" selection-start-line="1194" selection-start-column="28" selection-end-line="1194" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="69" column="31" lean-forward="true" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/Acceleration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="70" column="3" lean-forward="false" selection-start-line="70" selection-start-column="3" selection-end-line="70" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/Choreography.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="222" column="3" lean-forward="false" selection-start-line="222" selection-start-column="3" selection-end-line="222" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/ViewportFixed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="29" column="3" lean-forward="false" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/ViewportRelativeMotion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="47" column="3" lean-forward="false" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/CityAssets.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="81" column="24" lean-forward="false" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/entities/CameraCrew.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/entities/VIP.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="19" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/level1/vip.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ext/PauseMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="60" column="52" lean-forward="false" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/assets.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-224">
+          <caret line="181" column="9" lean-forward="false" selection-start-line="181" selection-start-column="9" selection-end-line="181" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1/army_drone.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="305" column="8" lean-forward="false" selection-start-line="305" selection-start-column="8" selection-end-line="305" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenes/story_intro.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="70" column="29" lean-forward="false" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1end.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="8" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/general/presentation_leave_screen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/level1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2036">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/demo/demo_boss.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/demo/little_dancer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/demo/sine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/general/slider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/general/splash_jumper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-237">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/demo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="211" column="46" lean-forward="false" selection-start-line="211" selection-start-column="46" selection-end-line="211" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="15" column="46" lean-forward="true" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage2/tank_attack.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/ext/StoryScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -857,168 +930,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/ext/script_modules/level.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13277">
-          <caret line="781" column="2" lean-forward="false" selection-start-line="781" selection-start-column="2" selection-end-line="781" selection-end-column="2" />
+        <state relative-caret-position="187">
+          <caret line="701" column="19" lean-forward="false" selection-start-line="701" selection-start-column="4" selection-end-line="701" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ext/script_modules/core.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/comingsoon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="4" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-          <folding />
+        <state relative-caret-position="219">
+          <caret line="26" column="40" lean-forward="false" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/SpaceAssets.js">
+    <entry file="file://$PROJECT_DIR$/app/scripts/scenes/gameover.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/Demo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenes/story.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="16" column="48" lean-forward="false" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1/sunset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1/sunrise.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/City.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20298">
-          <caret line="1194" column="28" lean-forward="false" selection-start-line="1194" selection-start-column="28" selection-end-line="1194" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="69" column="31" lean-forward="true" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/stage1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="104" column="25" lean-forward="true" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/Acceleration.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="70" column="3" lean-forward="false" selection-start-line="70" selection-start-column="3" selection-end-line="70" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/Choreography.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="222" column="3" lean-forward="false" selection-start-line="222" selection-start-column="3" selection-end-line="222" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/ViewportFixed.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="29" column="3" lean-forward="false" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/generic/ViewportRelativeMotion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="47" column="3" lean-forward="false" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenery/CityAssets.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="81" column="24" lean-forward="false" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/entities/CameraCrew.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/scenes/story_intro.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="21" column="12" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/entities/VIP.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="19" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/level1/vip.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/storyscripts/level1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="127" column="29" lean-forward="true" selection-start-line="127" selection-start-column="29" selection-end-line="127" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/ext/PauseMenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="60" column="52" lean-forward="false" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+        <state relative-caret-position="640">
+          <caret line="71" column="11" lean-forward="false" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
           <folding />
         </state>
       </provider>

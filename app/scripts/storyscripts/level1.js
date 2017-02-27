@@ -13,6 +13,8 @@ Game.Scripts.Level1 = (function (superClass) {
         return Level1.__super__.constructor.apply(this, arguments);
     }
 
+    Level1.prototype.nextScript = 'ComingSoon';
+
     Level1.prototype.assets = function () {
         return this.loadAssets('explosion', 'playerShip', 'general');
     };
@@ -130,17 +132,20 @@ Game.Scripts.Level1 = (function (superClass) {
                 this.say('Professor', '... Something is wrong.', {
                     noise: 'low'
                 }),
-                this.placeSquad(Game.Scripts.CrewShooters, {
+                this.placeSquad(Game.Scripts.VIPShooters, {
                     amount: 4,
                     delay: 750,
                     drop: 'pool'
-                })
+                }),
+                this.sequence(
+                    this.wait(4000),
+                    this.say('Charlie', 'WERE GOING DOWN!', {
+                        noise: 'high'
+                    })
+                )
             ),
-            this.say('Charlie', 'WERE GOING DOWN!', {
-                noise: 'high'
-            }),
             this.say('Paul', 'My VIP is down, I repeat my VIP is down'),
-            this.say('Paul', 'The drones turned on the,'),
+            this.say('Paul', 'The drones turned on me, what\'s my orders?'),
             this.parallel(
                 this.say('Professor', 'Pilot stay your course we are investigating', {
                     noise: 'low'

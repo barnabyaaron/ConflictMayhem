@@ -38,18 +38,40 @@ Crafty.scene('Story_Intro', function() {
         x: professor.x + 250,
         y: professor.y + 70,
         w: 600
-    }).text('You will take our most advanced ship, fitted with hypersonic engines\nand out most advanced weaponry.').textColor('#FFF').textFont({
+    }).text('You will take our most advanced ship, fitted with hypersonic engines\nand our most advanced weaponry.').textColor('#FFF').textFont({
         size: '12px',
-        family: 'Press Start 2P'
+        family: 'Press Start 2P',
+        lineHeight: '20px'
     });
 
     Crafty.e('2D, DOM, Text').attr({
         x: professor.x + 250,
-        y: professor.y + 120,
+        y: professor.y + 140,
         w: 600
     }).text('We expect light or no resistance so should be a simple mission.').textColor('#FFF').textFont({
         size: '12px',
-        family: 'Press Start 2P'
+        family: 'Press Start 2P',
+        lineHeight: '20px'
+    });
+
+    Crafty.e('2D, DOM, Text').attr({
+        x: professor.x + 250,
+        y: professor.y + 200,
+        w: 600
+    }).text('Once you reach headquarters report back for further instructions.').textColor('#FFF').textFont({
+        size: '12px',
+        family: 'Press Start 2P',
+        lineHeight: '20px'
+    });
+
+    Crafty.e('2D, DOM, Text').attr({
+        x: professor.x + 250,
+        y: professor.y + 260,
+        w: 600
+    }).text('Good Luck Pilot.').textColor('#FFF').textFont({
+        size: '12px',
+        family: 'Press Start 2P',
+        lineHeight: '20px'
     });
 
     Crafty.e('2D, DOM, Text, Tween, Delay').attr({

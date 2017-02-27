@@ -69,7 +69,7 @@
                 },
                 5000);
         }
-    });
+    }, 1000);
 }, function () {
     Crafty('Delay').each(function () {
         return this.destroy();

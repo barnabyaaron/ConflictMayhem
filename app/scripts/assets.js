@@ -88,98 +88,98 @@
                 classic_button_click: [0, 2]
             }
         },
-        "sprites/alien1.png": {
+        "classic/alien1.png": {
             tile: 48,
             tileh: 48,
             map: {
                 classic_alien1: [0, 0]
             }
         },
-        "sprites/alien2.png": {
+        "classic/alien2.png": {
             tile: 48,
             tileh: 48,
             map: {
                 classic_alien2: [0, 0]
             }
         },
-        "sprites/alien3.png": {
+        "classic/alien3.png": {
             tile: 48,
             tileh: 48,
             map: {
                 classic_alien3: [0, 0]
             }
         },
-        "sprites/alien_explosion.png": {
+        "classic/alien_explosion.png": {
             tile: 48,
             tileh: 48,
             map: {
                 classic_alienExplosion: [0, 0]
             }
         },
-        "sprites/alien_shot.png": {
+        "classic/alien_shot.png": {
             tile: 5,
             tileh: 16,
             map: {
                 classic_alienShot: [0, 0]
             }
         },
-        "sprites/player_life.png": {
+        "classic/player_life.png": {
             tile: 25,
             tileh: 23,
             map: {
                 playerLife: [0, 0]
             }
         },
-        "sprites/shield.png": {
+        "classic/shield.png": {
             tile: 12,
             tileh: 12,
             map: {
                 classic_shieldSprite: [0, 0]
             }
         },
-        "sprites/spaceship.png": {
+        "classic/spaceship.png": {
             tile: 80,
             tileh: 30,
             map: {
                 classic_spaceshipSprite: [0, 0]
             }
         },
-        "sprites/spaceship_explosion.png": {
+        "classic/spaceship_explosion.png": {
             tile: 80,
             tileh: 30,
             map: {
                 classic_spaceshipExplosion: [0, 0]
             }
         },
-        "sprites/player_explosion.png": {
+        "classic/player_explosion.png": {
             tile: 64,
             tileh: 64,
             map: {
                 classic_playerExplosion: [0, 0]
             }
         },
-        "sprites/shell.png": {
+        "classic/shell.png": {
             tile: 7,
             tileh: 10,
             map: {
                 classic_shellSprite: [0, 0]
             }
         },
-        "sprites/player_cannon.png": {
+        "classic/player_cannon.png": {
             tile: 64,
             tileh: 64,
             map: {
                 classic_cannonSprite: [0, 0]
             }
         },
-        "sprites/player_base.png": {
+        "classic/player_base.png": {
             tile: 62,
             tileh: 64,
             map: {
                 classic_bodySprite: [0, 0]
             }
         },
-        "ui/score_bar.png": {
+        "score_bar.png": {
             tile: 160,
             tileh: 55,
             map: {
@@ -209,7 +209,7 @@
                 back_btn: [2, 0]
             }
         },
-        "sprites/entities/boss/frank_boss.png": {
+        "frank_boss.png": {
             tile: 200,
             tileh: 282,
             map: {
@@ -220,16 +220,7 @@
                 frank_dead: [4, 0]
             }
         },
-        "sprites/entities/invaders_sheet.png": {
-            tile: 25,
-            tileh: 22,
-            map: {
-                alien1: [0, 0],
-                alien2: [0, 1],
-                alien3: [0, 2]
-            }
-        },
-        "sprites/entities/power_up_sheet.png": {
+        "power_up_sheet.png": {
             tile: 33,
             tileh: 33,
             map: {
@@ -251,41 +242,22 @@
                 pill_green: [3, 3]
             }
         },
-        "sprites/entities/player/player_red.png": {
-            tile: 99,
-            tileh: 75,
-            map: {
-                player_red: [0, 0]
-            }
-        },
-        "sprites/entities/player/player_red_left.png": {
-            tile: 90,
-            tileh: 75,
-            map: {
-                player_red_left: [0, 0]
-            }
-        },
-        "sprites/entities/player/player_red_right.png": {
-            tile: 90,
-            tileh: 75,
-            map: {
-                player_red_left: [0, 0]
-            }
-        },
-        "sprites/portraits/professor_charlie_sheet.png": {
+        "professor_charlie_sheet.png": {
             tile: 210,
             tileh: 380,
             map: {
                 pProfessorFull: [0, 0]
             }
         },
-        "sprites/entities/custom_invaders.png": {
+        "classic/custom_invaders.png": {
             tile: 197,
             tileh: 282,
             map: {
                 frankInvader: [0, 0],
                 charlieInvader: [1, 0],
-                paulInvader: [2, 0]
+                paulInvader: [2, 0],
+                fatPaulInvader: [3, 0],
+                aaronInvader: [4, 0]
             }
         },
         "portraits.png": {
