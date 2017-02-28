@@ -9,7 +9,7 @@
 
     PlayerLifeConstants.MARGIN_X = 20;
 
-    PlayerLifeConstants.MAX_LIVES = 10;
+    PlayerLifeConstants.MAX_LIVES = 3;
 
     PlayerLifeConstants.INITIAL_LIVES = 3;
 

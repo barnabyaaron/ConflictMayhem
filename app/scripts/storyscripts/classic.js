@@ -33,6 +33,7 @@ this.Classic = (function () {
         this.lives = Crafty.e("Lives");
         this.spaceship = Crafty.e("ClassicSpaceship");
         this.walls = Crafty.e("ClassicWall");
+        this.round = 1;
         this.createAliens();
         this.createAlienShots();
         this.createAlienExplosions();
@@ -85,6 +86,7 @@ this.Classic = (function () {
     };
 
     Classic.prototype.nextRound = function () {
+        this.round++;
         this.inputSink.unbind("KeyUp");
         this.banner.hide();
         this.player_won = false;
@@ -144,8 +146,7 @@ this.Classic = (function () {
     };
 
     Classic.prototype.updateAlienMoveInterval = function () {
-        return this.alienMoveInterval = ClassicAlienConstants.MOVEMENT_INTERVAL /
-            Math.pow(80, 1 - (this.aliens.size() / this.alienCount));
+        return this.alienMoveInterval = ClassicAlienConstants.MOVEMENT_INTERVAL / Math.pow(80, 1 - (this.aliens.size() / this.alienCount));
     };
 
     Classic.prototype.createAlienShots = function () {
@@ -264,6 +265,19 @@ this.Classic = (function () {
         }
     };
 
+    Classic.prototype.handleAlienDesent = function(alienNode) {
+        while (alienNode) {
+            alien = alienNode.data;
+            alien.descend();
+            if (alien.y + ClassicAlienConstants.HEIGHT > Crafty.viewport.height) {
+                alien.dieSilently();
+                this.lives.deplete();
+                this.player.die();
+            }
+            alienNode = alienNode.next;
+        }
+    };
+
     Classic.prototype.handleAlienMovement = function (dt) {
         var alien, alienNode;
         if (this.alienMoveCounter < this.alienMoveInterval) {
@@ -276,16 +290,7 @@ this.Classic = (function () {
                 return false;
             }
             if (this.aliensMovingOutsideScreen()) {
-                while (alienNode) {
-                    alien = alienNode.data;
-                    alien.descend();
-                    if (alien.y + ClassicAlienConstants.HEIGHT > Crafty.viewport.height) {
-                        alien.dieSilently();
-                        this.lives.deplete();
-                        this.player.die();
-                    }
-                    alienNode = alienNode.next;
-                }
+                this.handleAlienDesent(alienNode);
             } else {
                 while (alienNode) {
                     alienNode.data.advance();
@@ -306,7 +311,7 @@ this.Classic = (function () {
         alienNode = this.aliens.head();
         results = [];
         while (alienNode && this.alienShots.size() > 0) {
-            if (Random.getInRange(0, 100) < ClassicAlienShotConstants.BASE_SHOT_CHANCE) {
+            if (Random.getInRange(0, 100) < (ClassicAlienShotConstants.BASE_SHOT_CHANCE + (this.round - 1))) {
                 shotNode = this.alienShots.head();
                 if (!shotNode) {
                     continue;

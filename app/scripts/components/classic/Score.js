@@ -5,7 +5,7 @@
 
     ScoreConstants.MARGIN_X = 20;
 
-    ScoreConstants.LIFE_GAIN_SCORE = 2500;
+    ScoreConstants.LIFE_GAIN_SCORE = 10000;
 
     return ScoreConstants;
 })();

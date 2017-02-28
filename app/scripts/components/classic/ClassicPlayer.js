@@ -36,6 +36,7 @@ Crafty.c('ClassicPlayerCommon',
             function (info) {
                 return this.direction = info;
             });
+
         return this.bind("Moved",
             function (from) {
                 var setBack;
@@ -44,20 +45,7 @@ Crafty.c('ClassicPlayerCommon',
                     setBack[from.axis] = from.oldValue;
                     return this.attr(setBack);
                 }
-
-                // Old Code no longer required (caused bug)
-                //if (from.axis === 'x') {
-                //    if (this.movingOutsidePlayfield(from.oldValue, this.direction)) {
-                //        return this.attr({
-                //            x: from.oldValue
-                //        });
-                //    }
-                //}
             });
-    },
-    movingOutsidePlayfield: function (x, direction) {
-        this.tmp = x + direction.x;
-        return (this.tmp <= 0) || (this.tmp + this.w >= Crafty.viewport.width);
     }
 });
 

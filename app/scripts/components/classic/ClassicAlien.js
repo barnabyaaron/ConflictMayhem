@@ -43,7 +43,7 @@ Crafty.c("ClassicAlien",
         if (!this.custom) {
             this.reelPosition(0);
         }
-        
+
         this.direction = 'w';
         return this;
     },
@@ -64,10 +64,10 @@ Crafty.c("ClassicAlien",
     alien: function (type, x, y, bonus) {
         if (bonus) {
             var customInvaderAssets = {
-                1: 'charlieInvader',
-                2: 'paulInvader',
+                1: 'aaronInvader',
+                2: 'charlieInvader',
                 3: 'paulInvader',
-                4: 'frankInvader',
+                4: 'fatPaulInvader',
                 5: 'frankInvader'
             };
             this.type = customInvaderAssets[type];
@@ -90,7 +90,7 @@ Crafty.c("ClassicAlien",
 
         this.spawnX = x;
         this.spawnY = y;
-        
+
         return this;
     },
     advance: function () {
@@ -112,9 +112,11 @@ Crafty.c("ClassicAlien",
     pointsWorth: function () {
         if (this.custom) {
             var customInvaderPoints = {
-                'frankInvader': 10,
+                'frankInvader': 20,
                 'charlieInvader': 50,
-                'paulInvader': 20
+                'paulInvader': 40,
+                'fatPaulInvader': 25,
+                'aaronInvader': 80
             };
 
             // @TODO CHANGE
