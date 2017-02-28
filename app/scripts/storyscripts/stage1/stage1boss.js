@@ -144,19 +144,43 @@ Game.Scripts.Stage1BossStage1 = (function(superClass) {
                 return _this.entity.healthBelow(.5);
             };
         })(this));
-        return this.sequence(this.invincible(true), this.animate('slow', -1, 'eye'), this.disableWeapons(), this.parallel(this.moveTo({
-            x: .75,
-            y: .41
-        }), this.say('Drone Commander', 'We have control over the AI now! You will suffer!\nEarths defences are in our hands!')), this.laugh(), this.invincible(false), this.enableWeapons(), this.async(this.placeSquad(Game.Scripts.Stage1BossRocket, {
-            options: {
-                location: this.location(),
-                pointsOnDestroy: 0,
-                pointsOnHit: 0
-            }
-        })), this.animate('emptyWing', 0, 'wing'), this.animate('reload', 0, 'wing'), this.moveTo({
-            y: .43,
-            speed: 5
-        }), this.repeat(this.sequence(this.repeat(2, this.rocketStrikeDance()), this.mineFieldStrike())));
+
+        return this.sequence(
+            this.invincible(true),
+            this.animate('slow', -1, 'eye'),
+            this.disableWeapons(),
+            this.parallel(
+                this.moveTo({
+                    x: .75,
+                    y: .41
+                }),
+                this.say('Drone Commander', 'We have control over your drones.\nEarths defences are in our hands!')
+            ),
+            this.laugh(),
+            this.invincible(false),
+            this.enableWeapons(),
+            this.async(
+                this.placeSquad(Game.Scripts.Stage1BossRocket, {
+                    options: {
+                        location: this.location(),
+                        pointsOnDestroy: 0,
+                        pointsOnHit: 0
+                    }
+                })
+            ),
+            this.animate('emptyWing', 0, 'wing'),
+            this.animate('reload', 0, 'wing'),
+            this.moveTo({
+                y: .43,
+                speed: 5
+            }),
+            this.repeat(
+                this.sequence(
+                    this.repeat(2, this.rocketStrikeDance()),
+                    this.mineFieldStrike()
+                )
+            )
+        );
     };
 
     Stage1BossStage1.prototype.mineFieldStrike = function() {
@@ -236,19 +260,26 @@ Game.Scripts.Stage1BossStage1 = (function(superClass) {
     };
 
     Stage1BossStage1.prototype.laugh = function() {
-        return this.sequence((function(_this) {
-            return function() {
-                return Crafty.audio.play('laugh');
-            };
-        })(this), (function(_this) {
-            return function() {
-                return _this.entity.invincible = true;
-            };
-        })(this), this.repeat(5, this.sequence(this.rotate(10, 200), this.rotate(-10, 200))), this.rotate(0, 200), (function(_this) {
-            return function() {
-                return _this.entity.invincible = false;
-            };
-        })(this));
+        return this.sequence(
+            (function(_this) {
+                return function() {
+                    return Crafty.audio.play('frank_laugh');
+                };
+            })(this), (function(_this) {
+                return function() {
+                    return _this.entity.invincible = true;
+                };
+            })(this),
+            this.repeat(5, this.sequence(
+                this.rotate(10, 200),
+                this.rotate(-10, 200))),
+                this.rotate(0, 200),
+                (function(_this) {
+                    return function() {
+                        return _this.entity.invincible = false;
+                    };
+                })(this)
+        );
     };
 
     Stage1BossStage1.prototype.endOfFight = function() {

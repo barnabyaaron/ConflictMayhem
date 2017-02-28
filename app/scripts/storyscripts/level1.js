@@ -65,9 +65,18 @@ Game.Scripts.Level1 = (function (superClass) {
         });
 
         return this.sequence(
+            this.setPowerupPool('rapidb', 'speed', 'points', 'rapidb'),
             this.openingScene(),
             this.tutorial(),
-            this.droneTakeover()
+            this.setPowerupPool('aimb', 'speedb', 'rapidb', 'speed', 'aim', 'rapid'),
+            this.droneTakeover(),
+            this.hacked(),
+            this.setPowerupPool('aim', 'speedb', 'rapidb', 'rapid', 'rapidb', 'aimb'),
+            this.enteringLand(),
+            this.cityBay(),
+            this.setPowerupPool('speed', 'rapid', 'aim', 'speed', 'rapid', 'aim'),
+            this.bossFight(),
+            this.bossFightReward()
         );
     };
 
@@ -155,6 +164,301 @@ Game.Scripts.Level1 = (function (superClass) {
         );
     };
 
+    Level1.prototype.hacked = function() {
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('Ocean', 45000)
+            ),
+            this.swirlAttacks(),
+            this.setScenery('CoastStart'),
+            this.say('Professor', 'We have reports that our drones are being hacked.', {
+                noise: 'low'
+            }),
+            this.say('Professor', 'We belive they are being hacked from HQ.\nYour mission is to continue to HQ to investigate.', {
+                noise: 'low'
+            }),
+            this.parallel(
+                this.say('Paul', 'Roger!'),
+                this.swirlAttacks()
+            ),
+            this.parallel(
+                this.gainHeight(-150, {
+                    duration: 4000
+                }),
+                this.sequence(
+                    this.wait(2000),
+                    this.underWaterAttacks()
+                )
+            )
+        );
+    };
+
+    Level1.prototype.enteringLand = function() {
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('CoastStart', 93000)
+            ),
+            this.setScenery('BayStart'),
+            this.mineSwarm(),
+            this.underWaterAttacks()
+        );
+    };
+
+    Level1.prototype.cityBay = function() {
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('Bay', 131000)
+            ),
+            this.setScenery('UnderBridge'),
+            this.parallel(
+                this.placeSquad(Game.Scripts.Stalker, {
+                    drop: 'pool'
+                }),
+                this.mineSwarm({
+                    direction: 'left'
+                })
+            ),
+            this.sequence(
+                this.stalkerShootout(),
+                this.parallel(
+                    this.placeSquad(Game.Scripts.Stalker, {
+                        drop: 'pool'
+                    }),
+                    this.mineSwarm({
+                        direction: 'left'
+                    })
+                )
+            )
+        );
+    };
+
+    Level1.prototype.bossFight = function() {
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('BayFull', 168000)
+            ),
+            this.drop({
+                item: 'pool',
+                inFrontOf: this.player(1)
+            }),
+            this.mineSwarm({
+                direction: 'left'
+            }),
+            this.drop({
+                item: 'pool',
+                inFrontOf: this.player(1)
+            }),
+            this.parallel(
+                this.mineSwarm(),
+                this.sequence(
+                    this.wait(5000),
+                    this.setScenery('UnderBridge')
+                )
+            ),
+            this.async(this.showText('Warning!', {
+                color: '#FF0000',
+                mode: 'blink'
+            })),
+            this["while"](
+                this.waitForScenery('UnderBridge', {
+                    event: 'enter'
+                }),
+                this.waitingRocketStrike()
+            ),
+            this.setSpeed(75),
+            this.waitForScenery('UnderBridge', {
+                event: 'inScreen'
+            }),
+            this.setSpeed(0),
+            this.checkpoint(
+                this.checkpointStart('UnderBridge', 203000)
+            ),
+            this.placeSquad(Game.Scripts.Stage1BossStage1),
+            this.drop({
+                item: 'life',
+                inFrontOf: this.player(1)
+            }),
+            this.setSpeed(200),
+            this.wait(500),
+            this.drop({
+                item: 'rapidb',
+                inFrontOf: this.player(1)
+            }),
+            this.wait(500),
+            this.drop({
+                item: 'speedb',
+                inFrontOf: this.player(1)
+            })
+        );
+    };
+
+    Level1.prototype.bossFightReward = function() {
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointMidStage('BayFull', 400000)
+            ),
+            this.say('Professor', 'Follow him we cannot let him get away!', {
+                noise: 'low'
+            }),
+            this.setSpeed(200),
+            this.setPowerupPool('rapidb', 'speedb', 'aimb', 'speed', 'rapidb'),
+            this.parallel(
+                this.sequence(
+                    this.wait(4000),
+                    this.gainHeight(800, {
+                        duration: 14000
+                    })
+                ),
+                this.sequence(
+                    this.stalkerShootout(),
+                    this.setScenery('Skyline'),
+                    this.placeSquad(Game.Scripts.Shooter, {
+                        amount: 8,
+                        delay: 500,
+                        drop: 'pool',
+                        options: {
+                            shootOnSight: true
+                        }
+                    }),
+                    this.attackWaves(
+                        this.parallel(
+                            this.placeSquad(Game.Scripts.Shooter, {
+                                amount: 8,
+                                delay: 500,
+                                options: {
+                                    shootOnSight: true
+                                }
+                            }),
+                            this.placeSquad(Game.Scripts.Swirler, {
+                                amount: 8,
+                                delay: 500,
+                                options: {
+                                    shootOnSight: true
+                                }
+                            })
+                        )
+                    ), {
+                        drop: 'pool'
+                    }
+                )
+            )
+        );
+    };
+
+    Level1.prototype.waitingRocketStrike = function() {
+        return this.sequence(this.placeSquad(Game.Scripts.Stage1BossRocketStrike, {
+            amount: 6,
+            delay: 150,
+            options: {
+                gridConfig: {
+                    x: {
+                        start: 1.1,
+                        steps: 1,
+                        stepSize: 0.05
+                    },
+                    y: {
+                        start: 0.125,
+                        steps: 12,
+                        stepSize: 0.05
+                    }
+                }
+            }
+        }), this.wait(200));
+    };
+
+    Level1.prototype.swirlAttacks = function() {
+        return this.attackWaves(
+            this.parallel(
+                this.repeat(2,
+                    this.placeSquad(Game.Scripts.Swirler, {
+                        amount: 8,
+                        delay: 500,
+                        options: {
+                            shootOnSight: true
+                        }
+                    })
+                ),
+                this.repeat(2,
+                    this.placeSquad(Game.Scripts.Shooter, {
+                        amount: 8,
+                        delay: 500,
+                        options: {
+                            shootOnSight: true
+                        }
+                    })
+                )
+            ), {
+                drop: 'pool'
+            }
+        );
+    };
+
+    Level1.prototype.underWaterAttacks = function() {
+        return this.sequence(
+            this.placeSquad(Game.Scripts.Stalker, {
+                drop: 'pool'
+            }),
+            this.repeat(2, this.stalkerShootout())
+        );
+    };
+
+    Level1.prototype.mineSwarm = function(options) {
+        var ref;
+        if (options == null) {
+            options = {
+                direction: 'right'
+            };
+        }
+        return this.placeSquad(Game.Scripts.JumpMine, {
+            amount: 20,
+            delay: 100,
+            options: {
+                gridConfig: {
+                    x: {
+                        start: 0.1,
+                        steps: 16,
+                        stepSize: 0.05
+                    },
+                    y: {
+                        start: 0.125,
+                        steps: 12,
+                        stepSize: 0.05
+                    }
+                },
+                points: (ref = options.points) != null ? ref : true,
+                direction: options.direction
+            }
+        });
+    };
+
+    Level1.prototype.stalkerShootout = function() {
+        return this.parallel(
+            this.placeSquad(Game.Scripts.Stalker, {
+                drop: 'pool'
+            }),
+            this.attackWaves(
+                this.parallel(
+                    this.placeSquad(Game.Scripts.Shooter, {
+                        amount: 8,
+                        delay: 500,
+                        options: {
+                            shootOnSight: true
+                        }
+                    }),
+                    this.placeSquad(Game.Scripts.Swirler, {
+                        amount: 8,
+                        delay: 500,
+                        options: {
+                            shootOnSight: true
+                        }
+                    })
+                ), {
+                    drop: 'pool'
+                }
+            )
+        );
+    };
+
     Level1.prototype.vip = function() {
         return this.async(this.placeSquad(Game.Scripts.VIP));
     };
@@ -168,6 +472,26 @@ Game.Scripts.Level1 = (function (superClass) {
         return this.async(this.runScript(Game.Scripts.SunRise, _.extend({
             speed: 2
         }, options)));
+    };
+
+    Level1.prototype.checkpointStart = function(scenery, sunSkip) {
+        return this.sequence(
+            this.setScenery(scenery),
+            this.sunRise({
+                skipTo: sunSkip
+            }),
+            this.wait(2000)
+        );
+    };
+
+    Level1.prototype.checkpointMidStage = function(scenery, sunSkip) {
+        return this.sequence(
+            this.setScenery(scenery),
+            this.sunRise({
+                skipTo: sunSkip
+            }),
+            this.wait(2000)
+        );
     };
 
     return Level1;

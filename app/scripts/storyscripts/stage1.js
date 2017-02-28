@@ -146,90 +146,180 @@ Game.Scripts.Stage1 = (function(superClass) {
     };
 
     Stage1.prototype.oceanFighting = function() {
-        return this.sequence(this.checkpoint(this.checkpointStart('Ocean', 45000)), this.parallel(this.sequence(this.wait(2000), this.say('General', 'We\'re under attack!?!', {
-            noise: 'low'
-        })), this.swirlAttacks()), this.setScenery('CoastStart'), this.swirlAttacks(), this.parallel(this.gainHeight(-150, {
-            duration: 4000
-        }), this.sequence(this.wait(2000), this.underWaterAttacks())));
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('Ocean', 45000)
+            ),
+            this.parallel(
+                this.sequence(
+                    this.wait(2000),
+                    this.say('General', 'We\'re under attack!?!', {
+                        noise: 'low'
+                    })
+                ),
+                this.swirlAttacks()
+            ),
+            this.setScenery('CoastStart'),
+            this.swirlAttacks(),
+            this.parallel(
+                this.gainHeight(-150, {
+                    duration: 4000
+                }),
+                this.sequence(
+                    this.wait(2000),
+                    this.underWaterAttacks()
+                )
+            )
+        );
     };
 
     Stage1.prototype.enteringLand = function() {
-        return this.sequence(this.checkpoint(this.checkpointStart('CoastStart', 93000)), this.setScenery('BayStart'), this.mineSwarm(), this.underWaterAttacks());
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('CoastStart', 93000)
+            ),
+            this.setScenery('BayStart'),
+            this.mineSwarm(),
+            this.underWaterAttacks()
+        );
     };
 
     Stage1.prototype.cityBay = function() {
-        return this.sequence(this.checkpoint(this.checkpointStart('Bay', 131000)), this.setScenery('UnderBridge'), this.parallel(this.placeSquad(Game.Scripts.Stalker, {
-            drop: 'pool'
-        }), this.mineSwarm({
-            direction: 'left'
-        })), this.sequence(this.stalkerShootout(), this.parallel(this.placeSquad(Game.Scripts.Stalker, {
-            drop: 'pool'
-        }), this.mineSwarm({
-            direction: 'left'
-        }))));
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('Bay', 131000)
+            ),
+            this.setScenery('UnderBridge'),
+            this.parallel(
+                this.placeSquad(Game.Scripts.Stalker, {
+                    drop: 'pool'
+                }),
+                this.mineSwarm({
+                    direction: 'left'
+                })
+            ),
+            this.sequence(
+                this.stalkerShootout(),
+                this.parallel(
+                    this.placeSquad(Game.Scripts.Stalker, {
+                        drop: 'pool'
+                    }),
+                    this.mineSwarm({
+                        direction: 'left'
+                    })
+                )
+            )
+        );
     };
 
     Stage1.prototype.midstageBossfight = function() {
-        return this.sequence(this.checkpoint(this.checkpointStart('BayFull', 168000)), this.parallel(this["if"]((function() {
-            return this.player(1).active;
-        }), this.drop({
-            item: 'pool',
-            inFrontOf: this.player(1)
-        })), this["if"]((function() {
-            return this.player(2).active;
-        }), this.drop({
-            item: 'pool',
-            inFrontOf: this.player(2)
-        }))), this.mineSwarm({
-            direction: 'left'
-        }), this.parallel(this["if"]((function() {
-            return this.player(1).active;
-        }), this.drop({
-            item: 'pool',
-            inFrontOf: this.player(1)
-        })), this["if"]((function() {
-            return this.player(2).active;
-        }), this.drop({
-            item: 'pool',
-            inFrontOf: this.player(2)
-        }))), this.parallel(this.mineSwarm(), this.sequence(this.wait(5000), this.setScenery('UnderBridge'))), this.async(this.showText('Warning!', {
-            color: '#FF0000',
-            mode: 'blink'
-        })), this["while"](this.waitForScenery('UnderBridge', {
-            event: 'enter'
-        }), this.waitingRocketStrike()), this.setSpeed(75), this.waitForScenery('UnderBridge', {
-            event: 'inScreen'
-        }), this.setSpeed(0), this.checkpoint(this.checkpointStart('UnderBridge', 203000)), this.placeSquad(Game.Scripts.Stage1BossStage1), this.parallel(this["if"]((function() {
-            return this.player(1).active;
-        }), this.drop({
-            item: 'life',
-            inFrontOf: this.player(1)
-        })), this["if"]((function() {
-            return this.player(2).active;
-        }), this.drop({
-            item: 'life',
-            inFrontOf: this.player(2)
-        }))), this.setSpeed(200), this.wait(500), this.parallel(this["if"]((function() {
-            return this.player(1).active;
-        }), this.drop({
-            item: 'rapidb',
-            inFrontOf: this.player(1)
-        })), this["if"]((function() {
-            return this.player(2).active;
-        }), this.drop({
-            item: 'rapidb',
-            inFrontOf: this.player(2)
-        }))), this.wait(500), this.parallel(this["if"]((function() {
-            return this.player(1).active;
-        }), this.drop({
-            item: 'speedb',
-            inFrontOf: this.player(1)
-        })), this["if"]((function() {
-            return this.player(2).active;
-        }), this.drop({
-            item: 'speedb',
-            inFrontOf: this.player(2)
-        }))));
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointStart('BayFull', 168000)
+            ),
+            this.parallel(
+                this["if"]((function() {
+                    return this.player(1).active;
+                }), this.drop({
+                    item: 'pool',
+                    inFrontOf: this.player(1)
+                })),
+                this["if"]((function() {
+                    return this.player(2).active;
+                }), this.drop({
+                    item: 'pool',
+                    inFrontOf: this.player(2)
+                }))
+            ),
+            this.mineSwarm({
+                direction: 'left'
+            }),
+            this.parallel(
+                this["if"]((function() {
+                    return this.player(1).active;
+                }), this.drop({
+                    item: 'pool',
+                    inFrontOf: this.player(1)
+                })),
+                this["if"]((function() {
+                    return this.player(2).active;
+                }), this.drop({
+                    item: 'pool',
+                    inFrontOf: this.player(2)
+                }))
+            ),
+            this.parallel(
+                this.mineSwarm(),
+                this.sequence(
+                    this.wait(5000),
+                    this.setScenery('UnderBridge')
+                )
+            ),
+            this.async(this.showText('Warning!', {
+                color: '#FF0000',
+                mode: 'blink'
+            })),
+            this["while"](
+                this.waitForScenery('UnderBridge', {
+                    event: 'enter'
+                }),
+                this.waitingRocketStrike()
+            ),
+            this.setSpeed(75),
+            this.waitForScenery('UnderBridge', {
+                event: 'inScreen'
+            }),
+            this.setSpeed(0),
+            this.checkpoint(
+                this.checkpointStart('UnderBridge', 203000)
+            ),
+            this.placeSquad(Game.Scripts.Stage1BossStage1),
+            this.parallel(
+                this["if"]((function() {
+                    return this.player(1).active;
+                }), this.drop({
+                    item: 'life',
+                    inFrontOf: this.player(1)
+                })),
+                this["if"]((function() {
+                    return this.player(2).active;
+                }), this.drop({
+                    item: 'life',
+                    inFrontOf: this.player(2)
+                }))
+            ),
+            this.setSpeed(200),
+            this.wait(500),
+            this.parallel(
+                this["if"]((function() {
+                    return this.player(1).active;
+                }), this.drop({
+                    item: 'rapidb',
+                    inFrontOf: this.player(1)
+                })),
+                this["if"]((function() {
+                    return this.player(2).active;
+                }), this.drop({
+                    item: 'rapidb',
+                    inFrontOf: this.player(2)
+                }))
+            ),
+            this.wait(500),
+            this.parallel(
+                this["if"]((function() {
+                    return this.player(1).active;
+                }), this.drop({
+                    item: 'speedb',
+                    inFrontOf: this.player(1)
+                })),
+                this["if"]((function() {
+                    return this.player(2).active;
+                }), this.drop({
+                    item: 'speedb',
+                    inFrontOf: this.player(2)
+                }))
+            )
+        );
     };
 
     Stage1.prototype.waitingRocketStrike = function() {
@@ -338,32 +428,56 @@ Game.Scripts.Stage1 = (function(superClass) {
     };
 
     Stage1.prototype.bossfightReward = function() {
-        return this.sequence(this.checkpoint(this.checkpointMidStage('BayFull', 400000)), this.say('General', 'Hunt him down! We need that AI control back!', {
-            noise: 'low'
-        }), this.setSpeed(200), this.setPowerupPool('rapidb', 'speedb', 'aimb', 'speed', 'rapidb'), this.parallel(this.sequence(this.wait(4000), this.gainHeight(800, {
-            duration: 14000
-        })), this.sequence(this.stalkerShootout(), this.setScenery('Skyline'), this.placeSquad(Game.Scripts.Shooter, {
-            amount: 8,
-            delay: 500,
-            drop: 'pool',
-            options: {
-                shootOnSight: true
-            }
-        }), this.attackWaves(this.parallel(this.placeSquad(Game.Scripts.Shooter, {
-            amount: 8,
-            delay: 500,
-            options: {
-                shootOnSight: true
-            }
-        }), this.placeSquad(Game.Scripts.Swirler, {
-            amount: 8,
-            delay: 500,
-            options: {
-                shootOnSight: true
-            }
-        })), {
-            drop: 'pool'
-        }))));
+        return this.sequence(
+            this.checkpoint(
+                this.checkpointMidStage('BayFull', 400000)
+            ),
+            this.say('General', 'Hunt him down! We need that AI control back!', {
+                noise: 'low'
+            }),
+            this.setSpeed(200),
+            this.setPowerupPool('rapidb', 'speedb', 'aimb', 'speed', 'rapidb'),
+            this.parallel(
+                this.sequence(
+                    this.wait(4000),
+                    this.gainHeight(800, {
+                        duration: 14000
+                    })
+                ),
+                this.sequence(
+                    this.stalkerShootout(),
+                    this.setScenery('Skyline'),
+                    this.placeSquad(Game.Scripts.Shooter, {
+                        amount: 8,
+                        delay: 500,
+                        drop: 'pool',
+                        options: {
+                            shootOnSight: true
+                        }
+                    }),
+                    this.attackWaves(
+                        this.parallel(
+                            this.placeSquad(Game.Scripts.Shooter, {
+                                amount: 8,
+                                delay: 500,
+                                options: {
+                                    shootOnSight: true
+                                }
+                            }),
+                            this.placeSquad(Game.Scripts.Swirler, {
+                                amount: 8,
+                                delay: 500,
+                                options: {
+                                    shootOnSight: true
+                                }
+                            })
+                        ), {
+                            drop: 'pool'
+                        }
+                    )
+                )
+            )
+        );
     };
 
     Stage1.prototype.skylineFighting = function() {

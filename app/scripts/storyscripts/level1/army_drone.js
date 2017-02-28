@@ -197,65 +197,6 @@ Game.Scripts.Shooter = (function (superClass) {
 
 })(Game.Scripts.ArmyDrone);
 
-Game.Scripts.CrewShooters = (function (superClass) {
-    extend(CrewShooters, superClass);
-
-    function CrewShooters() {
-        return CrewShooters.__super__.constructor.apply(this, arguments);
-    }
-
-    CrewShooters.prototype.spawn = function () {
-        return Crafty.e('Drone, ShootOnSight, ColorEffects, Horizon').drone({
-            x: Crafty.viewport.width + 40,
-            y: Crafty.viewport.height * .23,
-            defaultSpeed: 250
-        }).shootOnSight({
-            targetType: 'CameraCrew',
-            shootWhenHidden: true,
-            projectile: (function (_this) {
-                return function (x, y, angle) {
-                    var projectile;
-                    projectile = Crafty.e('Projectile, Color, BackgroundBullet, ColorEffects, Horizon').attr({
-                        w: 3,
-                        h: 3,
-                        z: -200,
-                        speed: 300,
-                        topDesaturation: 0.5,
-                        bottomDesaturation: 0.5
-                    }).color('#FFFF00');
-                    return projectile.shoot(x, y, angle);
-                };
-            })(this)
-        });
-    };
-
-    CrewShooters.prototype.execute = function () {
-        this.bindSequence('Destroyed', this.onKilled);
-        return this.sequence(this.sendToBackground(0.50, -200), this.parallel(this.movePath([[.96, .64], [.30, .35], [.65, .23], [.93, .43], [.33, .63], [-.33, .23]]), this.sequence(this.wait(2000), this.scale(1.0, {
-            duration: 5000
-        }), this.reveal(), this.shootPlayer())));
-    };
-
-    CrewShooters.prototype.shootPlayer = function () {
-        return (function (_this) {
-            return function () {
-                return _this.entity.shootOnSight({
-                    cooldown: 1000 + (Math.random() * 8000),
-                    sightAngle: 360,
-                    projectile: function (x, y, angle) {
-                        var projectile;
-                        projectile = Crafty.e('Sphere, Hostile, Projectile').blink();
-                        return projectile.shoot(x, y, angle);
-                    }
-                });
-            };
-        })(this);
-    };
-
-    return CrewShooters;
-
-})(Game.Scripts.ArmyDrone);
-
 Game.Scripts.VIPShooters = (function (superClass) {
     extend(VIPShooters, superClass);
 
