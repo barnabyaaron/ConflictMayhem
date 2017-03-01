@@ -72,6 +72,53 @@ Game.Scripts.Swirler = (function (superClass) {
 
 })(Game.Scripts.ArmyDrone);
 
+Game.Scripts.Kamikaze = (function (superClass) {
+    extend(Kamikaze, superClass);
+
+    function Kamikaze() {
+        return Kamikaze.__super__.constructor.apply(this, arguments);
+    }
+
+    Kamikaze.prototype.spawn = function(options) {
+        var d, ref;
+        d = Crafty.e('Drone').drone({
+            x: Crafty.viewport.width + 40,
+            y: Crafty.viewport.height / 2,
+            defaultSpeed: (ref = options.speed) != null ? ref : 500,
+            juice: options.juice
+        });
+        this.juice = options.juice;
+        return d;
+    };
+
+    Kamikaze.prototype.execute = function() {
+        this.bindSequence('Destroyed', this.onKilled);
+
+        return this.sequence(
+            this.pickTarget('PlayerControlledShip'),
+            this.moveTo({
+                x: 1.1,
+                y: 1.01
+            }),
+            this.repeat(2, this.sequence(
+                this.moveTo(this.targetLocation(), {
+                    x: .9,
+                    speed: 400,
+                    easing: 'easeInQuad'
+                }),
+                this.wait(200)
+            )),
+            this.wait(200),
+            this.moveTo({
+                x: -50,
+                easing: 'easeInQuad'
+            })
+        )
+    };
+
+    return Kamikaze;
+})(Game.Scripts.ArmyDrone);
+
 Game.Scripts.Stalker = (function (superClass) {
     extend(Stalker, superClass);
 

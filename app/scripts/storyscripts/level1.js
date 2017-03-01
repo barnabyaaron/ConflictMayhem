@@ -345,6 +345,145 @@ Game.Scripts.Level1 = (function (superClass) {
         );
     };
 
+    Level1.prototype.skylineFighting = function() {
+        return this.sequence(
+            this.setSpeed(100),
+            this.checkpoint(
+                this.checkpointMidStage('Skyline', 450000)
+            ),
+            this.changeSeaLevel(500),
+            this.setPowerupPool('damageb', 'damage', 'aimb', 'rapidb', 'damage', 'damageb'),
+            this.attackWaves(
+                this.parallel(
+                    this.placeSquad(Game.Scripts.ScraperFlyer, {
+                        amount: 8,
+                        delay: 500
+                    }),
+                    this.placeSquad(Game.Scripts.Shooter, {
+                        amount: 8,
+                        delay: 500,
+                        options: {
+                            shootOnSight: true
+                        }
+                    })
+                ), {
+                    drop: 'pool'
+                }
+            ),
+            this.parallel(
+                this.attackWaves(
+                    this.parallel(
+                        this.placeSquad(Game.Scripts.ScraperFlyer, {
+                            amount: 8,
+                            delay: 500
+                        }),
+                        this.placeSquad(Game.Scripts.Shooter, {
+                            amount: 8,
+                            delay: 500,
+                            options: {
+                                shootOnSight: true
+                            }
+                        })
+                    ), {
+                        drop: 'pool'
+                    }
+                ),
+                this.cloneEncounter()
+            ),
+            this.placeSquad(Game.Scripts.Stage1BossPopup),
+            this.setScenery('Skyline'),
+            this.parallel(
+                this.attackWaves(
+                    this.sequence(
+                        this.placeSquad(Game.Scripts.ScraperFlyer, {
+                            amount: 6,
+                            delay: 500
+                        }),
+                        this.placeSquad(Game.Scripts.ScraperFlyer, {
+                            amount: 8,
+                            delay: 500
+                        })
+                    ), {
+                        drop: 'pool'
+                    }
+                ),
+                this.sequence(
+                    this.wait(3000),
+                    this.placeSquad(Game.Scripts.Shooter, {
+                        amount: 4,
+                        delay: 750,
+                        drop: 'pool',
+                        options: {
+                            shootOnSight: true
+                        }
+                    }),
+                    this.placeSquad(Game.Scripts.HeliAttack, {
+                        drop: 'pool'
+                    }))
+            )
+        );
+    };
+
+    Level1.prototype.highSkylineFighting = function() {
+        return this.sequence(
+            this.parallel(
+                this.placeSquad(Game.Scripts.Stage1BossPopup),
+                this.cloneEncounter()
+            ),
+            this.gainHeight(300, {
+                duration: 4000
+            }),
+            this.checkpoint(
+                this.checkpointEndStage('Skyline', 500000)
+            ),
+            this.parallel(
+                this.repeat(2, this.cloneEncounter()),
+                this.placeSquad(Game.Scripts.HeliAttack, {
+                    drop: 'pool',
+                    amount: 2,
+                    delay: 5000
+                })
+            ),
+            this.async(
+                this.showText('Warning!', {
+                    color: '#FF0000',
+                    mode: 'blink'
+                })
+            ),
+            this.setScenery('SkylineBase'),
+            this["while"](
+                this.wait(3000),
+                this.waitingRocketStrike()
+            ),
+            this.placeSquad(Game.Scripts.Stage1BossLeaving),
+            this.say('General', 'He is going to the military complex!\nBut we cant get through those shields now...', {
+                noise: 'low'
+            })
+        );
+    };
+
+    Level1.prototype.cloneEncounter = function() {
+        return this.attackWaves(
+            this.parallel(
+                this.sequence(
+                    this.wait(4000),
+                    this.placeSquad(Game.Scripts.PlayerClone, {
+                        options: {
+                            from: 'top'
+                        }
+                    })
+                ),
+                this.placeSquad(Game.Scripts.PlayerClone, {
+                    options: {
+                        from: 'bottom'
+                    }
+                })
+            ), {
+                drop: 'pool'
+            }
+        );
+    };
+
     Level1.prototype.waitingRocketStrike = function() {
         return this.sequence(this.placeSquad(Game.Scripts.Stage1BossRocketStrike, {
             amount: 6,
@@ -491,6 +630,24 @@ Game.Scripts.Level1 = (function (superClass) {
                 skipTo: sunSkip
             }),
             this.wait(2000)
+        );
+    };
+
+    Level1.prototype.checkpointEndStage = function(scenery, sunSkip) {
+        return this.sequence(
+            this.setScenery(scenery),
+            this.sunRise({
+                skipTo: sunSkip
+            }),
+            this.drop({
+                item: 'damage',
+                inFrontOf: this.player(1)
+            }),
+            this.wait(2000),
+            this.drop({
+                item: 'rapid',
+                inFrontOf: this.player(1)
+            })
         );
     };
 

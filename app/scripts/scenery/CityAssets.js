@@ -2,27 +2,6 @@
 
 generator = this.Game.levelGenerator;
 
-// generator.defineAssets('explosion', {
-//     contents: ['explosion'],
-//     spriteMap: 'explosion.png',
-//     sprites: {
-//         all: {
-//             tile: 96,
-//             tileh: 96,
-//             map: {
-//                 explosionStart: [0, 0]
-//             }
-//         }
-//     },
-//     audio: {
-//         explosion: ['explosion.ogg'],
-//         shoot: ['laser-shot.ogg'],
-//         hit: ['laser-hit.ogg'],
-//         powerup: ['powerup.ogg'],
-//         laugh: ['laugh.ogg']
-//     }
-// });
-
 generator.defineAssets('explosion', {
     contents: ['explosion'],
     spriteMap: 'explosion.png',
