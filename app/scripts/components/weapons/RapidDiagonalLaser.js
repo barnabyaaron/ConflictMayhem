@@ -3,8 +3,8 @@
         this.requires('2D,WebGL,Color');
         this.color('#d08080');
         this.attr({
-            w: 30,
-            h: 5
+            w: 57,
+            h: 13
         });
         this.xp = 0;
         this.lastShot = 0;
@@ -20,7 +20,7 @@
         this.level = this.determineLevel(this.xp);
         this.attr({
             x: this.ship.x + 20,
-            y: this.ship.y + 30,
+            y: this.ship.y + 45,
             z: this.ship.z + 1,
             alpha: 0
         });
@@ -126,33 +126,15 @@
         var settings;
         settings = (function () {
             switch (this.level) {
-                case 0:
+                default:
                     return {
-                        w: 5,
-                        speed: 550,
-                        h: 5
-                    };
-                case 1:
-                    return {
-                        w: 6,
-                        speed: 555,
-                        h: 5
-                    };
-                case 2:
-                    return {
-                        w: 8,
-                        speed: 560,
-                        h: 5
-                    };
-                case 3:
-                    return {
-                        w: 10,
-                        speed: 565,
-                        h: 5
+                        w: 57,
+                        h: 13,
+                        speed: 550
                     };
             }
         }).call(this);
-        return Crafty.e('Bullet').attr({
+        return Crafty.e('LaserBullet, Bullet, laserFade').attr({
             x: this.x + this.w,
             y: this.y + (this.h / 2) - (settings.h / 2) + 1,
             w: settings.w,

@@ -1,10 +1,10 @@
 ﻿Crafty.c('WeaponLaser', {
     init: function () {
-        this.requires('2D,WebGL,Color');
+        this.requires('2D, WebGL, Color');
         this.color('#808080');
         return this.attr({
-            w: 30,
-            h: 5
+            w: 57,
+            h: 13
         });
     },
     remove: function () { },
@@ -14,7 +14,7 @@
         this.level = this.determineLevel(this.xp);
         this.attr({
             x: this.ship.x + 10,
-            y: this.ship.y + 15,
+            y: this.ship.y + 50,
             z: this.ship.z + 1
         });
         return this.ship.attach(this);
@@ -52,15 +52,15 @@
             switch (this.level) {
                 case 0:
                     return {
-                        w: 6,
+                        w: 57,
                         speed: 350,
-                        h: 3
+                        h: 13
                     };
                 case 1:
                     return {
-                        w: 10,
+                        w: 57,
                         speed: 355,
-                        h: 4
+                        h: 13
                     };
                 case 2:
                     return {

@@ -19,7 +19,14 @@ Crafty.scene('mainmenu', function () {
         function () {
             Crafty.audio.stop('menu_music');
             // Start MAIN Story Game
-            Crafty.enterScene("Story_Intro");
+
+            //Crafty.enterScene("Story_Intro");
+            return Crafty.enterScene('Story_Intro', {
+                script: 'Testing',
+                checkpoint: 0,
+                DEBUG: true,
+                levelGenNamespace: 'Space'
+            });
         }
     );
 

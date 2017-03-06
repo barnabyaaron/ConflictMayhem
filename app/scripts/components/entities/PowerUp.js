@@ -1,10 +1,10 @@
 ﻿Crafty.c('PowerUp', {
     init: function () {
-        this.requires('2D, WebGL, ColorEffects, powerUpBox, SpriteAnimation, TweenPromise, Scalable');
+        this.requires('2D, WebGL, ColorEffects, powerup, SpriteAnimation, TweenPromise, Scalable');
         this.reel('blink', 600, [[10, 1], [11, 1], [12, 1], [11, 1]]);
         this.attr({
-            w: 32,
-            h: 32
+            w: 34,
+            h: 33
         });
         return this.pickedUp = false;
     },
@@ -25,9 +25,9 @@
         }
         this.colorOverride(color, 'partial');
         if (this.settings.icon) {
-            marking = Crafty.e('2D,WebGL,ColorEffects').addComponent(this.settings.icon).colorOverride('white', 'partial').attr({
-                w: 22,
-                h: 22,
+            marking = Crafty.e('2D, WebGL, ColorEffects').addComponent(this.settings.icon).colorOverride('white', 'partial').attr({
+                w: 34,
+                h: 33,
                 x: 5,
                 y: 5
             });

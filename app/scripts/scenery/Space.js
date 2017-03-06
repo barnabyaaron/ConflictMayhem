@@ -152,8 +152,6 @@ generator.defineBlock((function(superClass) {
 
     _Class.prototype.generate = function() {
         _Class.__super__.generate.apply(this, arguments);
-        this.addElement('rock');
-        this.addElement('rock');
         return this.addElement('space');
     };
 

@@ -73,8 +73,18 @@ Game = {
         Crafty.e('Player, Color').attr({
             name: 'Player 1',
             z: 0,
-            playerNumber: 1
-        }).setName('Player').color('#FF0000');
+            playerNumber: 1,
+            shipColor: 'blue'
+        }).setName('Player').color('#000fff');
+
+        // Remove Player 2 for now
+        // Crafty.e('Player, Color').attr({
+        //     name: 'Player 2',
+        //     z: 1,
+        //     playerNumber: 2,
+        //     shipColor: 'green'
+        // }).setName('Player').color('#00ff00');
+
         Crafty.e('KeyboardControls, PlayerAssignable').controls({
             fire: Crafty.keys.SPACE,
             switchWeapon: Crafty.keys.PERIOD,
@@ -85,6 +95,16 @@ Game = {
             right: Crafty.keys.D,
             pause: Crafty.keys.P
         });
+        Crafty.e('KeyboardControls, PlayerAssignable').controls({
+            fire: Crafty.keys.ADD,
+            switchWeapon: Crafty.keys.NUMPAD_0,
+            "super": Crafty.keys.NUMPAD_1,
+            up: Crafty.keys.UP_ARROW,
+            down: Crafty.keys.DOWN_ARROW,
+            left: Crafty.keys.LEFT_ARROW,
+            right: Crafty.keys.RIGHT_ARROW,
+            pause: Crafty.keys.BACKSPACE
+        });
 
         handler = (function(_this) {
             return function(e) {
@@ -93,7 +113,8 @@ Game = {
                     return Crafty.enterScene('Story_Intro', {
                         script: 'Testing',
                         checkpoint: 0,
-                        DEBUG: true
+                        DEBUG: true,
+                        levelGenNamespace: 'Space'
                     });
                 }
             };

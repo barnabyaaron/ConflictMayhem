@@ -358,6 +358,7 @@ Game.Level = (function() {
         if (this._playersActive) {
             this._scrollWall.scrollWall(this._forcedSpeed, options);
         }
+
         Crafty('Bullet').each(function() {
             return this.attr({
                 speed: this.speed + delta

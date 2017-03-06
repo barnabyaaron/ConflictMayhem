@@ -14,43 +14,68 @@ Game.Scripts.Testing = (function(superClass) {
     }
 
     Testing.prototype.assets = function() {
-        return this.loadAssets('explosion', 'playerShip', 'general');
+        return this.loadAssets('explosion', 'playerShip', 'general', 'thruster', 'star', 'powerup', 'frank', 'laser', 'engine', 'enemy', 'custom_enemy');
     };
 
     Testing.prototype.execute = function() {
+        this.inventoryAdd('weapon', 'oldlasers', {
+            marking: 'OL'
+        });
         this.inventoryAdd('weapon', 'lasers', {
-            marking: 'L'
+            marking: 'L',
+            icon: 'item_bronze'
+        });
+        this.inventoryAdd('weapon', 'diagonals', {
+            markings: 'DL',
+            icon: 'item_silver'
+        });
+        this.inventoryAdd('ship', 'life', {
+            marking: '❤',
+            icon: 'heart'
         });
         this.inventoryAdd('ship', 'points', {
             marking: 'P',
-            icon: 'star'
-        });
-        this.inventoryAdd('ship', 'xp', {
-            marking: 'XP',
             icon: 'star'
         });
 
         return this.sequence(
             this.updateTitle('Testing Mode'),
             this.openingScene(),
-            this.nextSlide(),
-            this.updateTitle('Test Enemy'),
-            // Testing new Kamikaze enemy
-            this.repeat(3, this.placeSquad(Game.Scripts.Kamikaze, {
-                amount: 5
+            this.updateTitle('Player Test'),
+            this.setSpeed(200),
+            this.updateTitle('Enemy Test'),
+            this.repeat(1, this.placeSquad(Game.Scripts.Invaders, {
+                amount: 2,
+                delay: 1500
+            })),
+            this.updateTitle('Better Weapons'),
+            this.drop({
+                item: 'lasers',
+                inFrontOf: this.player(1)
+            }),
+            this.wait(1000),
+            this.repeat(1, this.placeSquad(Game.Scripts.Invaders, {
+                amount: 2,
+                delay: 1500
+            })),
+            this.updateTitle('Even Better Weapons'),
+            this.drop({
+                item: 'diagonals',
+                inFrontOf: this.player(1)
+            }),
+            this.wait(1000),
+            this.repeat(1, this.placeSquad(Game.Scripts.Invaders, {
+                amount: 2,
+                delay: 1500
             }))
         );
     };
 
     Testing.prototype.openingScene = function() {
         return this.sequence(
-            this.setWeapons(['lasers']),
+            this.setWeapons(['oldlasers']),
             this.setSpeed(100),
-            this.setScenery('Intro'),
-            //this.sunRise(),
-            this.async(this.runScript(Game.Scripts.IntroBarrel)),
-            this.setSpeed(200),
-            this.setScenery('Ocean')
+            this.setScenery('Void')
         );
     };
 

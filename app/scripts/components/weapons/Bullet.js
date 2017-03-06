@@ -1,7 +1,7 @@
 ﻿Crafty.c('Bullet', {
     init: function () {
-        this.requires('2D, WebGL, sphere1, Collision');
-        return this.crop(6, 21, 18, 7);
+        this.requires('2D, WebGL, Collision');
+        return this;
     },
     fire: function (properties) {
         this.attr({

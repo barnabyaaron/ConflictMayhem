@@ -1,114 +1,256 @@
 ﻿Crafty.c('OldWeaponLaser', {
     init: function () {
-        this.requires('2D,WebGL,Color');
-        this.color('#808080');
-        return this.attr({
-            w: 30,
-            h: 5
-        });
+        this.requires('2D, WebGL');
+        this.attr({
+            w: 57,
+            h: 13
+        })
+        this.stats = {
+            rapid: 0,
+            damage: 0,
+            aim: 0,
+            speed: 0
+        };
+        this.boosts = {};
+        this.boostTimings = {};
+        this.lastShot = 0;
+        this.shotsFired = 0;
+        this.burstCount = Infinity;
+
+        return this;
     },
-    remove: function () { },
+    remove: function () {
+        return this.unbind('GameLoop', this._autoFire);
+    },
     install: function (ship) {
         this.ship = ship;
-        this.xp = 0;
-        this.level = this.determineLevel(this.xp);
         this.attr({
             x: this.ship.x + 10,
-            y: this.ship.y + 15,
+            y: this.ship.y + 45,
             z: this.ship.z + 1,
             alpha: 0
         });
-        return this.ship.attach(this);
+        this.ship.attach(this);
+        this.shooting = false;
+        this._determineWeaponSettings();
+        return this.bind('GameLoop', this._autoFire);
     },
     uninstall: function () {
-        return this.attr({
+        this.attr({
             alpha: 0
         });
+        return this.unbind('GameLoop', this._autoFire);
     },
-    addXP: function (amount) {
-        var level;
-        this.xp += amount;
-        level = this.level;
-        this.level = this.determineLevel(this.xp);
-        if (level !== this.level) {
-            return this.trigger('levelUp', this.level);
-        }
+    upgrade: function (aspect) {
+        this.stats[aspect] += 1;
+        this._determineWeaponSettings();
+        return this.trigger('levelUp', {
+            aspect: aspect,
+            level: this.stats[aspect]
+        });
     },
-    determineLevel: function (xp) {
-        var i, j, len, level, levelBoundaries, neededXP, progress, ref;
-        levelBoundaries = [1000, 3000, 12000, 96000];
-        neededXP = 0;
-        level = 0;
-        for (j = 0, len = levelBoundaries.length; j < len; j++) {
-            i = levelBoundaries[j];
-            neededXP += i;
-            if (xp >= neededXP) {
-                level += 1;
+    boost: function (aspect) {
+        this.boosts[aspect] = 10;
+        this.boostTimings[aspect] = 15 * 1000;
+        this._determineWeaponSettings();
+        return this.trigger('boost', {
+            aspect: aspect
+        });
+    },
+    _determineWeaponSettings: function () {
+        var k, levels, value;
+        this.cooldown = 600 - ((this.boosts.rapidb || this.stats.rapid) * 10);
+        this.damage = 100 + ((this.boosts.damageb || this.stats.damage) * 50);
+        this.aimAngle = 0 + ((this.boosts.aimb || this.stats.aim) * 6);
+        this.aimDistance = Math.min(40 + ((this.boosts.aimb || this.stats.aim) * 50), 500);
+        this.speed = 650 + ((this.boosts.speedb || this.stats.speed) * 70);
+        levels = (function () {
+            var ref, results;
+            ref = this.stats;
+            results = [];
+            for (k in ref) {
+                value = ref[k];
+                if (k !== 'damage') {
+                    results.push(value);
+                }
             }
-        }
-        progress = (xp - ((ref = levelBoundaries[level - 1]) != null ? ref : 0)) / levelBoundaries[level];
-        return level;
+            return results;
+        }).call(this);
+        return this.overallLevel = Math.min.apply(Math, levels);
     },
     shoot: function (onOff) {
-        var settings;
-        if (!onOff) {
+        if (onOff) {
+            this.shooting = true;
+            return this.attr({
+                alpha: 0
+            });
+        } else {
+            this.shooting = false;
+            this._clearPicked();
+            this.shotsFired = 0;
+            return this.lastShot = 500;
+        }
+    },
+    _autoFire: function (fd) {
+        var allowBullet, k, ref, v;
+        this.lastShot += fd.dt;
+        ref = this.boostTimings;
+        for (k in ref) {
+            v = ref[k];
+            this.boostTimings[k] -= fd.dt;
+            if (v < 0) {
+                delete this.boostTimings[k];
+                delete this.boosts[k];
+                this._determineWeaponSettings();
+                this.trigger('boostExpired', {
+                    aspect: k
+                });
+            }
+        }
+        if (this.lastShot >= 60) {
+            this.attr({
+                alpha: 0
+            });
+        }
+        if (!this.shooting) {
             return;
         }
-        settings = (function () {
-            switch (this.level) {
-                case 0:
-                    return {
-                        w: 4,
-                        speed: 270,
-                        h: 4
-                    };
-                case 1:
-                    return {
-                        w: 8,
-                        speed: 320,
-                        h: 6
-                    };
-                case 2:
-                    return {
-                        w: 8,
-                        speed: 320,
-                        h: 6
-                    };
-                case 3:
-                    return {
-                        w: 8,
-                        speed: 320,
-                        h: 6
-                    };
-                case 4:
-                    return {
-                        w: 10,
-                        speed: 320,
-                        h: 6
-                    };
-            }
-        }).call(this);
-        return Crafty.e('Bullet').attr({
-            x: this.x + this.w,
-            y: this.y + (this.h / 2) - (settings.h / 2),
-            w: settings.w,
-            h: settings.h
-        }).fire({
-            origin: this,
-            damage: 100,
-            speed: this.ship._currentSpeed.x + settings.speed,
-            direction: 0
-        }).bind('HitTarget', (function (_this) {
-            return function (target) {
-                _this.addXP(1);
-                return _this.ship.trigger('BulletHit', target);
-            };
-        })(this)).bind('DestroyTarget', (function (_this) {
-            return function (target) {
-                _this.addXP(5);
-                return _this.ship.trigger('BulletDestroyedTarget', target);
-            };
-        })(this));
+        allowBullet = this.shotsFired < this.burstCount;
+        if (!this.ship.weaponsEnabled) {
+            return;
+        }
+        if (!allowBullet) {
+            return;
+        }
+        if (this.lastShot > this.cooldown) {
+            this._createBullet();
+            this.attr({
+                alpha: 1
+            });
+            Crafty.audio.play('shoot', 1, .05);
+            this.frontFire = !this.frontFire;
+            this.lastShot = 0;
+            return this.shotsFired += 1;
+        }
     },
-    _determineWeaponSettings: function () { }
+    _createBullet: function () {
+        var settings, start;
+        settings = {
+            w: Math.floor(this.speed / 25),
+            speed: this.speed,
+            h: 8 + this.overallLevel,
+            o: this.overallLevel
+        };
+        start = {
+            x: this.x + this.w,
+            y: this.y + (this.h / 2) - (settings.h / 2) + 1 + settings.o
+        };
+        return Crafty.e('OldLaserBullet, Bullet, laserFade').attr({
+            w: settings.w,
+            h: settings.h,
+            x: start.x,
+            y: start.y,
+            z: 1
+        }).fire({
+            ship: this.ship,
+            damage: this.damage,
+            speed: this.ship._currentSpeed.x + settings.speed,
+            direction: this._bulletDirection(start)
+        });
+    },
+    _bulletDirection: function (start) {
+        var adjust, angle, dist, distance, projected, target, time;
+        target = this._targetEnemy(start);
+        if (!target) {
+            this._clearPicked();
+            this.currentShot = 0;
+            return 0;
+        }
+        distance = Math.sqrt(Math.pow(Math.abs(start.x - target.x), 2) + Math.pow(Math.abs(start.y - target.y), 2));
+        time = distance / (this.speed + this.ship._currentSpeed.x);
+        projected = {
+            x: target.x + (Math.floor(target.w / 2)) + (target.vx * time),
+            y: target.y + (Math.floor(target.h / 2)) + (target.vy * time)
+        };
+        angle = Math.atan2(projected.y - start.y, projected.x - start.x);
+        angle *= 180 / Math.PI;
+        if (!((-this.aimAngle < angle && angle < this.aimAngle))) {
+            this._clearPicked();
+            this.currentShot = 0;
+            return 0;
+        }
+        if (this.currentShot == null) {
+            this.currentShot = 0;
+        }
+        dist = Math.abs(this.currentShot - angle);
+        adjust = 2;
+        if (dist > 10) {
+            adjust = 4;
+        }
+        if (dist > 15) {
+            adjust = 8;
+        }
+        if (dist > 40) {
+            adjust = 25;
+        }
+        if (dist > 90) {
+            adjust = 50;
+        }
+        if (this.currentShot < angle) {
+            this.currentShot += adjust;
+        } else {
+            this.currentShot -= adjust;
+        }
+        return this.currentShot;
+    },
+    _targetEnemy: function (start) {
+        var angle, distance, i, item, len, list, pickedDistance;
+        if (this.pickedEntity) {
+            return this.pickedEntity;
+        }
+        list = [];
+        Crafty('Enemy').each(function () {
+            if (!this.hidden) {
+                return list.push({
+                    x: this.x,
+                    y: this.y + (this.h / 2),
+                    e: this
+                });
+            }
+        });
+        this.pickedEntity = null;
+        pickedDistance = Infinity;
+        for (i = 0, len = list.length; i < len; i++) {
+            item = list[i];
+            angle = Math.atan2(item.y - start.y, item.x - start.x);
+            angle *= 180 / Math.PI;
+            distance = Math.abs(start.x - item.x) + Math.abs(start.y - item.y);
+            if ((-this.aimAngle < angle && angle < this.aimAngle)) {
+                if (distance < pickedDistance) {
+                    pickedDistance = distance;
+                    this.pickedEntity = item.e;
+                }
+            }
+        }
+        if (this.pickedEntity) {
+            this.pickedEntity.one('Remove', (function (_this) {
+                return function () {
+                    return _this._clearPicked();
+                };
+            })(this));
+            this.pickedEntity.one('Hiding', (function (_this) {
+                return function () {
+                    return _this._clearPicked();
+                };
+            })(this));
+        }
+        return this.pickedEntity;
+    },
+    _clearPicked: function () {
+        if (this.pickedEntity) {
+            this.pickedEntity.unbind('Remove', this._clearPicked);
+            this.pickedEntity.unbind('Hiding', this._clearPicked);
+        }
+        return this.pickedEntity = null;
+    }
 });
