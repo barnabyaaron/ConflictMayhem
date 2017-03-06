@@ -8,13 +8,16 @@ Game = this.Game;
 
 Crafty.defineScene('Story',
     function(data) {
-        var checkpointsPassed, executeScript, label, options, ref, ref1, startScript, wait;
+        var checkpointsPassed, executeScript, label, options, levelNamespace, ref, ref1, startScript, wait;
         if (data == null) {
             data = {};
         }
 
-        Game.background= null;
-        level = Game.levelGenerator.createLevel();
+        Crafty.background('#000');
+        Game.background = null;
+        level = Game.levelGenerator.createLevel({
+            namespace: (levelNamespace = data.levelGenNamespace) != null ? levelNamespace : 'City'
+        });
 
         Crafty.createLayer('UILayerDOM', 'DOM', {
             scaleResponse: 0,

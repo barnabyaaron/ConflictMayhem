@@ -45,7 +45,8 @@
             x: pos.x - Crafty.viewport.x,
             y: pos.y - Crafty.viewport.y,
             z: this.z,
-            playerNumber: this.playerNumber
+            playerNumber: this.playerNumber,
+            shipColor: this.shipColor
         });
         this.ship.playerColor = this.color();
         if (typeof (base = this.ship).colorOverride === "function") {

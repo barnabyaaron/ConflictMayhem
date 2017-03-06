@@ -1,11 +1,11 @@
 ﻿Crafty.c('PlayerSpaceship', {
     init: function() {
-        this.requires('2D, WebGL, playerShip, ColorEffects, Listener, Collision, SunBlock, ' + 'WaterSplashes, PlayerControlledShip, Acceleration, InventoryWeapons');
+        this.requires('2D, WebGL, playerShip, ColorEffects, Listener, Collision, PlayerControlledShip, Acceleration, InventoryWeapons');
         this.attr({
-            w: 71,
-            h: 45
+            w: 77,
+            h: 113
         });
-        this.collision([21, 13, 56, 13, 66, 32, 35, 32]);
+        this.collision([10, 5, 35, 0, 45, 40, 75, 40, 75, 60, 45, 60, 35, 100, 10, 95]);
         this.bind('Moved', function(from) {
             var setBack;
             if (this.hit('Edge') || this.hit('Solid')) {
@@ -20,7 +20,7 @@
         this.superUsed = 0;
         this.weaponsEnabled = true;
         this.currentRenderedSpeed = 0;
-        return this.flip('X');
+        return this;
     },
     updateMovementVisuals: function(rotation, dx, dy, dt) {
         var velocity;
@@ -46,42 +46,32 @@
         h = Math.min(w / 3, 15);
         return this.backFire.attr({
             x: this.x - w + 9,
-            y: this.y + 20 - (Math.floor(h / 2)),
+            y: this.y + 50 - (Math.floor(h / 2)),
             w: w,
             h: h
         });
     },
     start: function() {
-        var basicC, c, comp, h, j, len, newC, ref, w;
-        this.backFire = Crafty.e('2D, WebGL, shipEngineFire, ColorEffects').crop(28, 0, 68, 29);
+        var h, w;
+        this.backFire = Crafty.e('2D, WebGL, thruster4').flip('X');
         this.backFire.timing = 0;
-        w = 68;
-        h = 10;
+        w = 41;
+        h = 16;
         this.backFire.attr({
             x: this.x - w,
-            y: this.y + 20 - (Math.floor(h / 2)),
+            y: this.y + 50 - (Math.floor(h / 2)),
             w: w,
             h: h,
             alpha: .8,
             z: this.z - 1
         });
         this.attach(this.backFire);
-        c = {};
-        basicC = {
-            _red: 255,
-            _green: 255,
-            _blue: 255
-        };
-        Crafty.assignColor(this.playerColor, c);
-        ref = ['_red', '_green', '_blue'];
-        for (j = 0, len = ref.length; j < len; j++) {
-            comp = ref[j];
-            newC = (c[comp] + basicC[comp] + basicC[comp]) / 3;
-            c[comp] = newC;
+
+        if (this.shipColor === 'green') {
+            this.sprite('playerShipGreen');
         }
-        this.backFire.colorOverride(c);
+
         this.addComponent('Invincible').invincibleDuration(2000);
-        this.setDetectionOffset(40, 0);
         this.onHit('Hostile', function(collision) {
             var e, hit, k, len1;
             if (Game.paused) {

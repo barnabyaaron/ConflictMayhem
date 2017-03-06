@@ -1,9 +1,9 @@
 ﻿Crafty.c('RapidWeaponLaser', {
     init: function () {
-        this.requires('2D,WebGL,muzzleFlash');
+        this.requires('2D, WebGL');
         this.attr({
-            w: 30,
-            h: 16
+            w: 57,
+            h: 13
         });
         this.stats = {
             rapid: 0,
@@ -25,7 +25,7 @@
         this.ship = ship;
         this.attr({
             x: this.ship.x + 38,
-            y: this.ship.y + 22,
+            y: this.ship.y + 45,
             z: this.ship.z + 1,
             alpha: 0
         });
@@ -122,21 +122,17 @@
             return;
         }
         if (this.lastShot > this.cooldown) {
-            if (this.frontFire) {
-                this._createFrontBullet();
-                this.attr({
-                    alpha: 1
-                });
-            } else {
-                this._createBackBullet();
-            }
+            this._createBullet();
+            this.attr({
+                alpha: 1
+            });
             Crafty.audio.play('shoot', 1, .05);
             this.frontFire = !this.frontFire;
             this.lastShot = 0;
             return this.shotsFired += 1;
         }
     },
-    _createFrontBullet: function () {
+    _createBullet: function () {
         var settings, start;
         settings = {
             w: Math.floor(this.speed / 25),
@@ -148,37 +144,12 @@
             x: this.x + this.w,
             y: this.y + (this.h / 2) - (settings.h / 2) + 1 + settings.o
         };
-        return Crafty.e('Bullet').attr({
+        return Crafty.e('LaserBullet, Bullet, laserFade').attr({
             w: settings.w,
             h: settings.h,
             x: start.x,
             y: start.y,
             z: 1
-        }).fire({
-            ship: this.ship,
-            damage: this.damage,
-            speed: this.ship._currentSpeed.x + settings.speed,
-            direction: this._bulletDirection(start)
-        });
-    },
-    _createBackBullet: function () {
-        var settings, start;
-        settings = {
-            w: Math.floor(this.speed / 35),
-            speed: this.speed,
-            h: 7 + this.overallLevel,
-            o: this.overallLevel
-        };
-        start = {
-            x: this.x + this.w,
-            y: this.y + (this.h / 2) - (settings.h / 2) - 2 - settings.o
-        };
-        return Crafty.e('Bullet').attr({
-            w: settings.w,
-            h: settings.h,
-            x: start.x,
-            y: start.y,
-            z: -1
         }).fire({
             ship: this.ship,
             damage: this.damage,

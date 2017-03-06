@@ -396,15 +396,16 @@ Game.ScriptModule.Level = {
                     alpha: 1.0
                 });
                 e = Crafty.e('Blast, Explosion').explode(options, frameOptions);
-                if (y > _this._getSeaLevel() - 60 && options.lightness === 1.0) {
-                    e.addComponent('WaterSplashes');
-                    e.attr({
-                        waterSplashSpeed: 500,
-                        defaultWaterCooldown: 450
-                    });
-                    e.setDetectionOffset(40, 0);
-                    e.setSealevel(_this._getSeaLevel());
-                }
+                // We in space now no need for sea level.
+                // if (y > _this._getSeaLevel() - 60 && options.lightness === 1.0) {
+                //     e.addComponent('WaterSplashes');
+                //     e.attr({
+                //         waterSplashSpeed: 500,
+                //         defaultWaterCooldown: 450
+                //     });
+                //     e.setDetectionOffset(40, 0);
+                //     e.setSealevel(_this._getSeaLevel());
+                // }
                 if (options.damage) {
                     e.ship = _this.entity.deathCause;
                     return e.addComponent('Hostile');

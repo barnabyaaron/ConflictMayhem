@@ -210,37 +210,37 @@ Game.ScriptModule.Entity = {
                 if (!_.isObject(location)) {
                     throw new Error('location invalid');
                 }
-                seaLevel = _this._getSeaLevel();
+                //seaLevel = _this._getSeaLevel();
                 if (_this.enemy.moveState === 'air') {
-                    if ((settings.y != null) && settings.y + _this.entity.h > seaLevel + Crafty.viewport.y) {
-                        airSettings = _.clone(settings);
-                        airSettings.y = seaLevel - _this.entity.h;
-                        return _this._moveAir(airSettings).then(function () {
-                            _this.enemy.moveState = 'water';
-                            if (_this.enemy.alive) {
-                                _this._setupWaterSpot();
-                                return _this._moveWater(settings);
-                            }
-                        });
-                    } else {
+                    // if ((settings.y != null) && settings.y + _this.entity.h > seaLevel + Crafty.viewport.y) {
+                    //     airSettings = _.clone(settings);
+                    //     airSettings.y = seaLevel - _this.entity.h;
+                    //     return _this._moveAir(airSettings).then(function () {
+                    //         _this.enemy.moveState = 'water';
+                    //         if (_this.enemy.alive) {
+                    //             _this._setupWaterSpot();
+                    //             return _this._moveWater(settings);
+                    //         }
+                    //     });
+                    // } else {
                         return _this._moveAir(settings);
-                    }
+                    //}
                 }
-                if (_this.enemy.moveState === 'water') {
-                    if ((settings.y != null) && settings.y + _this.entity.h < seaLevel + Crafty.viewport.y) {
-                        waterSettings = _.clone(settings);
-                        waterSettings.y = seaLevel - _this.entity.h;
-                        return _this._moveWater(waterSettings).then(function () {
-                            _this.enemy.moveState = 'air';
-                            if (_this.enemy.alive) {
-                                _this._removeWaterSpot();
-                                return _this._moveAir(settings);
-                            }
-                        });
-                    } else {
-                        return _this._moveWater(settings);
-                    }
-                }
+                // if (_this.enemy.moveState === 'water') {
+                //     if ((settings.y != null) && settings.y + _this.entity.h < seaLevel + Crafty.viewport.y) {
+                //         waterSettings = _.clone(settings);
+                //         waterSettings.y = seaLevel - _this.entity.h;
+                //         return _this._moveWater(waterSettings).then(function () {
+                //             _this.enemy.moveState = 'air';
+                //             if (_this.enemy.alive) {
+                //                 _this._removeWaterSpot();
+                //                 return _this._moveAir(settings);
+                //             }
+                //         });
+                //     } else {
+                //         return _this._moveWater(settings);
+                //     }
+                // }
             };
         })(this);
     },
