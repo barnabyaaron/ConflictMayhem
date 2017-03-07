@@ -11,8 +11,8 @@ Game.PauseMenu = (function() {
         Crafty.bind('GamePause', (function (_this) {
             return function (state) {
                 if (state) {
-                    _this.createMenu();
-                    return _this.showPlayers();
+                    return _this.createMenu();
+                    //return _this.showPlayers();
                 } else {
                     return _this.remove();
                 }

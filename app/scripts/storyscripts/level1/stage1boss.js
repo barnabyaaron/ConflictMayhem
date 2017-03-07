@@ -18,11 +18,37 @@ Game.Scripts.Stage1Boss = (function(superClass) {
     };
 
     Stage1Boss.prototype.rocketStrikeDance = function() {
-        return this.parallel(this.movePath([[.7, .4], [.8, .3], [.9, .5], [.7, .6], [.8, .7], [.9, .4], [.7, .1], [.6, .2]]), this.repeat(2, this.sequence(this.fireRockets(4), this.wait(1500), this.fireRockets(4), this.wait(1000), this.fireRockets(2), this.wait(300), this.fireRockets(2), this.wait(300), this.fireRockets(2), this.wait(300))));
+        return this.parallel(
+            this.movePath([[.7, .4], [.8, .3], [.9, .5], [.7, .6], [.8, .7], [.9, .4], [.7, .1], [.6, .2]]),
+            this.repeat(2, this.sequence(
+                this.fireRockets(4),
+                this.wait(1500),
+                this.fireRockets(4),
+                this.wait(1000),
+                this.fireRockets(2),
+                this.wait(300),
+                this.fireRockets(2),
+                this.wait(300),
+                this.fireRockets(2),
+                this.wait(300)
+            ))
+        );
     };
 
     Stage1Boss.prototype.rocketStrikeDanceHoming = function() {
-        return this.parallel(this.movePath([[.7, .4], [.8, .3], [.9, .5], [.7, .6], [.8, .7], [.9, .4], [.7, .1], [.6, .2]]), this.repeat(2, this.sequence(this.fireRockets(2, true), this.wait(600), this.fireRockets(2, true), this.wait(600), this.fireRockets(2, true), this.wait(900), this.fireRockets(4), this.wait(300))));
+        return this.parallel(
+            this.movePath([[.7, .4], [.8, .3], [.9, .5], [.7, .6], [.8, .7], [.9, .4], [.7, .1], [.6, .2]]),
+            this.repeat(2, this.sequence(
+                this.fireRockets(2, true),
+                this.wait(600),
+                this.fireRockets(2, true),
+                this.wait(600),
+                this.fireRockets(2, true),
+                this.wait(900),
+                this.fireRockets(4),
+                this.wait(300)
+            ))
+        );
     };
 
     Stage1Boss.prototype.fireRockets = function(amount, homing) {
@@ -31,47 +57,57 @@ Game.Scripts.Stage1Boss = (function(superClass) {
         if (homing) {
             script = Game.Scripts.Stage1BossAimedRocket;
         }
-        return this.sequence(this.async(this.placeSquad(script, {
-            options: {
-                z: 5,
-                offsetX: 0,
-                offsetY: 50,
-                pointsOnHit: 0,
-                pointsOnDestroy: 0,
-                location: this.location()
-            }
-        })), this.animate('emptyWing', 0, 'wing'), this.async(this.placeSquad(script, {
-            options: {
-                z: -5,
-                offsetX: 0,
-                offsetY: -50,
-                pointsOnHit: 0,
-                pointsOnDestroy: 0,
-                location: this.location()
-            }
-        })), this["if"]((function() {
-            return amount > 2;
-        }), this.async(this.placeSquad(Game.Scripts.Stage1BossRocket, {
-            options: {
-                z: -5,
-                offsetX: 30,
-                offsetY: -100,
-                location: this.location(),
-                pointsOnHit: 0,
-                pointsOnDestroy: 0
-            }
-        }))), this["if"]((function() {
-            return amount > 3;
-        }), this.async(this.placeSquad(Game.Scripts.Stage1BossRocket, {
-            options: {
-                z: -5,
-                offsetX: 30,
-                offsetY: 100,
-                location: this.location(),
-                pointsOnHit: 0,
-                pointsOnDestroy: 0
-            }
-        }))), this.wait(500), this.animate('reload', 0, 'wing'));
+        return this.sequence(
+            this.async(this.placeSquad(script, {
+                options: {
+                    z: 5,
+                    offsetX: 0,
+                    offsetY: 50,
+                    pointsOnHit: 0,
+                    pointsOnDestroy: 0,
+                    location: this.location()
+                }
+            })),
+            this.animate('emptyWing', 0, 'wing'),
+            this.async(this.placeSquad(script, {
+                options: {
+                    z: -5,
+                    offsetX: 0,
+                    offsetY: -50,
+                    pointsOnHit: 0,
+                    pointsOnDestroy: 0,
+                    location: this.location()
+                }
+            })),
+            this["if"]((function() {
+                return amount > 2;
+            }),
+            this.async(this.placeSquad(Game.Scripts.Stage1BossRocket, {
+                options: {
+                    z: -5,
+                    offsetX: 30,
+                    offsetY: -100,
+                    location: this.location(),
+                    pointsOnHit: 0,
+                    pointsOnDestroy: 0
+                }
+            }))),
+            this["if"]((function() {
+                return amount > 3;
+            }),
+            this.async(this.placeSquad(Game.Scripts.Stage1BossRocket, {
+                options: {
+                    z: -5,
+                    offsetX: 30,
+                    offsetY: 100,
+                    location: this.location(),
+                    pointsOnHit: 0,
+                    pointsOnDestroy: 0
+                }
+            }))),
+            this.wait(500),
+            this.animate('reload', 0, 'wing')
+        );
     };
 
     Stage1Boss.prototype.smoke = function(version) {
@@ -93,28 +129,30 @@ Game.Scripts.Stage1Boss = (function(superClass) {
                 wait: 140
             }
         }[version];
-        return this.sequence(this.blast(this.location(), (function(_this) {
-            return function() {
-                return {
-                    radius: 10,
-                    duration: 480,
-                    z: _this.entity.z - 3,
-                    alpha: options.alpha,
-                    lightness: 1.0
+        return this.sequence(
+            this.blast(this.location(), (function(_this) {
+                return function() {
+                    return {
+                        radius: 10,
+                        duration: 480,
+                        z: _this.entity.z - 3,
+                        alpha: options.alpha,
+                        lightness: 1.0
+                    };
                 };
-            };
-        })(this), function() {
-            return {
-                rotation: this.rotation + 1,
-                alpha: Math.max(0, this.alpha - .003),
-                lightness: function() {
-                    return Math.max(.2, this.lightness - .05);
-                },
-                y: this.y - (Math.random() * 2)
-            };
-        }), this.wait(function() {
-            return options.wait + (Math.random() * 50);
-        }));
+            })(this), function() {
+                return {
+                    rotation: this.rotation + 1,
+                    alpha: Math.max(0, this.alpha - .003),
+                    lightness: function() {
+                        return Math.max(.2, this.lightness - .05);
+                    },
+                    y: this.y - (Math.random() * 2)
+                };
+            }), this.wait(function() {
+                return options.wait + (Math.random() * 50);
+            })
+        );
     };
 
     return Stage1Boss;
@@ -256,7 +294,24 @@ Game.Scripts.Stage1BossStage1 = (function(superClass) {
                 return _this.entity.healthBelow(.2);
             };
         })(this));
-        return this.sequence(this.cancelBullets('Mine'), this.cancelBullets('shadow'), this.setSpeed(200), this.repeat(this.sequence(this.bombRaid(true), this.repeat(2, this["while"](this.rocketStrikeDanceHoming(), this.sequence(this.async(this.runScript(Game.Scripts.Stage1BossMine, this.location())), this.wait(1500)))), this.wait(1000))));
+        return this.sequence(
+            this.cancelBullets('Mine'),
+            this.cancelBullets('shadow'),
+            this.setSpeed(200),
+            this.repeat(
+                this.sequence(
+                    this.bombRaid(true),
+                    this.repeat(2, this["while"](
+                        this.rocketStrikeDanceHoming(),
+                        this.sequence(
+                            this.async(this.runScript(Game.Scripts.Stage1BossMine, this.location())),
+                            this.wait(1500))
+                        )
+                    ),
+                    this.wait(1000)
+                )
+            )
+        );
     };
 
     Stage1BossStage1.prototype.laugh = function() {
@@ -283,30 +338,64 @@ Game.Scripts.Stage1BossStage1 = (function(superClass) {
     };
 
     Stage1BossStage1.prototype.endOfFight = function() {
-        return this.sequence(this.cancelBullets('Mine'), this.cancelBullets('shadow'), this.invincible(true), this["while"](this.moveTo({
-            x: .6,
-            y: .90,
-            speed: 50
-        }), this.sequence(this.smallExplosion(), this["while"](this.wait(300), this.smoke()))), this.moveTo({
-            y: 1.1,
-            x: .4,
-            speed: 50
-        }), this.moveTo({
-            y: .6,
-            x: .4,
-            speed: 350,
-            easing: 'easeOutQuad'
-        }), this.sendToBackground(0.9, -100), this.parallel(this["while"](this.moveTo({
-            x: -.15,
-            speed: 300,
-            easing: 'easeInQuad'
-        }), this.smoke('medium')), this.scale(0.8, {
-            duration: 3000
-        })), this.leaveAnimation(this.sequence(this.turnAround(), this.sendToBackground(0.7, -150), this["while"](this.moveTo({
-            x: 1.1,
-            speed: 500,
-            easing: 'easeInQuad'
-        }), this.smoke('medium')))));
+        return this.sequence(
+            this.cancelBullets('Mine'),
+            this.cancelBullets('shadow'),
+            this.invincible(true),
+            this["while"](
+                this.moveTo({
+                    x: .6,
+                    y: .90,
+                    speed: 50
+                }),
+                this.sequence(
+                    this.smallExplosion(),
+                    this["while"](
+                        this.wait(300),
+                        this.smoke()
+                    )
+                )
+            ),
+            this.moveTo({
+                y: 1.1,
+                x: .4,
+                speed: 50
+            }),
+            this.moveTo({
+                y: .6,
+                x: .4,
+                speed: 350,
+                easing: 'easeOutQuad'
+            }),
+            this.sendToBackground(0.9, -100),
+            this.parallel(
+                this["while"](
+                    this.moveTo({
+                        x: -.15,
+                        speed: 300,
+                        easing: 'easeInQuad'
+                    }),
+                    this.smoke('medium')
+                ),
+                this.scale(0.8, {
+                    duration: 3000
+                })
+            ),
+            this.leaveAnimation(
+                this.sequence(
+                    this.turnAround(),
+                    this.sendToBackground(0.7, -150),
+                    this["while"](
+                        this.moveTo({
+                            x: 1.1,
+                            speed: 500,
+                            easing: 'easeInQuad'
+                        }),
+                        this.smoke('medium')
+                    )
+                )
+            )
+        );
     };
 
     return Stage1BossStage1;

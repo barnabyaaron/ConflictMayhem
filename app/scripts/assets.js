@@ -11,13 +11,7 @@
         classic_player_die: "player_die.mp3",
         classic_player_shoot: "player_shoot.mp3",
         classic_ship_fly: "ship_fly.mp3",
-        classic_ship_hit: "ship_hit.mp3",
-        frank_die: "boss/frank/FrankDie.mp3",
-        frank_hit1: "boss/frank/FrankHit1.mp3",
-        frank_hit2: "boss/frank/FrankHit2.mp3",
-        frank_laugh: "boss/frank/FrankLaugh.mp3",
-        frank_saying1: "boss/frank/OhMyGod.mp3",
-        frank_saying2: "boss/frank/OhMyGoodLord.mp3"
+        classic_ship_hit: "ship_hit.mp3"
     },
     sprites: {
         "ui/panel_bg.png": {

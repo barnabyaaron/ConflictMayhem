@@ -97,11 +97,7 @@ generator.defineAssets('frank', {
             tile: 200,
             tileh: 282,
             map: {
-                frank: [0, 0],
-                frankShoot: [1, 0],
-                frankSmile: [2, 0],
-                frankHit: [3, 0],
-                frankDie: [4, 0]
+                frank: [0, 0]
             }
         }
     },

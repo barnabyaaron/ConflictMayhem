@@ -41,39 +41,21 @@ Game.Scripts.Testing = (function(superClass) {
         return this.sequence(
             this.updateTitle('Testing Mode'),
             this.openingScene(),
-            this.updateTitle('Player Test'),
             this.setSpeed(200),
             this.updateTitle('Enemy Test'),
-            this.repeat(1, this.placeSquad(Game.Scripts.Invaders, {
+            this.repeat(3, this.placeSquad(Game.Scripts.Invaders, {
                 amount: 2,
                 delay: 1500
             })),
-            this.updateTitle('Better Weapons'),
-            this.drop({
-                item: 'lasers',
-                inFrontOf: this.player(1)
-            }),
-            this.wait(1000),
-            this.repeat(1, this.placeSquad(Game.Scripts.Invaders, {
-                amount: 2,
-                delay: 1500
-            })),
-            this.updateTitle('Even Better Weapons'),
-            this.drop({
-                item: 'diagonals',
-                inFrontOf: this.player(1)
-            }),
-            this.wait(1000),
-            this.repeat(1, this.placeSquad(Game.Scripts.Invaders, {
-                amount: 2,
-                delay: 1500
-            }))
+            this.updateTitle('The FRANK'),
+            this.wait(500),
+            this.placeSquad(Game.Scripts.FrankBossStage1)
         );
     };
 
     Testing.prototype.openingScene = function() {
         return this.sequence(
-            this.setWeapons(['oldlasers']),
+            this.setWeapons(['diagonals']),
             this.setSpeed(100),
             this.setScenery('Void')
         );

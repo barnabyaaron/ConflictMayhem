@@ -1,0 +1,63 @@
+Crafty.c('Frank', {
+    init: function () {
+        return this.requires('Enemy, frank, SpriteAnimation');
+    },
+    spawn: function(attr) {
+        var defaultHealth, ref;
+        if (attr == null) {
+            attr = {};
+        }
+
+        defaultHealth = 360000;
+        this.attr(_.defaults(attr, {
+            health: defaultHealth,
+            maxHealth: (ref = attr.health) != null ? ref : defaultHealth,
+            z: -1
+        }));
+        this.origin('center');
+        this.collision([10, 141, 50, 75, 100, 5, 150, 75, 190, 141, 100, 279]);
+        this.reel('hit', 1000, [[3, 0], [0, 0]]);
+        this.reel('smile', 2000, [[2, 0], [0, 0]]);
+        this.reel('shoot', 1000, [[1, 0], [0, 0]]);
+        this.reel('die', 4000, 4, 0, 5);
+        this.enemy();
+        this.updatedHealth();
+        this.bind('Hit', (function (_this) {
+            return function (data) {
+                if (data.projectile.has('Bullet')) {
+                    _this.shiftedX += 1;
+
+                    var d = Math.random();
+                    if (d < .2) {
+                        this.animate('hit');
+                        Crafty.audio.play('frankHit');
+                    } else if (d < .025) {
+                        Crafty.audio.play('frankHit2');
+                    }
+
+                    return Crafty.e('Blast, LaserHit').explode({
+                        x: data.projectile.x,
+                        y: data.projectile.y,
+                        z: _this.z + 2,
+                        radius: 4,
+                        duration: 50
+                    });
+                }
+            };
+        })(this));
+        return this;
+    },
+    healthBelow: function (perc) {
+        return (this.health / this.maxHealth) < perc;
+    },
+    updatedHealth: function () {
+        var healthPerc;
+        healthPerc = this.health / this.maxHealth;
+
+        // Do something as health gets lower?
+    },
+    updateMovementVisuals: function (rotation, dx, dy, dt) {
+        this.vx = dx * (1000 / dt);
+        return this.vy = dy * (1000 / dt);
+    }
+});

@@ -12,7 +12,7 @@ Crafty.c('Fighter', {
             defaultSpeed: 100
         }));
         this.origin('center');
-        this.collision();
+        this.collision([0, 25, 60, 0, 80, 20, 80, 75, 60, 90, 0, 75]);
         this.attr({
             weaponOrigin: [2, 25]
         });
