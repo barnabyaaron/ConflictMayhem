@@ -5,7 +5,8 @@
             pointsOnHit: 10,
             pointsOnDestroy: 50
         });
-        return this.invincible = false;
+        this.invincible = false;
+        return this;
     },
     enemy: function (options) {
         if (options == null) {

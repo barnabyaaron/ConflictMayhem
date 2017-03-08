@@ -35,6 +35,20 @@
         });
         return this.unbind('GameLoop', this._autoFire);
     },
+    upgrade: function () {
+        this.level += 1;
+        this._determineCooldown();
+        return this.trigger('levelUp', {
+            aspect: 'levelup',
+            level: this.level
+        });
+    },
+    downgrade: function () {
+        if (this.level !== 1) {
+            this.level -= 1;
+            this._determineCooldown();
+        }
+    },
     addXP: function (amount) {
         var level;
         this.xp += amount;
@@ -42,20 +56,24 @@
         this.level = this.determineLevel(this.xp);
         if (level !== this.level) {
             this._determineCooldown();
-            return this.trigger('levelUp', this.level);
+            return this.trigger('levelUp', {
+                aspect: 'levelup',
+                level: this.level
+            });
         }
     },
+    _determineWeaponSettings: function () { },
     _determineCooldown: function () {
         return this.cooldown = (function () {
             switch (this.level) {
                 case 0:
-                    return 200;
+                    return 500;
                 case 1:
-                    return 150;
+                    return 300;
                 case 2:
-                    return 75;
+                    return 200;
                 case 3:
-                    return 75;
+                    return 100;
             }
         }).call(this);
     },
@@ -116,6 +134,7 @@
             this._createAngleBullet(angle + (deviation * f));
             deviation = Math.random() * 1.5;
             this._createAngleBullet(-angle + (deviation * f));
+
             Crafty.audio.play('shoot', 1, .10);
             this.frontFire = !this.frontFire;
             this.lastShot = 0;
@@ -126,11 +145,29 @@
         var settings;
         settings = (function () {
             switch (this.level) {
-                default:
+                case 0:
+                    return {
+                        w: 15,
+                        h: 3,
+                        speed: 550
+                    };
+                case 1:
+                    return {
+                        w: 20,
+                        h: 5,
+                        speed: 550
+                    };
+                case 2:
+                    return {
+                        w: 35,
+                        h: 8,
+                        speed: 550
+                    };
+                case 3:
                     return {
                         w: 57,
                         h: 13,
-                        speed: 550
+                        speed: 600
                     };
             }
         }).call(this);

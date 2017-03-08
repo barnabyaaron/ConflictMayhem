@@ -39,7 +39,7 @@
     _maxXforViewPort: function () {
         var maxX;
         maxX = -Crafty.viewport._x + Crafty.viewport._width / Crafty.viewport._scale;
-        return maxX + 20;
+        return maxX - 30;
     },
     _minXforViewPort: function () {
         var minX;

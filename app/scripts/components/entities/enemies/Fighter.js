@@ -40,6 +40,7 @@ Crafty.c('Fighter', {
         // Used for setting a damaged sprite
     },
     updateMovementVisuals: function (rotation, dx, dy, dt) {
-        // Used for visual updates on movement.
+        this.vx = dx * (1000 / dt);
+        this.vy = dy * (1000 / dt);
     }
 })

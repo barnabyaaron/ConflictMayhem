@@ -16,9 +16,9 @@ Crafty.c('Frank', {
         }));
         this.origin('center');
         this.collision([10, 141, 50, 75, 100, 5, 150, 75, 190, 141, 100, 279]);
-        this.reel('hit', 1000, [[3, 0], [0, 0]]);
+        this.reel('hit', 200, [[3, 0], [0, 0]]);
         this.reel('smile', 2000, [[2, 0], [0, 0]]);
-        this.reel('shoot', 1000, [[1, 0], [0, 0]]);
+        this.reel('shoot', 200, [[1, 0], [0, 0]]);
         this.reel('die', 4000, 4, 0, 5);
         this.enemy();
         this.updatedHealth();
@@ -27,12 +27,15 @@ Crafty.c('Frank', {
                 if (data.projectile.has('Bullet')) {
                     _this.shiftedX += 1;
 
-                    var d = Math.random();
-                    if (d < .2) {
-                        this.animate('hit');
-                        Crafty.audio.play('frankHit');
-                    } else if (d < .025) {
-                        Crafty.audio.play('frankHit2');
+                    if (!Crafty.audio.isPlaying('frankHit') && !Crafty.audio.isPlaying('frankHit2')) {
+                        var d = Math.random();
+                        if (d < .3 && d > .02) {
+                            this.animate('hit');
+                            Crafty.audio.play('frankHit');
+                        } else if (d < .02) {
+                            this.animate('hit');
+                            Crafty.audio.play('frankHit2');
+                        }
                     }
 
                     return Crafty.e('Blast, LaserHit').explode({
