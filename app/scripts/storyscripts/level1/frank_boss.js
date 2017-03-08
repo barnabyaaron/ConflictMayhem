@@ -18,15 +18,113 @@ Game.Scripts.FrankBoss = (function(superClass) {
     };
 
     FrankBoss.prototype.simpleDance = function() {
-        return this.sequence(
-            this.movePath([[.7, .4], [.8, .3], [.8, .2], [.7, .1], [.7, .3], [.8, .6], [.8, .7], [.7, .6]])
+        return this.parallel(
+            this.movePath([[.7, 0], [.8, .1], [.8, .2], [.7, .3], [.6, .4], [.7, .5], [.8, .3], [.6, .2], [.7, .1]]),
+            this.repeat(2, this.sequence(
+                this.fireLaser({
+                    type: 'single'
+                }),
+                this.wait(1500),
+                this.fireLaser({
+                    type: 'single'
+                }),
+                this.wait(1000),
+                this.fireLaser({
+                    type: 'single'
+                }),
+                this.wait(300),
+                this.fireLaser({
+                    type: 'single'
+                }),
+                this.wait(300),
+                this.fireLaser({
+                    type: 'single'
+                }),
+                this.wait(2000)
+            ))
         );
     };
 
     FrankBoss.prototype.spreadDance = function() {
-        return this.sequence(
-            this.movePath([[.7, .4], [.8, .3], [.8, .2], [.7, .1], [.7, .3], [.8, .6], [.8, .7], [.7, .6]])
+        return this.parallel(
+            this.movePath([[.7, 0], [.8, .1], [.8, .2], [.7, .3], [.6, .4], [.7, .5], [.8, .3], [.6, .2], [.7, .1]]),
+            this.repeat(2, this.sequence(
+                this.fireLaser({
+                    type: 'multi'
+                }),
+                this.wait(2000),
+                this.fireLaser({
+                    type: 'multi'
+                }),
+                this.wait(1500),
+                this.fireLaser({
+                    type: 'multi'
+                }),
+                this.wait(2000),
+                this.fireLaser({
+                    type: 'multi'
+                }),
+                this.wait(1000)
+            ))
         );
+    };
+
+    FrankBoss.prototype.headbuttDance = function() {
+        return this.sequence(
+            this.movePath([[.7, 0], [.8, .2], [.6, .4], [.8, .3], [.7, .1]]),
+            this.pickTarget('PlayerControlledShip'),
+            this.moveTo(this.targetLocation(), {
+                x: .7,
+                speed: 300,
+                easing: 'easeInOutQuad'
+            }),
+            this.wait(100),
+            this.rotate(-45, 200),
+            this.moveTo({
+                //x: this.targetLocation().x + 100,
+                x: .3,
+                speed: 500,
+                easing: 'easeInQuad'
+            }),
+            this.rotate(0, 100),
+            this.moveTo(this.targetLocation(), {
+                x: .7,
+                speed: 300,
+                easing: 'easeInOutQuad',
+            }),
+            this.rotate(-45, 200),
+            this.moveTo({
+                //x: this.targetLocation().x,
+                x: .1,
+                speed: 500,
+                easing: 'easeInQuad'
+            }),
+            this.rotate(0, 100),
+            this.parallel(
+                (function(_this) {
+                    return function() {
+                        return _this.entity.animate('smile');
+                    };
+                })(this),
+                this.moveTo({
+                    x: .7,
+                    y: .3,
+                    speed: 200,
+                    easing: 'easeInOutQuad'
+                })
+            )
+
+        );
+    };
+
+    FrankBoss.prototype.fireLaser = function(options) {
+        return this.sequence(
+            (function(_this) {
+                return function() {
+                    return _this.entity.animate('shoot');
+                };
+            })(this)
+        )
     };
 
     return FrankBoss;
@@ -70,10 +168,6 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
             this.laugh(),
             this.invincible(false),
             this.enableWeapons(),
-            this.moveTo({
-                y: .4,
-                speed: 5
-            }),
             this.repeat(
                 this.sequence(
                     this.repeat(2, this.simpleDance())
@@ -83,9 +177,10 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
     };
 
     FrankBossStage1.prototype.fase2 = function() {
-        this.bindSequence('Hit', this.endOfFight, (function(_this) {
+        console.log('Starting fase2');
+        this.bindSequence('Hit', this.fase3, (function(_this) {
             return function() {
-                return _this.entity.healthBelow(.2);
+                return _this.entity.healthBelow(.3);
             };
         })(this));
 
@@ -93,17 +188,28 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
             this.setSpeed(200),
             this.repeat(
                 this.sequence(
-                    this.repeat(2, this["while"](
-                        this.spreadDance(),
-                        this.sequence(
-                            this.wait(1500)
-                        ),
-                        this.wait(1500)
-                    )),
-                    this.wait(1000)
+                    this.repeat(2, this.spreadDance())
                 )
             )
-        )
+        );
+    };
+
+    FrankBossStage1.prototype.fase3 = function() {
+        console.log('Starting fase3');
+        this.bindSequence('Hit', this.endOfFight, (function(_this) {
+            return function() {
+                return _this.entity.healthBelow(.01);
+            };
+        })(this));
+
+        return this.sequence(
+            this.setSpeed(300),
+            this.repeat(
+                this.sequence(
+                    this.repeat(2, this.headbuttDance())
+                )
+            )
+        );
     };
 
     FrankBossStage1.prototype.laugh = function() {
@@ -132,12 +238,14 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
     };
 
     FrankBossStage1.prototype.endOfFight = function() {
+        console.log('Starting endOfFight');
         return this.sequence(
             this.invincible(true),
             this.leaveAnimation(
                 this.sequence(
                     (function(_this) {
                         return function() {
+                            Crafty.audio.stop();
                             Crafty.audio.play('frankDie');
                             _this.entity.animate('die');
                         };

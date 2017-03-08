@@ -115,6 +115,10 @@
             });
             Crafty.audio.play("explosion");
             Crafty('ScrollWall').get(0).screenShake(10, 1000);
+
+            // Downgrade weapon
+            this.primaryWeapon.downgrade();
+
             return this.trigger('Destroyed', this);
         });
         this.bind('GameLoop', function(fd) {
@@ -226,37 +230,42 @@
         this.listenTo(weapon, 'levelUp', (function(_this) {
             return function(info) {
                 var t;
-                t = {
-                    damage: 'Damage',
-                    rapid: 'RapidFire',
-                    aim: 'AimAssist',
-                    speed: 'BulletSpeed'
-                };
-                return _this.scoreText(t[info.aspect] + " +" + info.level);
+
+                if (info.aspect === 'levelup') {
+                    return _this.scoreText("Weapon Upgraded!");
+                } else {
+                    t = {
+                        damage: 'Damage',
+                        rapid: 'RapidFire',
+                        aim: 'AimAssist',
+                        speed: 'BulletSpeed'
+                    };
+                    return _this.scoreText(t[info.aspect] + " +" + info.level);
+                }
             };
         })(this));
         this.listenTo(weapon, 'boost', (function(_this) {
             return function(info) {
                 var t;
                 t = {
-                    damageb: 'Damage',
-                    rapidb: 'RapidFire',
-                    aimb: 'AimAssist',
-                    speedb: 'BulletSpeed'
+                    damageb: 'Damage Boost!',
+                    rapidb: 'Rapid Fire!',
+                    aimb: 'Aim Assist!',
+                    speedb: 'Bullet Speed Boost!'
                 };
-                return _this.scoreText(t[info.aspect] + " Boost!");
+                return _this.scoreText(t[info.aspect]);
             };
         })(this));
         this.listenTo(weapon, 'boostExpired', (function(_this) {
             return function(info) {
                 var t;
                 t = {
-                    damageb: 'Damage',
-                    rapidb: 'RapidFire',
-                    aimb: 'AimAssist',
-                    speedb: 'BulletSpeed'
+                    damageb: 'Damage Boost',
+                    rapidb: 'Rapid Fire',
+                    aimb: 'Aim Assist',
+                    speedb: 'Bullet Speed Boost'
                 };
-                return _this.scoreText(t[info.aspect] + " Boost expired", {
+                return _this.scoreText(t[info.aspect] + " expired", {
                     positive: false
                 });
             };

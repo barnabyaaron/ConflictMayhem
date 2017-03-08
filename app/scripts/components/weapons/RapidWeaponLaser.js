@@ -48,6 +48,15 @@
             level: this.stats[aspect]
         });
     },
+    downgrade: function () {
+        // Downgrade all stats by 1
+        _.each(this.stats, function(val) {
+            if (val !== 1) {
+                return val -= 1;
+            }
+            return val;
+        })
+    },
     boost: function (aspect) {
         this.boosts[aspect] = 10;
         this.boostTimings[aspect] = 15 * 1000;

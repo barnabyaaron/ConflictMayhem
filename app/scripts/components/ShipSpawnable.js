@@ -68,6 +68,7 @@
             this.stats.shotsHit += 1;
             points = (ref1 = data.pointsOnHit) != null ? ref1 : 0;
             if (data != null) {
+                console.log('Adding Points Hit + ' + points);
                 return this.addPoints(points, data.location);
             }
         });
@@ -76,6 +77,7 @@
             this.stats.enemiesKilled += 1;
             points = ((ref1 = data.pointsOnDestroy) != null ? ref1 : 0) + ((ref2 = data.pointsOnHit) != null ? ref2 : 0);
             if (data != null) {
+                console.log('Adding Points Destory + ' + points);
                 return this.addPoints(points, data.location);
             }
         });

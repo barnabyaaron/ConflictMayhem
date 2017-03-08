@@ -19,23 +19,28 @@ Game.Scripts.Testing = (function(superClass) {
 
     Testing.prototype.execute = function() {
         this.inventoryAdd('weapon', 'oldlasers', {
-            marking: 'OL'
+            marking: 'OL',
+            icon: 'item_bronze'
         });
         this.inventoryAdd('weapon', 'lasers', {
             marking: 'L',
-            icon: 'item_bronze'
+            icon: 'item_silver'
         });
         this.inventoryAdd('weapon', 'diagonals', {
             markings: 'DL',
-            icon: 'item_silver'
+            icon: 'item_gold'
         });
         this.inventoryAdd('ship', 'life', {
             marking: '❤',
-            icon: 'heart'
+            icon: 'pill_blue'
         });
         this.inventoryAdd('ship', 'points', {
             marking: 'P',
-            icon: 'star'
+            icon: 'powerup_star'
+        });
+        this.inventoryAdd('weaponUpgrade', 'levelup', {
+            marking: 'WU',
+            icon: 'powerup_bolt'
         });
 
         return this.sequence(
@@ -44,11 +49,31 @@ Game.Scripts.Testing = (function(superClass) {
             this.setSpeed(200),
             this.updateTitle('Enemy Test'),
             this.repeat(3, this.placeSquad(Game.Scripts.Invaders, {
-                amount: 2,
-                delay: 1500
+                amount: 4,
+                delay: 800,
+                drop: 'levelup'
             })),
             this.updateTitle('The FRANK'),
-            this.wait(500),
+            this.showText('Warning!', {
+                color: '#FF0000',
+                mode: 'blink',
+                blink_amount: 1
+            }),
+            this.async(
+                this.parallel(
+                    (function(_this) {
+                        return function() {
+                            return Crafty.audio.play('frankOhMyGoodLord');
+                        };
+                    })(this),
+                    this.showText('Frank Incoming!', {
+                        color: '#FF0000',
+                        mode: 'blink',
+                        blink_amount: 2
+                    })
+                )
+            ),
+            this.setSpeed(0),
             this.placeSquad(Game.Scripts.FrankBossStage1)
         );
     };

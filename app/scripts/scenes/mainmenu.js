@@ -4,7 +4,7 @@ Crafty.scene('mainmenu', function () {
     Game.resetCredits();
 
     Crafty.background('#000 url(images/earth_bg.jpg) no-repeat center center');
-    //Crafty.audio.play('menu_music', -1);
+    Crafty.audio.play('menu_music', -1, .5);
 
     Crafty.viewport.x = 0;
     Crafty.viewport.y = 0;

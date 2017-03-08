@@ -61,26 +61,24 @@ Game.Scripts.Invaders = (function (superclass) {
                     x: .8,
                     y: .1
                 }, {
-                    speed: 200,
+                    speed: 250,
                     easing: 'easeInOutQuad'
                 }),
-                this.wait(200),
                 this.moveTo({
                     x: .8,
                     y: .7
                 }, {
-                    speed: 200,
+                    speed: 250,
                     easing: 'easeInOutQuad'
-                }),
-                this.wait(200)
+                })
             )),
             this.pickTarget('PlayerControlledShip'),
             this.moveTo(this.targetLocation(), {
                 x: .8,
-                speed: 200,
+                speed: 250,
                 easing: 'easeInOutQuad'
             }),
-            this.wait(200),
+            this.wait(100),
             this.moveTo({
                 x: -50,
                 speed: 400,
