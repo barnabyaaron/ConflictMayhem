@@ -21,6 +21,12 @@ Crafty.c('Frank', {
         this.reel('shoot', 200, [[1, 0], [0, 0]]);
         this.reel('die', 4000, 4, 0, 5);
         this.enemy();
+
+        this.healthBar = Crafty.e('BossBar').render('Frank', {
+            current: this.health,
+            max: this.maxHealth
+        });
+
         this.updatedHealth();
         this.bind('Hit', (function (_this) {
             return function (data) {
@@ -57,7 +63,8 @@ Crafty.c('Frank', {
         var healthPerc;
         healthPerc = this.health / this.maxHealth;
 
-        // Do something as health gets lower?
+        this.healthBar = this.healthBar.updateBar(this.health);
+        //this.healthBar.w = this.healthBar.w * healthPerc;
     },
     updateMovementVisuals: function (rotation, dx, dy, dt) {
         this.vx = dx * (1000 / dt);

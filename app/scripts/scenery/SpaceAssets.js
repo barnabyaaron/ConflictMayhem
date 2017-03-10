@@ -136,6 +136,29 @@ generator.defineAssets('player', {
     }
 });
 
+generator.defineAssets('extra', {
+    contents: ['mine', 'rocket', 'helicopter', 'largeDrone'],
+    spriteMap: 'city-enemies.png',
+    sprites: {
+        all: {
+            tile: 32,
+            tileh: 32,
+            map: {
+                muzzleFlash: [10, 0, 1, 1],
+                shipEngineFire: [3, 0, 3, 1],
+                freddie: [3, 1, 3, 2],
+                standardMine: [3, 3, 1, 1],
+                standardRocket: [4, 4, 2, 1],
+                helicopter: [0, 6, 4, 2],
+                heliDamaged: [8, 6, 4, 2],
+                standardLargeDrone: [0, 8, 3, 3],
+                eyeStart: [6, 0, 1, 1],
+                wingLoaded: [12, 2, 2, 1]
+            }
+        }
+    }
+});
+
 generator.defineAssets('laser', {
     contents: ['laser'],
     spriteMap: 'sprites/lasers_sprite.png',
@@ -287,6 +310,39 @@ generator.defineAssets('custom_enemy', {
                 custom_enemy2: [1, 0],
                 custom_enemy3: [2, 0],
                 custom_enemy4: [3, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('ui', {
+    contents: ['health_bar', 'shield_bar', 'power_bar'],
+    spriteMap: 'sprites/bar_ui.png',
+    sprites: {
+        all: {
+            tile: 140,
+            tileh: 26,
+            map: {
+                health_bar: [0, 0],
+                power_bar: [1, 0],
+                shield_bar: [2, 0],
+                ui_bar_bg: [3, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('ui_icons', {
+    contents: ['health_icon', 'shield_icon', 'power_icon'],
+    spriteMap: 'sprites/bar_ui_icons.png',
+    sprites: {
+        all: {
+            tile: 40,
+            tileh: 40,
+            map: {
+                health_icon: [0, 0],
+                power_icon: [1, 0],
+                shield_icon: [2, 0]
             }
         }
     }

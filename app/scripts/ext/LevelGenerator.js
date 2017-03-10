@@ -93,7 +93,7 @@ Game.LevelGenerator = (function() {
     LevelGenerator.prototype.createLevel = function(data) {
         if (data == null) {
             data = {
-                namespace: 'City'
+                namespace: 'Space'
             };
         }
         return new Game.Level(this, data);

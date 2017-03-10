@@ -54,18 +54,6 @@ this.Classic = (function () {
             };
         })(this));
 
-        if (this.bonusMode) {
-            Game.say('Charlie', "The... I don't know what they are but there coming.", {
-                noise: 'low',
-                bottom: 450
-            });
-        } else {
-            Game.say('Charlie', "The invaders are coming!", {
-                noise: 'low',
-                bottom: 450
-            });
-        }
-
         return this.resetBoard();
     };
 
@@ -340,13 +328,6 @@ this.Classic = (function () {
         alienExplosionNode.data.explosionText("" + pointsGained, '#FFFFFF', 10).explodeAt(alien.x, alien.y);
         alien.die();
         this.updateAlienMoveInterval();
-
-        if (this.aliens.size() === 54 && !this.bonusMode) {
-            Game.say('Charlie', "OH MY GOD, THEY EVEN MAKE THE NOISE", {
-                noise: 'low',
-                bottom: 450
-            });
-        }
 
         if (this.aliens.size() === 0) {
             return this.victory();

@@ -214,28 +214,6 @@
                 frank_dead: [4, 0]
             }
         },
-        "power_up_sheet.png": {
-            tile: 33,
-            tileh: 33,
-            map: {
-                shield_red: [0, 0],
-                star_red: [1, 0],
-                bolt_red: [2, 0],
-                pill_red: [3, 0],
-                shield_yellow: [0, 1],
-                star_yellow: [1, 1],
-                bolt_yellow: [2, 1],
-                pill_yellow: [3, 1],
-                shield_blue: [0, 2],
-                star_blue: [1, 2],
-                bolt_blue: [2, 2],
-                pill_blue: [3, 2],
-                shield_green: [0, 3],
-                star_green: [1, 3],
-                bolt_green: [2, 3],
-                pill_green: [3, 3]
-            }
-        },
         "professor_charlie_sheet.png": {
             tile: 210,
             tileh: 380,
@@ -252,17 +230,6 @@
                 paulInvader: [2, 0],
                 fatPaulInvader: [3, 0],
                 aaronInvader: [4, 0]
-            }
-        },
-        "portraits.png": {
-            tile: 32,
-            tileh: 32,
-            map: {
-                pGeneral: [0, 0, 4, 4],
-                pPilot: [0, 4, 4, 4],
-                pProfessor: [0, 8, 4, 4],
-                pCharlie: [0, 16, 4, 4],
-                pPaul: [0, 12, 4, 4]
             }
         }
     }

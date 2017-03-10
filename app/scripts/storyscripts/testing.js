@@ -14,7 +14,7 @@ Game.Scripts.Testing = (function(superClass) {
     }
 
     Testing.prototype.assets = function() {
-        return this.loadAssets('explosion', 'playerShip', 'general', 'thruster', 'star', 'powerup', 'frank', 'laser', 'engine', 'enemy', 'custom_enemy');
+        return this.loadAssets('explosion', 'rocket', 'playerShip', 'general', 'thruster', 'star', 'powerup', 'frank', 'laser', 'engine', 'enemy', 'custom_enemy', 'health_bar', 'health_icon');
     };
 
     Testing.prototype.execute = function() {
@@ -44,6 +44,11 @@ Game.Scripts.Testing = (function(superClass) {
         });
 
         return this.sequence(
+            (function(_this) {
+                return function() {
+                    //Crafty.e('BossBar').render({});
+                };
+            })(this),
             this.updateTitle('Testing Mode'),
             this.openingScene(),
             this.setSpeed(200),

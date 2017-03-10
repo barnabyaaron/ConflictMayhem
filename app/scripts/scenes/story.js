@@ -16,7 +16,7 @@ Crafty.defineScene('Story',
         Crafty.background('#000');
         Game.background = null;
         level = Game.levelGenerator.createLevel({
-            namespace: (levelNamespace = data.levelGenNamespace) != null ? levelNamespace : 'City'
+            namespace: (levelNamespace = data.levelGenNamespace) != null ? levelNamespace : 'Space'
         });
 
         Crafty.createLayer('UILayerDOM', 'DOM', {

@@ -512,19 +512,20 @@ Game.ScriptModule.Level = {
             };
         })(this);
     },
-    changeSeaLevel: function(offsetY) {
-        return (function(_this) {
-            return function(sequence) {
-                var level;
-                _this._verify(sequence);
-                _this.level.sealevelOffset = offsetY;
-                level = _this.level;
-                return Crafty('WaterSplashes').each(function() {
-                    return this.setSealevel((Crafty.viewport.height - 20) + level.sealevelOffset);
-                });
-            };
-        })(this);
-    },
+    // no water
+    // changeSeaLevel: function(offsetY) {
+    //     return (function(_this) {
+    //         return function(sequence) {
+    //             var level;
+    //             _this._verify(sequence);
+    //             _this.level.sealevelOffset = offsetY;
+    //             level = _this.level;
+    //             return Crafty('WaterSplashes').each(function() {
+    //                 return this.setSealevel((Crafty.viewport.height - 20) + level.sealevelOffset);
+    //             });
+    //         };
+    //     })(this);
+    // },
     screenShake: function(amount, options) {
         if (options == null) {
             options = {};
