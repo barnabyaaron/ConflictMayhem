@@ -36,7 +36,7 @@
         return this.unbind('GameLoop', this._autoFire);
     },
     upgrade: function () {
-        this.level += 1;
+        this.level++;
         this._determineCooldown();
         return this.trigger('levelUp', {
             aspect: 'levelup',
@@ -45,7 +45,7 @@
     },
     downgrade: function () {
         if (this.level !== 1) {
-            this.level -= 1;
+            this.level--;
             this._determineCooldown();
         }
     },

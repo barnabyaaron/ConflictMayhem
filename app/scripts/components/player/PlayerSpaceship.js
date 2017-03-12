@@ -34,6 +34,7 @@
         } else {
             correction = 15 + ((newSpeed / 400) * 100);
         }
+
         if (this.currentRenderedSpeed > correction) {
             this.currentRenderedSpeed -= 6;
         } else if (this.currentRenderedSpeed < correction) {
@@ -67,9 +68,20 @@
         });
         this.attach(this.backFire);
 
-        if (this.shipColor === 'green') {
-            this.sprite('playerShipGreen');
+        var sn;
+        sn = 'playerShip';
+
+        if (this.shipType !== null && this.shipType !== 1) {
+            sn += this.shipType;
         }
+        if (this.shipColor === 'green') {
+            sn += 'Green';
+        } else if (this.shipColor === 'orange') {
+            sn += 'Orange'
+        } else if (this.shipColor === 'red') {
+            sn += 'Red';
+        }
+        this.sprite(sn);
 
         this.addComponent('Invincible').invincibleDuration(2000);
         this.onHit('Hostile', function(collision) {

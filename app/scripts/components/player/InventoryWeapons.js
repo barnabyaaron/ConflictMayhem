@@ -49,6 +49,14 @@
                 this.scoreText('+500 points!');
                 return true;
             }
+            if (item.contains === 'points2') {
+                this.scoreText('+1000 points!');
+                return true;
+            }
+            if (item.contains === 'points3') {
+                this.scoreText('+5000 points!');
+                return true;
+            }
             if (item.contains === 'xp') {
                 if (typeof (base = this.primaryWeapon).addXP === "function") {
                     base.addXP(1000);

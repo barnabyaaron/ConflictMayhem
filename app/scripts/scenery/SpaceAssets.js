@@ -2,7 +2,7 @@ var generator;
 
 generator = this.Game.levelGenerator;
 
-generator.defineAssets('star', {
+generator.defineAssets('stars', {
     contents: ['star'],
     spriteMap: 'sprites/star_sprite.png',
     sprites: {
@@ -13,6 +13,55 @@ generator.defineAssets('star', {
                 star: [0, 0],
                 star2: [1, 0],
                 star3: [2, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('pulsing_star', {
+    contents: ['pulsing_star'],
+    spriteMap: 'sprites/pulsing_star_sprite.png',
+    sprites: {
+        all: {
+            tile: 128,
+            tileh: 128,
+            map: {
+                pulsing_star: [0, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('rocks', {
+    contents: ['rock'],
+    spriteMap: 'sprites/meteor_sprite.png',
+    sprites: {
+        all: {
+            tile: 136,
+            tileh: 111,
+            map: {
+                rock1: [0, 0],
+                rock2: [1, 0],
+                rock3: [2, 0],
+                rock4: [3, 0],
+                rock5: [4, 0],
+                rock_small1: [5, 0],
+                rock_small2: [6, 0],
+                rock_small3: [7, 0],
+                rock_small4: [8, 0],
+                rock_small5: [9, 0],
+                rock_small6: [10, 0],
+                rock_small7: [10, 1],
+                grey_rock1: [0, 1],
+                grey_rock2: [1, 1],
+                grey_rock3: [2, 1],
+                grey_rock4: [3, 1],
+                grey_rock_small1: [4, 1],
+                grey_rock_small2: [5, 1],
+                grey_rock_small3: [6, 1],
+                grey_rock_small4: [7, 1],
+                grey_rock_small5: [8, 1],
+                grey_rock_small6: [9, 1]
             }
         }
     }
@@ -41,6 +90,63 @@ generator.defineAssets('explosion', {
         bossMusic2: ['boss/boss_music.mp3'],
         shieldUp: ['sfx_shieldUp.mp3'],
         shieldDown: ['sfx_shieldDown.mp3']
+    }
+});
+
+generator.defineAssets('explosion_colored', {
+    contents: ['explosion_colored'],
+    spriteMap: 'sprites/explosions_colored_sprite.png',
+    sprites: {
+        all: {
+            tile: 256,
+            tileh: 256,
+            map: {
+                blue_explosionStart: [0, 0],
+                green_explosionStart: [0, 1],
+                red_explosionStart: [0, 2]
+            }
+        }
+    }
+});
+
+generator.defineAssets('explosion_special', {
+    contents: ['explosion_special'],
+    spriteMap: 'sprites/explosions_special_sprite.png',
+    sprites: {
+        all: {
+            tile: 640,
+            tileh: 640,
+            map: {
+                explosion_specialStart: [0, 0],
+                explosion_special2Start: [0, 1],
+                explosion_special3Start: [0, 2],
+                explosion_special4Start: [0, 3]
+            }
+        }
+    }
+});
+
+generator.defineAssets('numbers', {
+    contents: ['numbers'],
+    spriteMap: 'sprites/numbers_sprite.png',
+    sprites: {
+        all: {
+            tile: 20,
+            tileh: 20,
+            map: {
+                cross: [0, 0],
+                number0: [1, 0],
+                number1: [2, 0],
+                number2: [3, 0],
+                number3: [4, 0],
+                number4: [5, 0],
+                number5: [6, 0],
+                number6: [7, 0],
+                number7: [8, 0],
+                number8: [9, 0],
+                number9: [10, 0]
+            }
+        }
     }
 });
 
@@ -136,6 +242,103 @@ generator.defineAssets('player', {
     }
 });
 
+generator.defineAssets('player_icons', {
+    contents: ['playerIcon'],
+    spriteMap: 'sprites/player_icons_sprite.png',
+    sprites: {
+        all: {
+            tile: 37,
+            tileh: 27,
+            map: {
+                playerIcon_red: [0, 0],
+                playerIcon: [1, 0],
+                playerIcon_green: [2, 0],
+                playerIcon_orange: [3, 0],
+                playerIcon2: [5, 0],
+                playerIcon2_green: [6, 0],
+                playerIcon2_orange: [0, 1],
+                playerIcon2_red: [1, 1],
+                playerIcon3: [2, 1],
+                playerIcon3_green: [3, 1],
+                playerIcon3_orange: [4, 1],
+                playerIcon3_red: [5, 1]
+            }
+        }
+    }
+});
+
+generator.defineAssets('shield', {
+    contents: ['shield'],
+    spriteMap: 'sprites/shield_sprite.png',
+    sprites: {
+        all: {
+            tile: 137,
+            tileh: 151,
+            map: {
+                shield: [0, 0],
+                shield_low: [1, 0],
+                shield_medium: [2, 0],
+                shield_high: [3, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('beam', {
+    contents: ['beam'],
+    spriteMap: 'sprites/beam_sprite.png',
+    sprites: {
+        all: {
+            tile: 256,
+            tileh: 57,
+            map: {
+                beam: [0, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('blue_beam', {
+    contents: ['blue_beam'],
+    spriteMap: 'sprites/bluebeam_sprite.png',
+    sprites: {
+        all: {
+            tile: 78,
+            tileh: 15,
+            map: {
+                blue_beam: [0, 0]
+            }
+        }
+    }
+});
+
+generator.defineAssets('laser_hit', {
+    contents: ['laser_hit'],
+    spriteMap: 'sprites/laser_hit_sprite.png',
+    sprites: {
+        all: {
+            tile: 56,
+            tileh: 54,
+            map: {
+                laser_hit: [0, 0],
+                laser_hit2: [1, 0],
+                laser_hit3: [2, 0],
+                laser_hit4: [3, 0],
+                green_laser_hit4: [4, 0],
+                green_laser_hit: [0, 1],
+                green_laser_hit2: [1, 1],
+                green_laser_hit3: [2, 1],
+                green_laser_hit5: [3, 1],
+                red_laser_hit: [4, 1],
+                red_laser_hit2: [0, 2],
+                red_laser_hit3: [1, 2],
+                red_laser_hit4: [2, 2],
+                red_laser_hit5: [3, 2]
+            }
+        }
+    }
+});
+
 generator.defineAssets('extra', {
     contents: ['mine', 'rocket', 'helicopter', 'largeDrone'],
     spriteMap: 'city-enemies.png',
@@ -153,7 +356,13 @@ generator.defineAssets('extra', {
                 heliDamaged: [8, 6, 4, 2],
                 standardLargeDrone: [0, 8, 3, 3],
                 eyeStart: [6, 0, 1, 1],
-                wingLoaded: [12, 2, 2, 1]
+                wingLoaded: [12, 2, 2, 1],
+                sphere1: [7, 3, 1, 1],
+                powerUpBox: [10, 1, 1, 1],
+                rapidFireBoost: [11, 0, 1, 1],
+                speedBoost: [12, 0, 1, 1],
+                damageBoost: [13, 0, 1, 1],
+                aimBoost: [14, 0, 1, 1]
             }
         }
     }

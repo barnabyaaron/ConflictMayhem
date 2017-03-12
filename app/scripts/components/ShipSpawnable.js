@@ -57,9 +57,9 @@
                 base1.color(this.color());
             }
         }
-        if (typeof (base2 = this.ship).setSealevel === "function") {
-            base2.setSealevel((Crafty.viewport.height - 20) + ((ref = this.level.sealevelOffset) != null ? ref : 0));
-        }
+        // if (typeof (base2 = this.ship).setSealevel === "function") {
+        //     base2.setSealevel((Crafty.viewport.height - 20) + ((ref = this.level.sealevelOffset) != null ? ref : 0));
+        // }
         if (this.has('ControlScheme')) {
             this.assignControls(this.ship);
         }
@@ -68,7 +68,6 @@
             this.stats.shotsHit += 1;
             points = (ref1 = data.pointsOnHit) != null ? ref1 : 0;
             if (data != null) {
-                console.log('Adding Points Hit + ' + points);
                 return this.addPoints(points, data.location);
             }
         });
@@ -77,7 +76,6 @@
             this.stats.enemiesKilled += 1;
             points = ((ref1 = data.pointsOnDestroy) != null ? ref1 : 0) + ((ref2 = data.pointsOnHit) != null ? ref2 : 0);
             if (data != null) {
-                console.log('Adding Points Destory + ' + points);
                 return this.addPoints(points, data.location);
             }
         });
@@ -91,6 +89,12 @@
                 }
                 if (powerUp.contains === 'points') {
                     this.addPoints(500);
+                }
+                if (powerUp.contains === 'points2') {
+                    this.addPoints(1000);
+                }
+                if (powerUp.contains === 'points3') {
+                    this.addPoints(5000);
                 }
             }
             return this.addPoints(20);

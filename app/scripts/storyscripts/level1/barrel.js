@@ -29,9 +29,15 @@ Game.Scripts.IntroBarrel = (function(superClass) {
 
     IntroBarrel.prototype.execute = function() {
         this.bindSequence('Knock', this.knockedOff);
-        return this.sequence(this.pickTarget('BarrelLocation'), this.setLocation(this.targetLocation({
-            offsetY: -15
-        })), this.wait(20000));
+        return this.sequence(
+            this.pickTarget('BarrelLocation'),
+            this.setLocation(
+                this.targetLocation({
+                    offsetY: -15
+                })
+            ),
+            this.wait(20000)
+        );
     };
 
     IntroBarrel.prototype.knockedOff = function(player) {

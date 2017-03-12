@@ -1,6 +1,6 @@
 ﻿Crafty.c('PowerUp', {
     init: function () {
-        this.requires('2D, WebGL, ColorEffects, powerup, SpriteAnimation, TweenPromise, Scalable');
+        this.requires('2D, WebGL, ColorEffects, powerUpBox, SpriteAnimation, TweenPromise, Scalable');
         this.reel('blink', 600, [[10, 1], [11, 1], [12, 1], [11, 1]]);
         this.attr({
             w: 34,
@@ -12,7 +12,11 @@
     powerUp: function (settings) {
         var color, marking, pos, size, typeColors;
         this.settings = settings;
-        this.animate('blink', -1);
+
+        if (!this.settings.icon_custom) {
+            this.animate('blink', -1);
+        }
+
         color = '#802020';
         if (this.settings.type) {
             typeColors = {
@@ -25,13 +29,23 @@
         }
         this.colorOverride(color, 'partial');
         if (this.settings.icon) {
-            marking = Crafty.e('2D, WebGL, ColorEffects').addComponent(this.settings.icon).colorOverride('white', 'partial').attr({
-                w: 34,
-                h: 33,
-                x: 5,
-                y: 5
-            });
-            this.attach(marking);
+            if (this.settings.icon_custom) {
+                this.removeComponent('powerUpBox', false);
+                this.addComponent(this.settings.icon);
+            } else {
+                marking = Crafty.e('2D, WebGL, ColorEffects')
+                    .addComponent(this.settings.icon)
+                    .colorOverride('white', 'partial')
+                    .attr({
+                        //w: 34,
+                        //h: 33,
+                        w: 22,
+                        h: 22,
+                        x: 5,
+                        y: 5
+                    });
+                this.attach(marking);
+            }
         } else {
             if (this.settings.marking) {
                 size = '16px';

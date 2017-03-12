@@ -26,7 +26,8 @@ Game.ScriptModule.Level = {
                 }, settings.options);
                 settings = _.defaults({}, settings, {
                     amount: 1,
-                    delay: 1000
+                    delay: 1000,
+                    dropChance: 1
                 });
                 if (options.gridConfig != null) {
                     options.grid = new Game.LocationGrid(options.gridConfig);
@@ -88,14 +89,18 @@ Game.ScriptModule.Level = {
                                 }
                             }
                         }
+
                         if (allKilled && lastLocation) {
                             lastLocation.x -= Crafty.viewport.x;
                             lastLocation.y -= Crafty.viewport.y;
+
                             if (settings.drop) {
-                                return _this.drop({
-                                    item: settings.drop,
-                                    location: lastLocation
-                                })(sequence);
+                                if (Math.random() <= settings.dropChance) {
+                                    return _this.drop({
+                                        item: settings.drop,
+                                        location: lastLocation
+                                    })(sequence);
+                                }
                             }
                         }
                     });
@@ -141,12 +146,18 @@ Game.ScriptModule.Level = {
                         lastLocation.x += Crafty.viewport.x;
                         lastLocation.y += Crafty.viewport.y;
                         if (settings.drop) {
-                            return _this.drop({
-                                item: settings.drop,
-                                location: function() {
-                                    return lastLocation;
-                                }
-                            })(sequence);
+                            if (settings.dropChance === null) {
+                                settings.dropChance = 1; // 100% Default Drop Chance
+                            }
+
+                            if (Math.random() <= settings.dropChance) {
+                                return _this.drop({
+                                    item: settings.drop,
+                                    location: function() {
+                                        return lastLocation;
+                                    }
+                                })(sequence);
+                            }
                         }
                     }
                 });
@@ -620,7 +631,12 @@ Game.ScriptModule.Level = {
             });
         }
         if (name === 'pool') {
-            name = (this.powerupPool || []).pop() || 'points';
+            if (this.powerupPool) {
+                name = this.powerupPool[Math.floor(Math.random() * this.powerupPool.length)];
+            } else {
+                name = 'points';
+            }
+            //name = (this.powerupPool || []).pop() || 'points';
         }
         return this.level.inventory(name);
     },

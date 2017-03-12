@@ -41,6 +41,19 @@
         return this.unbind('GameLoop', this._autoFire);
     },
     upgrade: function (aspect) {
+        if (aspect === null || aspect === '' || aspect === 'levelup') {
+            var r = Math.random();
+            if (r >= .8) {
+                aspect = 'damage';
+            } else if (r >= .4 && r < .8) {
+                aspect = 'rapid';
+            } else if (r > .1 && r < .4) {
+                aspect = 'speed';
+            } else {
+                aspect = 'aim';
+            }
+        }
+
         this.stats[aspect] += 1;
         this._determineWeaponSettings();
         return this.trigger('levelUp', {
@@ -49,17 +62,25 @@
         });
     },
     downgrade: function () {
-        // Downgrade all stats by 1
-        _.each(this.stats, function(val) {
-            if (val !== 1) {
-                return val -= 1;
-            }
-            return val;
-        })
+        // On killed all stats and boots are cleared.
     },
     boost: function (aspect) {
-        this.boosts[aspect] = 10;
-        this.boostTimings[aspect] = 15 * 1000;
+        var base;
+
+        switch (aspect) {
+            case 'rapidb':
+                base = this.stats['rapid'];
+            case 'aimb':
+                base = this.stats['aim'];
+            case 'speedb':
+                base = this.stats['speed'];
+            case 'damageb':
+                base = this.stats['damage'];
+        }
+        if (!base) { base = 1; }
+
+        this.boosts[aspect] = 10 * base;
+        this.boostTimings[aspect] += 15 * (1000 * base);
         this._determineWeaponSettings();
         return this.trigger('boost', {
             aspect: aspect
@@ -67,9 +88,9 @@
     },
     _determineWeaponSettings: function () {
         var k, levels, value;
-        this.cooldown = 175 - ((this.boosts.rapidb || this.stats.rapid) * 10);
-        this.damage = 100 + ((this.boosts.damageb || this.stats.damage) * 50);
-        this.aimAngle = 0 + ((this.boosts.aimb || this.stats.aim) * 6);
+        this.cooldown = 300 - ((this.boosts.rapidb || this.stats.rapid) * 10);
+        this.damage = 50 + ((this.boosts.damageb || this.stats.damage) * 50);
+        this.aimAngle = ((this.boosts.aimb || this.stats.aim) * 6);
         this.aimDistance = Math.min(40 + ((this.boosts.aimb || this.stats.aim) * 50), 500);
         this.speed = 650 + ((this.boosts.speedb || this.stats.speed) * 70);
         levels = (function () {
@@ -84,6 +105,7 @@
             }
             return results;
         }).call(this);
+
         return this.overallLevel = Math.min.apply(Math, levels);
     },
     shoot: function (onOff) {
@@ -130,6 +152,7 @@
         if (!allowBullet) {
             return;
         }
+
         if (this.lastShot > this.cooldown) {
             this._createBullet();
             this.attr({
@@ -146,12 +169,11 @@
         settings = {
             w: Math.floor(this.speed / 25),
             speed: this.speed,
-            h: 8 + this.overallLevel,
-            o: this.overallLevel
+            h: 8
         };
         start = {
             x: this.x + this.w,
-            y: this.y + (this.h / 2) - (settings.h / 2) + 1 + settings.o
+            y: this.y + (this.h / 2) - (settings.h / 2) + 1
         };
         return Crafty.e('LaserBullet, Bullet, laserFade').attr({
             w: settings.w,

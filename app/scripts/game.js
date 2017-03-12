@@ -106,21 +106,6 @@ Game = {
             pause: Crafty.keys.BACKSPACE
         });
 
-        handler = (function(_this) {
-            return function(e) {
-                if (e.key === Crafty.keys.T) {
-                    Crafty.unbind('KeyDown', handler);
-                    return Crafty.enterScene('Story_Intro', {
-                        script: 'Testing',
-                        checkpoint: 0,
-                        DEBUG: true,
-                        levelGenNamespace: 'Space'
-                    });
-                }
-            };
-        })(this);
-        Crafty.bind('KeyDown', handler);
-
         return Crafty.enterScene('loading');
     },
     resetCredits: function () {

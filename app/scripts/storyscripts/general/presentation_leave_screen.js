@@ -28,17 +28,24 @@ Game.Scripts.PresentationLeaveScreen = (function(superClass) {
     };
 
     PresentationLeaveScreen.prototype.execute = function() {
-        return this.sequence(this.rotate(0, 200), this.moveTo({
-            x: .2,
-            y: .45 + (this.options.index * .1),
-            speed: 100,
-            easing: 'easeInOutQuad'
-        }), this.synchronizeOn('waveOff'), this.wait(2000), this.wait(300 * this.options.index), this.moveTo({
-            x: 1.1,
-            y: .45 + (this.options.index * .1),
-            speed: 500,
-            easing: 'easeInQuad'
-        }));
+        return this.sequence(
+            this.rotate(0, 200),
+            this.moveTo({
+                x: .2,
+                y: .45 + (this.options.index * .1),
+                speed: 100,
+                easing: 'easeInOutQuad'
+            }),
+            this.synchronizeOn('waveOff'),
+            this.wait(2000),
+            this.wait(300 * this.options.index),
+            this.moveTo({
+                x: 1.1,
+                y: .45 + (this.options.index * .1),
+                speed: 500,
+                easing: 'easeInQuad'
+            })
+        );
     };
 
     return PresentationLeaveScreen;

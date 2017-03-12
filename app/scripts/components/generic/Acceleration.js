@@ -26,9 +26,9 @@
             options = {};
         }
         options = _.defaults(options, {
-            accellerate: true
+            accelerate: true
         });
-        if (options.accellerate) {
+        if (options.accelerate) {
             this._accelerate = {
                 x: .01,
                 y: .01

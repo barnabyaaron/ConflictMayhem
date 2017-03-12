@@ -42,7 +42,7 @@ this.Game.say = function(speaker, text, settings) {
                 n: 'pGeneral',
                 l: [0, 0]
             };
-        case 'John':
+        case 'Pilot':
             return {
                 n: 'pPilot',
                 l: [0, 4]

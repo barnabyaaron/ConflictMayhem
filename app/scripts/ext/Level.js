@@ -293,7 +293,7 @@ Game.Level = (function() {
             return function(ship) {
                 var i, item, itemSettings, len, ref, results;
                 ship.forcedSpeed(_this._forcedSpeed, {
-                    accellerate: false
+                    accelerate: false
                 });
                 ship.weaponsEnabled = _this._weaponsEnabled[ship.playerNumber];
                 if (!_this._controlsEnabled) {
@@ -347,7 +347,7 @@ Game.Level = (function() {
     Level.prototype.setForcedSpeed = function(speed, options) {
         var delta, ref, ref1;
         options = _.defaults(options, {
-            accellerate: true
+            accelerate: true
         });
         if (this._forcedSpeed) {
             delta = ((ref = speed.x) != null ? ref : speed) - ((ref1 = this._forcedSpeed.x) != null ? ref1 : this._forcedSpeed);
