@@ -404,19 +404,18 @@ Game.ScriptModule.Level = {
                     topDesaturation: 0,
                     bottomDesaturation: 0,
                     lightness: 1.0,
-                    alpha: 1.0
+                    alpha: 1.0,
+                    type: 'standard'
                 });
-                e = Crafty.e('Blast, Explosion').explode(options, frameOptions);
-                // We in space now no need for sea level.
-                // if (y > _this._getSeaLevel() - 60 && options.lightness === 1.0) {
-                //     e.addComponent('WaterSplashes');
-                //     e.attr({
-                //         waterSplashSpeed: 500,
-                //         defaultWaterCooldown: 450
-                //     });
-                //     e.setDetectionOffset(40, 0);
-                //     e.setSealevel(_this._getSeaLevel());
-                // }
+
+                if (options.type === 'colored') {
+                    e = Crafty.e('Blast, Explosion').explodeColored(options, frameOptions);
+                } else if (options.type === 'special') {
+                    e = Crafty.e('Blast, Explosion').explodeSpecial(options, frameOptions);
+                } else {
+                    e = Crafty.e('Blast, Explosion').explode(options, frameOptions);
+                }
+
                 if (options.damage) {
                     e.ship = _this.entity.deathCause;
                     return e.addComponent('Hostile');
@@ -517,26 +516,12 @@ Game.ScriptModule.Level = {
                     return null;
                 }
                 return {
-                    x: ((ref4 = override.x) != null ? ref4 : _this.target.x + Crafty.viewport.x) + ((ref5 = override.offsetX) != null ? ref5 : 0),
-                    y: ((ref6 = override.y) != null ? ref6 : _this.target.y + Crafty.viewport.y) + ((ref7 = override.offsetY) != null ? ref7 : 0)
+                    x: ((ref4 = override.x) != null ? ref4 : (_this.target.x + (_this.target.w / 2)) + Crafty.viewport.x) + ((ref5 = override.offsetX) != null ? ref5 : 0),
+                    y: ((ref6 = override.y) != null ? ref6 : (_this.target.y + (_this.target.h / 2)) + Crafty.viewport.y) + ((ref7 = override.offsetY) != null ? ref7 : 0)
                 };
             };
         })(this);
     },
-    // no water
-    // changeSeaLevel: function(offsetY) {
-    //     return (function(_this) {
-    //         return function(sequence) {
-    //             var level;
-    //             _this._verify(sequence);
-    //             _this.level.sealevelOffset = offsetY;
-    //             level = _this.level;
-    //             return Crafty('WaterSplashes').each(function() {
-    //                 return this.setSealevel((Crafty.viewport.height - 20) + level.sealevelOffset);
-    //             });
-    //         };
-    //     })(this);
-    // },
     screenShake: function(amount, options) {
         if (options == null) {
             options = {};
@@ -636,7 +621,6 @@ Game.ScriptModule.Level = {
             } else {
                 name = 'points';
             }
-            //name = (this.powerupPool || []).pop() || 'points';
         }
         return this.level.inventory(name);
     },

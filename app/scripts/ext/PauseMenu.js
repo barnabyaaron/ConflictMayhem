@@ -149,66 +149,6 @@ Game.PauseMenu = (function() {
         })(this));
     };
 
-    PauseMenu.prototype.showPlayers = function () {
-        return Crafty('Player').each(function () {
-            var base, i, icon, j, len, o, results, s, stat, statList, stats, xOff;
-            if (!this.ship) {
-                return;
-            }
-            xOff = .05;
-            if (this.playerNumber === 2) {
-                xOff = .70;
-            }
-            if (typeof (base = Crafty.e('2D, WebGL, playerShip, ColorEffects, PauseMenu').attr({
-                w: 71,
-                h: 45,
-                x: -Crafty.viewport.x + ((xOff + .07) * Crafty.viewport.width),
-                y: (Crafty.viewport.height * .3) - Crafty.viewport.y + 20,
-                z: 101
-            }).flip('X')).colorOverride === "function") {
-                base.colorOverride(this.color(), 'partial');
-            }
-            statList = ["Score: " + this.points, "Lives: " + (this.lives - 1), "", "&nbsp;&nbsp; Speed: &nbsp;&nbsp;&nbsp;&nbsp;+" + this.ship.primaryWeapon.stats.speed, "&nbsp;&nbsp; RapidFire: +" + this.ship.primaryWeapon.stats.rapid, "&nbsp;&nbsp; AimAssist: +" + this.ship.primaryWeapon.stats.aim, "&nbsp;&nbsp; Damage: &nbsp;&nbsp;&nbsp;+" + this.ship.primaryWeapon.stats.damage];
-            stats = Crafty.e('2D, WebGL, Color, PauseMenu').attr({
-                x: -Crafty.viewport.x + (xOff * Crafty.viewport.width),
-                y: (Crafty.viewport.height * .3) - Crafty.viewport.y,
-                w: .25 * Crafty.viewport.width,
-                h: (statList.length + 5) * 20,
-                z: 100,
-                alpha: .3
-            }).color('#000');
-            results = [];
-            for (i = j = 0, len = statList.length; j < len; i = ++j) {
-                o = statList[i];
-                stat = Crafty.e('2D, DOM, Text').attr({
-                    x: stats.x + 20,
-                    y: stats.y + 85 + (20 * i),
-                    w: stats.w - 60,
-                    z: 110
-                }).text(o).textColor('#D0D0D0').textAlign('left').textFont({
-                    size: '8px',
-                    weight: 'bold',
-                    family: 'Press Start 2P'
-                });
-                stats.attach(stat);
-                if ((2 < i && i < 7)) {
-                    s = ['speedBoost', 'rapidFireBoost', 'aimBoost', 'damageBoost'];
-                    icon = Crafty.e('2D, WebGL, ColorEffects, PauseMenu').addComponent(s[i - 3]).attr({
-                        x: stats.x + 20,
-                        y: stats.y + 82 + (20 * i),
-                        w: 12,
-                        h: 12,
-                        z: 110
-                    }).colorOverride('white', 'partial');
-                    results.push(stats.attach(icon));
-                } else {
-                    results.push(void 0);
-                }
-            }
-            return results;
-        });
-    };
-
     PauseMenu.prototype.remove = function () {
         var self;
         self = this;

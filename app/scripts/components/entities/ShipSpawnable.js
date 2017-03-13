@@ -57,9 +57,6 @@
                 base1.color(this.color());
             }
         }
-        // if (typeof (base2 = this.ship).setSealevel === "function") {
-        //     base2.setSealevel((Crafty.viewport.height - 20) + ((ref = this.level.sealevelOffset) != null ? ref : 0));
-        // }
         if (this.has('ControlScheme')) {
             this.assignControls(this.ship);
         }

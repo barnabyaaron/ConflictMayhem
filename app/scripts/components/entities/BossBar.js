@@ -94,7 +94,7 @@ Crafty.c('BossBar', {
         ];
         var self = this;
 
-        return removeFunc.removeElement(elems).then(function () {
+        return removeFunc.removeElements(elems).then(function () {
             var i, len, el;
             for (i = 0, len = elems.length; i < len; i++) {
                 el = elems[i];
