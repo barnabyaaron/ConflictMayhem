@@ -14,7 +14,7 @@ Crafty.c('BossBar', {
         });
         this.attr(options);
 
-        this.name = Crafty.e('2D, UILayerDOM, Text').attr({
+        this.name = Crafty.e('2D, UILayerDOM, Text, Tween').attr({
             w: 400,
             x: this.x + ((Crafty.viewport.width / 2) - 200),
             y: 25,
@@ -25,7 +25,7 @@ Crafty.c('BossBar', {
             family: 'Press Start 2P'
         });
 
-        this.bg = Crafty.e('2D, UILayerDOM, Color').attr({
+        this.bg = Crafty.e('2D, UILayerDOM, Color, Tween').attr({
             w: 400,
             h: 22,
             x: this.x + ((Crafty.viewport.width / 2) - 200),
@@ -41,7 +41,7 @@ Crafty.c('BossBar', {
             z: 201
         }).color(this.barColor);
 
-        this.value = Crafty.e('2D, UILayerDOM, Text').attr({
+        this.value = Crafty.e('2D, UILayerDOM, Text, Tween').attr({
             w: 400,
             x: this.x + ((Crafty.viewport.width / 2) - 200),
             y: 46,
@@ -65,5 +65,43 @@ Crafty.c('BossBar', {
         this.value.text(this.getBarPercent().toFixed(0) + "%");
 
         return this;
+    },
+    removeBar: function () {
+        var removeFunc = {
+            removeElements: function(els) {
+                var d, el, i, len;
+                d = WhenJS.defer();
+                els[0].one('TweenEnd',
+                    function() {
+                        return d.resolve();
+                    });
+                for (i = 0, len = els.length; i < len; i++) {
+                    el = els[i];
+                    el.tween({
+                            alpha: 0
+                        },
+                        3000);
+                }
+                return d.promise;
+            }
+        }
+
+        var elems = [
+            this.value,
+            this.name,
+            this.bar,
+            this.bg
+        ];
+        var self = this;
+
+        return removeFunc.removeElement(elems).then(function () {
+            var i, len, el;
+            for (i = 0, len = elems.length; i < len; i++) {
+                el = elems[i];
+                el.destroy();
+            }
+
+            return self.destroy();
+        });
     }
 });

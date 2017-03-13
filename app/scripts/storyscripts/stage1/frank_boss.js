@@ -41,10 +41,10 @@ Game.Scripts.FrankBoss = (function(superClass) {
             this.repeat(2, this.sequence(
                 this.fireRockets(2, true),
                 this.wait(600),
+                this.fireRockets(4),
+                this.wait(300),
                 this.fireRockets(2, true),
                 this.wait(600),
-                this.fireRockets(2, true),
-                this.wait(900),
                 this.fireRockets(4),
                 this.wait(300)
             ))
@@ -56,13 +56,13 @@ Game.Scripts.FrankBoss = (function(superClass) {
             this.pickTarget('PlayerControlledShip'),
             this.moveTo(this.targetLocation(), {
                 x: .7,
+                offsetY: -(this.entity.h / 2),
                 speed: 300,
                 easing: 'easeInOutQuad'
             }),
             this.wait(100),
             this.rotate(-45, 200),
             this.moveTo({
-                //x: this.targetLocation().x + 100,
                 x: .3,
                 speed: 500,
                 easing: 'easeInQuad'
@@ -70,12 +70,12 @@ Game.Scripts.FrankBoss = (function(superClass) {
             this.rotate(0, 100),
             this.moveTo(this.targetLocation(), {
                 x: .7,
+                offsetY: -(this.entity.h / 2),
                 speed: 300,
-                easing: 'easeInOutQuad',
+                easing: 'easeInOutQuad'
             }),
             this.rotate(-45, 200),
             this.moveTo({
-                //x: this.targetLocation().x,
                 x: .1,
                 speed: 500,
                 easing: 'easeInQuad'
@@ -183,7 +183,7 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
             x: Crafty.viewport.width + 40,
             y: Crafty.viewport.height * .35,
             defaultSpeed: 100,
-            health: 23000,
+            health: 25000,
             pointsOnHit: 10
         });
     };
@@ -217,7 +217,6 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
     };
 
     FrankBossStage1.prototype.fase2 = function() {
-        console.log('Starting fase2');
         this.bindSequence('Hit', this.fase3, (function(_this) {
             return function() {
                 return _this.entity.healthBelow(.3);
@@ -239,10 +238,9 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
     };
 
     FrankBossStage1.prototype.fase3 = function() {
-        console.log('Starting fase3');
         this.bindSequence('Hit', this.endOfFight, (function(_this) {
             return function() {
-                return _this.entity.healthBelow(0);
+                return _this.entity.healthBelow(.01);
             };
         })(this));
 
@@ -255,6 +253,28 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
             this.repeat(
                 this.sequence(
                     this.repeat(2, this.headbuttDance())
+                )
+            )
+        );
+    };
+
+    FrankBossStage1.prototype.endOfFight = function () {
+        return this.sequence(
+            this.invincible(true),
+            this.leaveAnimation(
+                this.sequence(
+                    (function (_this) {
+                        return function () {
+                            Crafty.audio.stop();
+                            Crafty.audio.play('frankDie');
+                            _this.entity.animate('die');
+                        };
+                    })(this),
+                    this.moveTo({
+                        x: .7,
+                        y: .2
+                    }),
+                    this.wait(3000)
                 )
             )
         );
@@ -282,29 +302,6 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
                     return _this.entity.invincible = false;
                 };
             })(this)
-        );
-    };
-
-    FrankBossStage1.prototype.endOfFight = function() {
-        console.log('Starting endOfFight');
-        return this.sequence(
-            this.invincible(true),
-            this.leaveAnimation(
-                this.sequence(
-                    (function(_this) {
-                        return function() {
-                            Crafty.audio.stop();
-                            Crafty.audio.play('frankDie');
-                            _this.entity.animate('die');
-                        };
-                    })(this),
-                    this.moveTo({
-                        x: .7,
-                        y: .2
-                    }),
-                    this.wait(3000)
-                )
-            )
         );
     };
 

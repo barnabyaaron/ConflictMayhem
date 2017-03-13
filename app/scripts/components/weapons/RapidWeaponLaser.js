@@ -80,7 +80,7 @@
         if (!base) { base = 1; }
 
         this.boosts[aspect] = 10 * base;
-        this.boostTimings[aspect] += 15 * (1000 * base);
+        this.boostTimings[aspect] += 15 * 1000;
         this._determineWeaponSettings();
         return this.trigger('boost', {
             aspect: aspect

@@ -60,11 +60,13 @@ Crafty.c('Frank', {
         return (this.health / this.maxHealth) < perc;
     },
     updatedHealth: function () {
-        var healthPerc;
-        healthPerc = this.health / this.maxHealth;
-
-        this.healthBar = this.healthBar.updateBar(this.health);
-        //this.healthBar.w = this.healthBar.w * healthPerc;
+        if (this.health <= 0) {
+            this.health = 0; // Force health to 0
+            this.healthBar.updateBar(0);
+            this.healthBar.removeBar();
+        } else {
+            return this.healthBar = this.healthBar.updateBar(this.health);
+        }
     },
     updateMovementVisuals: function (rotation, dx, dy, dt) {
         this.vx = dx * (1000 / dt);

@@ -177,7 +177,7 @@ Game.ScriptModule.Entity = {
         }
         return (function (_this) {
             return function (sequence) {
-                var airSettings, offsets, ref, ref1, ref2, seaLevel, settings, target, waterSettings;
+                var offsets, ref, ref1, ref2, settings, target;
                 _this._verify(sequence);
                 if (!_this.enemy.alive && (_this.decoyingEntity == null)) {
                     return WhenJS.resolve();
@@ -210,37 +210,8 @@ Game.ScriptModule.Entity = {
                 if (!_.isObject(location)) {
                     throw new Error('location invalid');
                 }
-                //seaLevel = _this._getSeaLevel();
-                if (_this.enemy.moveState === 'air') {
-                    // if ((settings.y != null) && settings.y + _this.entity.h > seaLevel + Crafty.viewport.y) {
-                    //     airSettings = _.clone(settings);
-                    //     airSettings.y = seaLevel - _this.entity.h;
-                    //     return _this._moveAir(airSettings).then(function () {
-                    //         _this.enemy.moveState = 'water';
-                    //         if (_this.enemy.alive) {
-                    //             _this._setupWaterSpot();
-                    //             return _this._moveWater(settings);
-                    //         }
-                    //     });
-                    // } else {
-                        return _this._moveAir(settings);
-                    //}
-                }
-                // if (_this.enemy.moveState === 'water') {
-                //     if ((settings.y != null) && settings.y + _this.entity.h < seaLevel + Crafty.viewport.y) {
-                //         waterSettings = _.clone(settings);
-                //         waterSettings.y = seaLevel - _this.entity.h;
-                //         return _this._moveWater(waterSettings).then(function () {
-                //             _this.enemy.moveState = 'air';
-                //             if (_this.enemy.alive) {
-                //                 _this._removeWaterSpot();
-                //                 return _this._moveAir(settings);
-                //             }
-                //         });
-                //     } else {
-                //         return _this._moveWater(settings);
-                //     }
-                // }
+                
+                return _this._moveAir(settings);
             };
         })(this);
     },
@@ -274,113 +245,6 @@ Game.ScriptModule.Entity = {
                 })(sequence);
             };
         })(this);
-    },
-    _setupWaterSpot: function () {
-        var waterSpot;
-        if (Game.explosionMode != null) {
-            waterSpot = Crafty.e('2D, WebGL, Color, Choreography, Tween').color('#000040').attr({
-                w: this.entity.w + 10,
-                x: this.entity.x - 5,
-                y: this.entity.y + this.entity.h,
-                h: 20,
-                alpha: 0.7,
-                z: this.entity.z - 1
-            });
-        } else {
-            waterSpot = Crafty.e('2D, WebGL, shadow, Choreography, Tween').attr({
-                w: this.entity.w + 10,
-                x: this.entity.x - 5,
-                y: this._getSeaLevel() - 10,
-                h: 20,
-                z: this.entity.z - 1
-            });
-        }
-        if (Game.explosionMode != null) {
-            this._waterSplash();
-        }
-        this.entity.addComponent('WaterSplashes');
-        this.entity.setSealevel(this._getSeaLevel());
-        if (this.entity.has('ViewportFixed')) {
-            waterSpot.addComponent('ViewportFixed');
-        }
-        return this.entity.hide(waterSpot, {
-            below: this._getSeaLevel()
-        });
-    },
-    _removeWaterSpot: function () {
-        this.entity.reveal();
-        if (Game.explosionMode != null) {
-            return this._waterSplash();
-        } else {
-            return this.entity.removeComponent('WaterSplashes');
-        }
-    },
-    _waterSplash: function () {
-        var defer;
-        defer = WhenJS.defer();
-        Crafty.e('WaterSplash').waterSplash({
-            x: this.entity.x,
-            y: this._getSeaLevel(),
-            size: this.entity.w
-        }).one('ParticleEnd', function () {
-            return defer.resolve();
-        });
-        return defer.promise;
-    },
-    _moveWater: function (settings) {
-        var defaults, defer, delta, deltaX, deltaY, depth, depthProperties, duration, k, maxDepthSize, maxSupportedDepth, newH, p, ref, seaLevel, surfaceSize, v;
-        defaults = {
-            speed: this.entity.defaultSpeed
-        };
-        if (this.entity.has('ViewportFixed')) {
-            defaults.x = this.entity.x + Crafty.viewport.x;
-            defaults.y = this.entity.y + Crafty.viewport.y;
-        }
-        seaLevel = this._getSeaLevel();
-        settings = _.defaults(settings, defaults);
-        surfaceSize = {
-            w: this.entity.w * 1.2,
-            h: this.entity.w / 3,
-            alpha: 0.6
-        };
-        maxSupportedDepth = 700;
-        maxDepthSize = {
-            w: this.entity.w * .3,
-            h: 5,
-            alpha: 0.2
-        };
-        deltaX = settings.x != null ? Math.abs(settings.x - (this.entity.hideMarker.x + Crafty.viewport.x)) : 0;
-        deltaY = settings.y != null ? Math.abs(settings.y - (this.entity.hideMarker.y + Crafty.viewport.y)) : 0;
-        delta = Math.sqrt((Math.pow(deltaX, 2)) + (Math.pow(deltaY, 2)));
-        duration = (delta / settings.speed) * 1000;
-        if (settings.y != null) {
-            depth = Math.max(0, Math.min(settings.y - this.entity.h, maxSupportedDepth) - seaLevel);
-            v = depth / (maxSupportedDepth - seaLevel);
-            depthProperties = {};
-            for (k in surfaceSize) {
-                p = surfaceSize[k];
-                depthProperties[k] = (1 - v) * p + (v * maxDepthSize[k]);
-            }
-            this.entity.hideMarker.tween(depthProperties, duration);
-        }
-        defer = WhenJS.defer();
-        newH = (ref = depthProperties != null ? depthProperties.h : void 0) != null ? ref : this.entity.hideMarker.h;
-        this.entity.hideMarker.choreography([
-          {
-              type: 'viewport',
-              x: (settings.x + (this.entity.w / 2)) - (this.entity.hideMarker.w / 2),
-              y: seaLevel - (newH / 2),
-              maxSpeed: settings.speed,
-              duration: duration
-          }
-        ]).one('ChoreographyEnd', function () {
-            return defer.resolve();
-        });
-        return WhenJS.all([defer.promise, this._moveAir(settings)]);
-    },
-    _getSeaLevel: function () {
-        var ref, ref1;
-        return (Crafty.viewport.height - 240) + (220 * ((ref = this.entity.scale) != null ? ref : 1.0)) + ((ref1 = this.level.sealevelOffset) != null ? ref1 : 0);
     },
     _moveAir: function (settings) {
         var defaults, defer, delta, deltaX, deltaY, easing, ref;
