@@ -54,30 +54,27 @@ Game.Scripts.FrankBoss = (function(superClass) {
     FrankBoss.prototype.headbuttDance = function() {
         return this.sequence(
             this.pickTarget('PlayerControlledShip'),
-            this.moveTo(this.targetLocation(), {
-                x: .7,
-                offsetY: -(this.entity.h / 2),
-                speed: 300,
-                easing: 'easeInOutQuad'
-            }),
-            this.wait(100),
             this.rotate(-45, 200),
             this.moveTo({
                 x: .3,
-                speed: 500,
+                y: this.targetLocation().y,
+                offsetY: -(this.entity.h / 2),
+                speed: 800,
                 easing: 'easeInQuad'
             }),
             this.rotate(0, 100),
-            this.moveTo(this.targetLocation(), {
+            this.moveTo({
                 x: .7,
+                y: this.targetLocation().y,
                 offsetY: -(this.entity.h / 2),
-                speed: 300,
-                easing: 'easeInOutQuad'
+                speed: 600,
+                easing: 'easeInQuad'
             }),
             this.rotate(-45, 200),
             this.moveTo({
                 x: .1,
-                speed: 500,
+                offsetY: -(this.entity.h / 2),
+                speed: 600,
                 easing: 'easeInQuad'
             }),
             this.rotate(0, 100),
@@ -90,11 +87,19 @@ Game.Scripts.FrankBoss = (function(superClass) {
                 this.moveTo({
                     x: .7,
                     y: .3,
-                    speed: 200,
+                    speed: 400,
                     easing: 'easeInOutQuad'
                 })
             ),
-            this.movePath([[.7, 0], [.8, .2], [.6, .4], [.8, .3], [.7, .1]])
+            this.parallel(
+                this.movePath([[.7, 0], [.8, .2], [.6, .4], [.8, .3], [.7, .1]]),
+                this.sequence(
+                    this.fireRockets(2, true),
+                    this.wait(600),
+                    this.fireRockets(4),
+                    this.wait(300)
+                )
+            )
         );
     };
 
@@ -165,6 +170,25 @@ Game.Scripts.FrankBoss = (function(superClass) {
             }))),
             this.wait(500)
         )
+    };
+
+    FrankBoss.prototype.onKilled = function () {
+        return this.sequence(
+            this.deathDecoy(),
+            this.moveTo({
+                x: .7,
+                y: .2
+            }),
+            (function (_this) {
+                Crafty.audio.stop(); // Stop any playing audio
+                Crafty.audio.play('frankDie');
+                _this.entity.animate('die');
+            })(this),
+            this.wait(4000),
+            (function (_this) {
+                return _this.entity.destroy();
+            })(this)
+        );
     };
 
     return FrankBoss;
@@ -238,11 +262,7 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
     };
 
     FrankBossStage1.prototype.fase3 = function() {
-        this.bindSequence('Hit', this.endOfFight, (function(_this) {
-            return function() {
-                return _this.entity.healthBelow(.01);
-            };
-        })(this));
+        this.bindSequence('Destroyed', this.onKilled);
 
         return this.sequence(
             (function(_this) {
@@ -258,6 +278,7 @@ Game.Scripts.FrankBossStage1 = (function(superClass) {
         );
     };
 
+    // @TODO Frank runs away ?
     FrankBossStage1.prototype.endOfFight = function () {
         return this.sequence(
             this.invincible(true),
@@ -438,27 +459,37 @@ Game.Scripts.FrankBossAimedRocket = (function(superClass) {
 
     FrankBossAimedRocket.prototype.execute = function() {
         this.bindSequence('Destroyed', this.onKilled);
-        return this.sequence(this.pickTarget('PlayerControlledShip'), this.moveTo(this.location({
-            offsetY: this.offsetY
-        })), this.wait(this.cooldown), this["while"](this.moveThrough(this.targetLocation()), this.sequence(this.blast(this.location(), function() {
-            return {
-                radius: 5,
-                duration: 135,
-                z: 1,
-                alpha: .8,
-                lightness: 1.0,
-                gravity: Math.random() * .2,
-                vertical: 0
-            };
-        }, function() {
-            return {
-                vertical: this.vertical + Math.random() * this.gravity,
-                rotation: this.rotation + (Math.random() * 3),
-                alpha: Math.max(0.1, this.alpha - Math.random() * .03),
-                lightness: Math.max(.4, this.lightness - .05),
-                y: this.y - this.vertical
-            };
-        }), this.wait(20))));
+        return this.sequence(
+            this.pickTarget('PlayerControlledShip'),
+            this.moveTo(this.location({
+                offsetY: this.offsetY
+            })),
+            this.wait(this.cooldown),
+            this["while"](
+                this.moveThrough(this.targetLocation()),
+                this.sequence(
+                    this.blast(this.location(), function() {
+                        return {
+                            radius: 5,
+                            duration: 135,
+                            z: 1,
+                            alpha: .8,
+                            lightness: 1.0,
+                            gravity: Math.random() * .2,
+                            vertical: 0
+                        };
+                    }, function() {
+                        return {
+                            vertical: this.vertical + Math.random() * this.gravity,
+                            rotation: this.rotation + (Math.random() * 3),
+                            alpha: Math.max(0.1, this.alpha - Math.random() * .03),
+                            lightness: Math.max(.4, this.lightness - .05),
+                            y: this.y - this.vertical
+                        };
+                    }),
+                    this.wait(20))
+            )
+        );
     };
 
     FrankBossAimedRocket.prototype.onKilled = function() {

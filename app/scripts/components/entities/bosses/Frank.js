@@ -1,33 +1,32 @@
 Crafty.c('Frank', {
     init: function () {
-        return this.requires('Enemy, frank, SpriteAnimation');
+        return this.requires('Boss, frank, SpriteAnimation');
     },
-    spawn: function(attr) {
+    spawn: function(options) {
         var defaultHealth, ref;
-        if (attr == null) {
-            attr = {};
+        if (options == null) {
+            options = {};
         }
 
         defaultHealth = 360000;
-        this.attr(_.defaults(attr, {
+        this.options = _.defaults(options, {
+            name: 'Frank',
             health: defaultHealth,
-            maxHealth: (ref = attr.health) != null ? ref : defaultHealth,
+            maxHealth: (ref = options.health) != null ? ref : defaultHealth,
             z: -1
-        }));
+        })
+        this.attr(this.options);
+
         this.origin('center');
         this.collision([10, 141, 50, 75, 100, 5, 150, 75, 190, 141, 100, 279]);
         this.reel('hit', 200, [[3, 0], [0, 0]]);
         this.reel('smile', 2000, [[2, 0], [0, 0]]);
         this.reel('shoot', 200, [[1, 0], [0, 0]]);
         this.reel('die', 4000, 4, 0, 5);
-        this.enemy();
 
-        this.healthBar = Crafty.e('BossBar').render('Frank', {
-            current: this.health,
-            max: this.maxHealth
-        });
-
+        this.boss();
         this.updatedHealth();
+
         this.bind('Hit', (function (_this) {
             return function (data) {
                 if (data.projectile.has('Bullet')) {

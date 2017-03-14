@@ -1,12 +1,13 @@
 ﻿Crafty.c('Blast', {
     init: function () {
-        return this.requires('2D, WebGL, explosionStart, SpriteAnimation, Horizon, Collision');
+        return this.requires('2D, WebGL, SpriteAnimation, Horizon, Collision');
     },
     remove: function () {
         return this.unbind('GameLoop');
     },
     explode: function (attr, frameOptions) {
         var duration, radius, ref, ref1;
+        this.addComponent('explosionStart');
         radius = (ref = attr.radius) != null ? ref : 20;
         duration = ((ref1 = attr.duration) != null ? ref1 : 160) / 1000;
         this.attr(attr);
@@ -36,5 +37,11 @@
         })(this));
         this.animate('explode');
         return this;
+    },
+    explodeColored: function (attr, frameOptions) {
+        // @TODO
+    },
+    explodeSpecial: function (attr, frameOptions) {
+        // @TODO
     }
 });

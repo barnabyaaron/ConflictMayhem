@@ -89,6 +89,15 @@ Game.Level = (function() {
                 return _this.data.enemiesSpawned += 1;
             };
         })(this));
+        Crafty.bind('BossSpawned', (function(_this) {
+            return function() {
+                var base;
+                if ((base = _this.data).enemiesSpawned == null) {
+                    base.enemiesSpawned = 0;
+                }
+                return _this.data.enemiesSpawned += 1;
+            };
+        })(this));
         Crafty.e('2D, UILayerDOM, Text, LevelTitle').attr({
             w: 250,
             h: 20
